@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sockets Example</title>
+        <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+        <script type="text/javascript" src="jquery.js"></script>
+        <!--    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.js"></script>-->
+        <script type="text/javascript" src="sketch.js"></script>
+
+        <style>
+            body {
+                padding: 5px;
+                width:100%;
+                height:1000px;
+            }
+            #quag2{
+                position: absolute;
+                top:500px;
+                left:450px;
+            }
+            .hp{
+                height:40px;
+                background-color: #66ff66;
+            }
+            #hp1{
+                position: absolute;
+                top:100px;
+                left:200px;
+            }
+            #hp2{
+                position: absolute;
+                top:600px;
+                left:050px;
+            }
+            #buttons{
+                position: absolute;
+                top:700px;
+                left:030px;
+            }                        
+            #timer{
+                border: 1px solid black;
+                height:20px;
+                width:100px;
+                position: absolute;
+                top:850px;
+                left:50px;
+            }
+            #timerin{
+                background-color: black;
+                height:20px;
+
+            }
+
+            #en{
+                border: 1px solid black;
+                height:20px;
+                width:100px;
+                position: absolute;
+                top:650px;
+                left:050px;
+            }
+            #enin{
+                background-color: #33ccff;
+                height:20px;
+
+            }
+            #shield1,#shield2{
+                width:50px;
+                height:50px;
+            }
+            #shield2{
+                position: absolute;
+                top:540px;
+                left:360px;
+            }
+            #win{
+                position: absolute;
+                top:340px;
+                left:260px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <h1> Quagsire 1v1 </h1>
+
+        <img src="quag.png" id="quag1" alt="quag1">
+        <img src="quag.png" id="quag2" alt="quag2">
+        <img src="shield.png" id="shield1" alt="shield">
+        <img src="shield.png" id="shield2" alt="shield">
+        <div class="hp" style="width:364px" id="hp1"></div>
+        <div class="hp" style="width:364px" id="hp2"></div>
+        <div id="buttons">
+            <button id="mud" class="movebtn" name="mud">mud shot</button>
+            <button id="stone" class="movebtn" name="stone">stone edge</button>
+            <button id="earth" class="movebtn" name="earth">earthquake</button>
+        </div>
+        <div id="en"><div id="enin" style="width:0px;"></div></div>
+        <!--<div id="timer"><div id="timerin" style="width:0px;"></div></div>-->
+        <div id="win"></div>
+
+        <script>
+            setInterval(function () {
+                //$("#timerin").animate({width: "+=100"}, 500,"linear",function(){$("#timerin").css({width: 0})});
+            }, 500);
+
+            var started = false;
+            display("waiting for opponent");
+            var sentendpacket = false;
+
+            var hp = 182;
+            var energy = 0;
+            var shields = 1;
+
+            var ohp = 182;
+            var oshields = 1;
+
+            var move = "";
+
+            var opponentshielding = false;
+            var shielding = false;
+            var doingcharge = false;
+            var chargeincoming = false;
+
+            var winner = -1;
+
+            var socket = io.connect('http://localhost:3000');
+            console.log(socket);
+
+            socket.on('dmg',
+                    function (data) {
+                        console.log("Got: " + data.move);
+                        chargeincoming = false;
+                        if (convtoen(data.move) < 0) {
+                            chargeincoming = true;
+                            var btn = "<button class='shieldbtn'>shield</button>";
+                            display("charge move incoming!" + (shields > 0 ? btn : ""));
+                        }
+                        setTimeout(function () {
+                            hp -= shielding ? 1 : convtodmg(data.move);
+                            updateHP();
+                            display("");
+                            shielding = false;
+                        }, chargeincoming ? 3000 : 0);
+
+
+                    }
+            );
+            socket.on('start', function (data) {
+                setTimeout(function () {display("3")},0);
+                setTimeout(function () {display("2")},1000);
+                setTimeout(function () {display("1")},2000);
+                setTimeout(function () {
+                    move="mud";
+                    started=true;
+                },3000);
+            });
+            socket.on('shield', function (data) {
+                if (oshields === 0)
+                    return;
+                opponentshielding = true;
+                display("opponent shielded");
+                oshields--;
+            });
+            function updateHP() {
+                if (winner >= 0) {
+                    display(winner === 1 ? "you win" : "you lose");
+                    return;
+                }
+                if (hp < 1)
+                    winner = 0;
+                if (ohp < 1)
+                    winner = 1;
+
+                $("#hp2").css({width: (hp * 2)});
+                $("#hp1").css({width: (ohp * 2)});
+            }
+            function updateEn() {
+                $("#enin").css({width: (energy)});
+            }
+
+            $('body').on("click", ".movebtn", function (e) {
+                if(!started)return;
+                move = $(this).attr("name");
+            });
+            $('body').on("click", ".shieldbtn", function (e) {
+                shields--;
+                shielding = true;
+                socket.emit('shield', {});
+            });
+
+            setInterval(function () {
+                if (winner >= 0) {
+                    if (!sentendpacket) {
+                        sentendpacket = true;
+                        socket.emit('end', {});
+                    }
+                    display(winner === 1 ? "you win" : "you lose");
+                    return;
+                }
+                if (move === "" || doingcharge || chargeincoming)
+                    return;
+                var deltaen = convtoen(move);
+                if (energy + deltaen < 0) {
+                    move = "mud";
+                    deltaen = convtoen(move);
+                }
+                if (deltaen < 0)
+                    doingcharge = true;
+
+
+                socket.emit('dmg', {move});
+                if (doingcharge)
+                    display("waiting for opponent to shield")
+
+                setTimeout(function () {
+                    ohp -= (opponentshielding ? 1 : convtodmg(move));
+                    energy += deltaen;
+                    energy = energy > 100 ? 100 : energy;
+                    updateHP();
+                    updateEn();
+                    console.log(move);
+                    doingcharge = false;
+                    opponentshielding = false;
+                    display("");
+                }, doingcharge ? 3500 : 0);
+
+
+            }, 1000);
+
+
+            function convtodmg(move) {
+                switch (move) {
+                    case "mud":
+                        return 3;
+                    case "stone":
+                        return 43;
+                    case "earth":
+                        return 99;
+                }
+            }
+            function convtoen(move) {
+                switch (move) {
+                    case "mud":
+                        return 9;
+                    case "stone":
+                        return -55;
+                    case "earth":
+                        return -65;
+                }
+            }
+            function display(text) {
+                $("#win").html(text);
+            }
+
+        </script>
+    </body>
+</html>
