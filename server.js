@@ -17,9 +17,20 @@ function listen() {
 app.use(express.static('public'));
 
 var players = 0;
-// WebSocket Portion
-// WebSockets work with the HTTP server
+var ready = [];
+
 var io = require('socket.io')(server);
+
+Array.prototype.remove = function () {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
 
 // Register a callback function to run when we have an individual connection
 // This is run for each individual user that connects
@@ -27,9 +38,9 @@ io.sockets.on('connection',
         // We are given a websocket object in our function
                 function (socket) {
                     players++;
+                    io.sockets.emit('playercount', {count: players});
                     console.log("We have a new client: " + socket.id + "\nplayers: " + players);
-                    if (players === 2)
-                        io.sockets.emit('start', {});
+
                     // When this user emits, client side: socket.emit('otherevent',some data);
                     socket.on('dmg',
                             function (data) {
@@ -57,13 +68,28 @@ io.sockets.on('connection',
 
                             }
                     );
+                    socket.on('switch', function (data) {
+                        console.log(data.poke);
+                        socket.broadcast.emit('switch', data);
+                    });
+                    socket.on('ready', function (data) {
+                        console.log("ready: " + data.id);
+                        ready.push(data.id);
+                        if (ready.length === 2)
+                            io.sockets.emit('start', {});
+                    });
+                    socket.on('enemychoseteam', function (data) {
+                        console.log("enemychoseteam: " + data.id);
+                        socket.broadcast.emit('enemychoseteam', data);
+                    });
+
 
                     socket.on('end',
                             function (data) {
                                 // Data comes in as whatever was sent, including objects
                                 console.log("Received end");
-
-                                players = 0;
+                                ready = [];
+                                //players = 0;
 
 
                             }
@@ -72,7 +98,10 @@ io.sockets.on('connection',
                     socket.on('disconnect', function () {
                         console.log("Client has disconnected");//
                         players--;
-                        if(players < 0)players =0;
+                        if (players < 0)
+                            players = 0;
+                        io.sockets.emit('playercount', {count: players});
+                        ready.remove(socket.id);
                     });
                 }
         );

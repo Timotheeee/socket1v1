@@ -2,121 +2,100 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Sockets Example</title>
+        <title>PVP simulator</title>
         <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
         <script type="text/javascript" src="jquery.js"></script>
-        <!--    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.js"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.js"></script>-->
-        <script type="text/javascript" src="sketch.js"></script>
+        <script type="text/javascript" src="data.js"></script>
+        <script type="text/javascript" src="gamemaster.js"></script>
+        <script type="text/javascript" src="default_team.js"></script>
+        <script type="text/javascript" src="battlelogic.js"></script>
 
-        <style>
-            body {
-                padding: 5px;
-                width:100%;
-                height:1000px;
-            }
-            #quag2{
-                position: absolute;
-                top:500px;
-                left:450px;
-            }
-            .hp{
-                height:40px;
-                background-color: #66ff66;
-            }
-            #hp1{
-                position: absolute;
-                top:100px;
-                left:200px;
-            }
-            #hp2{
-                position: absolute;
-                top:600px;
-                left:050px;
-            }
-            #buttons{
-                position: absolute;
-                top:700px;
-                left:030px;
-            }                        
-            #timer{
-                border: 1px solid black;
-                height:20px;
-                width:100px;
-                position: absolute;
-                top:850px;
-                left:50px;
-            }
-            #timerin{
-                background-color: black;
-                height:20px;
-
-            }
-
-            #en{
-                border: 1px solid black;
-                height:20px;
-                width:100px;
-                position: absolute;
-                top:650px;
-                left:050px;
-            }
-            #enin{
-                background-color: #33ccff;
-                height:20px;
-
-            }
-            #shield1,#shield2{
-                width:50px;
-                height:50px;
-            }
-            #shield2{
-                position: absolute;
-                top:540px;
-                left:360px;
-            }
-            #win{
-                position: absolute;
-                top:340px;
-                left:260px;
-            }
-        </style>
+        <link href="style.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">-->
 
     </head>
     <body>
-        <h1> Quagsire 1v1 </h1>
 
-        <img src="quag.png" id="quag1" alt="quag1">
-        <img src="quag.png" id="quag2" alt="quag2">
-        <img src="shield.png" id="shield1" alt="shield">
-        <img src="shield.png" id="shield2" alt="shield">
-        <div class="hp" style="width:364px" id="hp1"></div>
-        <div class="hp" style="width:364px" id="hp2"></div>
-        <div id="buttons">
-            <button id="mud" class="movebtn" name="mud">mud shot</button>
-            <button id="stone" class="movebtn" name="stone">stone edge</button>
-            <button id="earth" class="movebtn" name="earth">earthquake</button>
+        <input type="text" id="pokebattlerid" placeholder="pokebattler id"> 
+        <!--<button id="loadteam">load</button>-->
+        <a id="loadteam" class="button noselect">
+            <i class="fa fa-check"></i><strong>load</strong>
+        </a>
+        <!--        <button id="ready">ready</button>-->
+        <a id="ready" class="button button-green noselect">
+            <i class="fa fa-check"></i><strong>Ready</strong>
+        </a>
+        <div id="playercountcontainer" style="display: inline-block;">
+            <b>players online:</b> <span id="playercount">1 (you)</span>
         </div>
-        <div id="en"><div id="enin" style="width:0px;"></div></div>
-        <!--<div id="timer"><div id="timerin" style="width:0px;"></div></div>-->
+        <br>
+        <span id="pokebattlerinfo"></span>
+
+
+
+
+        <div class="bgcontainer" style="width: 550px;margin-top: 10px;height:510px">
+            <h1 style="margin-top: 3px"> PVP simulator </h1>
+            <div class="pokeimage" id='img1' style='background-image: url("https://play.pokemonshowdown.com/sprites/xydex/quagsire.png")'></div>
+            <div class="pokeimage" id='img2' style='background-image: url("https://play.pokemonshowdown.com/sprites/xydex/quagsire.png")'></div>
+            <img src="shield.png" id="shield1" alt="shield">
+            <img src="shield.png" id="shield2" alt="shield">
+            <span id="shieldcount1">2</span>
+            <span id="shieldcount2">2</span>
+            <div class="hp" style="width:364px" id="hp1"></div>
+            <div class="hp" style="width:364px" id="hp2"></div>
+        </div>
+        <div id="buttons"  class="bgcontainer">
+
+            <div id="chargemove1container">
+                <div id="chargemove1btn" class="movebtn noselect rock active"></div>
+                <div id="move1progress" style="height: 60px">                
+                    <div id="move1background" class="rock"></div>
+                </div>
+
+                <div id="chargemove1text" class="">stone edge</div>
+            </div>
+
+            <div id="chargemove2container" >
+                <div id="chargemove2btn" class="movebtn noselect ground"></div>
+                <div id="move2progress" style="height:60px">
+                    <div id="move2background" class="ground"></div>
+                </div>
+                <div id="chargemove2text" class="">earthquake</div>
+            </div>
+
+            <div id="quickmovecontainer"><b>quick move:</b> <span id="quickmovebtn">mud shot</span></div>
+        </div>
+        <div id='switch' class="bgcontainer"><b>switch: </b>
+            <button id='switch1' name="0"></button>
+            <button id='switch2' name="1"></button>
+            <button id='switch3' name="2"></button>
+            <b>cooldown:</b> <span id='cd'>0</span>
+        </div>
+        <!--<div id="en"><div id="enin" style="width:0px;"></div></div>-->
+
         <div id="win"></div>
+        <br>
+
 
         <script>
-            setInterval(function () {
-                //$("#timerin").animate({width: "+=100"}, 500,"linear",function(){$("#timerin").css({width: 0})});
-            }, 500);
+            var gm = GameMaster.getInstance();
+
+            var currentpoke = 0;
+            var currentenemypoke = 0;
 
             var started = false;
             display("waiting for opponent");
             var sentendpacket = false;
 
-            var hp = 182;
-            var energy = 0;
-            var shields = 1;
+            var switchcd = 0;
 
-            var ohp = 182;
-            var oshields = 1;
+            var team;
+            var enemyteam;
+
+            var shields = 2;
+            var oshields = 2;
 
             var move = "";
 
@@ -127,37 +106,78 @@
 
             var winner = -1;
 
-            var socket = io.connect('http://localhost:3000');
+            //var socket = io.connect('http://localhost:3000');
+            var socket = io.connect('http://178.82.224.106:3000/');
+
             console.log(socket);
+
+
+
+
+            function initteam(teamdata) {
+                var team2 = [];
+                team2.push(JSON.parse(JSON.stringify(teamdata)).battleParties[0].attacker1);
+                team2.push(JSON.parse(JSON.stringify(teamdata)).battleParties[0].attacker2);
+                team2.push(JSON.parse(JSON.stringify(teamdata)).battleParties[0].attacker3);
+                for (var i = 0; i < 3; i++) {
+                    team2[i].name = team2[i].pokemon.replace("_FORM", "");
+                    var p = gm.getPokemonById(team2[i].name.toLowerCase());
+                    var cpm = cpms[(team2[i].level - 1) * 2];
+                    var cmove1 = gm.getMoveById(team2[i].cinematicMove);
+                    var cmove2 = gm.getMoveById(team2[i].cinematicMove2);
+
+                    team2[i].hp = Math.floor((p.baseStats.hp + team2[i].individualStamina) * cpm);
+                    team2[i].atk = (p.baseStats.atk + team2[i].individualAttack) * cpm;
+                    team2[i].def = (p.baseStats.def + team2[i].individualDefense) * cpm;
+                    team2[i].energy = 0;
+                    team2[i].req1 = cmove1.energy;
+                    team2[i].req2 = cmove2.energy;
+                    team2[i].ctype1 = cmove1.type;
+                    team2[i].ctype2 = cmove2.type;
+                    team2[i].quickMoveDelay = (gm.getMoveById(team2[i].quickMove.replace("_FAST", "")).cooldown) / 500;
+                }
+                return team2;
+                //enemyteam = JSON.parse(JSON.stringify(team));
+            }
+
+            setTimeout(function () {
+                team = initteam(teamdata);
+                enemyteam = initteam(teamdata);
+            }, 1);
+
+
 
             socket.on('dmg',
                     function (data) {
-                        console.log("Got: " + data.move);
+                        //console.log("Got: " + data.move);
                         chargeincoming = false;
-                        if (convtoen(data.move) < 0) {
+                        if (convertToEnergy(data.move) < 0) {
                             chargeincoming = true;
-                            var btn = "<button class='shieldbtn'>shield</button>";
+                            var btn = "<button class='shieldbtn '>shield</button>";
                             display("charge move incoming!" + (shields > 0 ? btn : ""));
                         }
                         setTimeout(function () {
-                            hp -= shielding ? 1 : convtodmg(data.move);
+                            var temp = team[currentpoke].hp;
+                            team[currentpoke].hp -= shielding ? 1 : convertToDamage(data.move, false);
+                            if (team[currentpoke].hp < 1 && doingcharge) {
+                                team[currentpoke].hp = temp;
+                                return;
+                            }
                             updateHP();
-                            display("");
+                            if (chargeincoming)
+                                display("the charge move was " + data.move.toLowerCase().replace("_", " "));
+                            setTimeout(function () {
+                                if ($("#win").html().includes("the charge move was "))
+                                    display("")
+                            }, 1500);
                             shielding = false;
+                            chargeincoming = false;
                         }, chargeincoming ? 3000 : 0);
 
 
                     }
             );
-            socket.on('start', function (data) {
-                setTimeout(function () {display("3")},0);
-                setTimeout(function () {display("2")},1000);
-                setTimeout(function () {display("1")},2000);
-                setTimeout(function () {
-                    move="mud";
-                    started=true;
-                },3000);
-            });
+
             socket.on('shield', function (data) {
                 if (oshields === 0)
                     return;
@@ -165,97 +185,340 @@
                 display("opponent shielded");
                 oshields--;
             });
-            function updateHP() {
-                if (winner >= 0) {
-                    display(winner === 1 ? "you win" : "you lose");
-                    return;
-                }
-                if (hp < 1)
-                    winner = 0;
-                if (ohp < 1)
-                    winner = 1;
-
-                $("#hp2").css({width: (hp * 2)});
-                $("#hp1").css({width: (ohp * 2)});
-            }
-            function updateEn() {
-                $("#enin").css({width: (energy)});
-            }
-
-            $('body').on("click", ".movebtn", function (e) {
-                if(!started)return;
-                move = $(this).attr("name");
+            socket.on('switch', function (data) {
+                console.log("switch");
+                console.log(data);
+                currentenemypoke = data.id;
+                if ($("#win").html().includes("the opponent is choosing their next pokemon!"))
+                    display("");
             });
-            $('body').on("click", ".shieldbtn", function (e) {
-                shields--;
-                shielding = true;
-                socket.emit('shield', {});
+            socket.on('playercount', function (data) {
+                $("#playercount").text(data.count);
             });
+            socket.on('enemychoseteam', function (data2) {
+                console.log("enemychoseteam" + data2.id);
+                $.get("https://fight.pokebattler.com/profiles/" + data2.id, {}, function (data) {
+                    try {
+                        console.log(data);
+                        //teamdata = data;
+                        enemyteam = initteam(data);
+                    } catch (e) {
 
-            setInterval(function () {
-                if (winner >= 0) {
-                    if (!sentendpacket) {
-                        sentendpacket = true;
-                        socket.emit('end', {});
+                        console.log(e);
                     }
-                    display(winner === 1 ? "you win" : "you lose");
-                    return;
-                }
-                if (move === "" || doingcharge || chargeincoming)
-                    return;
-                var deltaen = convtoen(move);
-                if (energy + deltaen < 0) {
-                    move = "mud";
-                    deltaen = convtoen(move);
-                }
-                if (deltaen < 0)
-                    doingcharge = true;
+                });
+            });
 
+
+            //switch or use a move
+            var turnswaited = 0;
+            setInterval(function () {
+                if (move === "" || doingcharge || chargeincoming || winner >= 0)
+                    return;
+                if (move.includes("switch")) {
+                    if (team[currentpoke].hp > 0)
+                        switchcd = 30;
+                    currentpoke = parseInt(move.split("_")[1]);
+                    updatemovebuttons();
+                    move = currentquickmove();
+                    socket.emit('switch', {id: currentpoke});
+                    turnswaited = 0;
+                    if ($("#win").html().includes("choose your next pokemon!"))
+                        display("");
+                }
+                if (team[currentpoke].hp < 1) {
+                    switchcd = 0;
+                    display("choose your next pokemon!");
+                    return;
+                }
+                if (enemyteam[currentenemypoke].hp < 1) {
+                    display("the opponent is choosing their next pokemon!");
+                    return;
+                }
+
+                //using the move
+                /*
+                 * case 1: quick move
+                 * case 2: not enough energy
+                 * case 3: enough energy
+                 * case 4: we have enough energy with 1 more quick move (undertap)
+                 **/
+
+                var quickmovedelta = convertToEnergy(currentquickmove());
+                var movedelta = -1 * convertToEnergy(move);
+                var nextenergy = team[currentpoke].energy + quickmovedelta;
+                var undertap = nextenergy >= movedelta;
+                var nextcharge = move;
+
+                doingcharge = true;
+                if (move === currentquickmove()) {
+                    doingcharge = false;
+                    console.log("case1");
+                    turnswaited++;
+                    if (currentquickMoveDelay() > turnswaited)
+                        return;
+                    turnswaited = 0;
+
+
+                } else if (nextenergy < movedelta) {
+                    doingcharge = false;
+                    console.log("case2");
+                    move = currentquickmove();
+                    turnswaited++;
+                    if (currentquickMoveDelay() > turnswaited)
+                        return;
+                    turnswaited = 0;
+
+
+                } else if (team[currentpoke].energy >= movedelta) {
+                    console.log("case3 " + movedelta + " " + team[currentpoke].energy);
+                    //no problem
+
+                } else if (undertap) {
+                    doingcharge = false;
+                    console.log("case4 undertap");
+                    move = currentquickmove();
+                    turnswaited++;
+                    if (currentquickMoveDelay() > turnswaited)
+                        return;
+                    turnswaited = 0;
+                } else {
+                    console.log("wtf");
+                }
+
+                movedelta *= -1;
+//                if (team[currentpoke].energy + movedelta < 0) {
+//                    move = currentquickmove();
+//                }
+                console.log(team[currentpoke].energy);
+                console.log(move);
+
+
+//                if (movedelta < 0)
 
                 socket.emit('dmg', {move});
                 if (doingcharge)
                     display("waiting for opponent to shield")
 
                 setTimeout(function () {
-                    ohp -= (opponentshielding ? 1 : convtodmg(move));
-                    energy += deltaen;
-                    energy = energy > 100 ? 100 : energy;
+                    enemyteam[currentenemypoke].hp -= (opponentshielding ? 1 : convertToDamage(move, true));
+                    if ($("#win").html().includes("opponent shielded") || $("#win").html().includes("waiting for opponent to shield"))
+                        display("");
+                    team[currentpoke].energy += convertToEnergy(move);
+                    team[currentpoke].energy = team[currentpoke].energy > 100 ? 100 : team[currentpoke].energy;
                     updateHP();
                     updateEn();
-                    console.log(move);
+                    //console.log(move);
                     doingcharge = false;
                     opponentshielding = false;
+                    //if(!$("#win").html().includes("the charge move was "))display("");
+                    move = undertap ? nextcharge : currentquickmove();
+                }, doingcharge ? 3000 : 0);
+
+
+            }, 500);
+
+
+            socket.on('start', function (data) {
+                setTimeout(function () {
+                    display("3")
+                }, 0);
+                setTimeout(function () {
+                    display("2")
+                }, 1000);
+                setTimeout(function () {
+                    display("1")
+                }, 2000);
+                setTimeout(function () {
                     display("");
-                }, doingcharge ? 3500 : 0);
+                    move = currentquickmove();
+                    started = true;
+                }, 3000);
+            });
 
 
-            }, 1000);
 
 
-            function convtodmg(move) {
-                switch (move) {
-                    case "mud":
-                        return 3;
-                    case "stone":
-                        return 43;
-                    case "earth":
-                        return 99;
+
+
+
+
+
+
+
+
+            //------------------------------------------------------------------------------------------------------------
+            //INTERFACE STUFF
+            var ready = false;
+            $('#ready').click(function () {
+                if (!ready) {
+                    ready = true;
+                    socket.emit('ready', {id: socket.id});
                 }
-            }
-            function convtoen(move) {
-                switch (move) {
-                    case "mud":
-                        return 9;
-                    case "stone":
-                        return -55;
-                    case "earth":
-                        return -65;
+
+            });
+            $("#loadteam").click(function () {
+                if (started)
+                    return;
+                var id = $("#pokebattlerid").val();
+                $.get("https://fight.pokebattler.com/profiles/" + id, {}, function (data) {
+                    try {
+                        console.log(data);
+                        //teamdata = data;
+                        team = initteam(data);
+                        socket.emit('enemychoseteam', {id});
+                        updatemovebuttons();
+                        updateswitchbtns();
+                    } catch (e) {
+                        $("#pokebattlerinfo").text("an error occured. make sure your first battle party has the 3 pokemon you want to use and refresh this page");
+                        console.log(e.message);
+                    }
+                });
+            });
+
+
+            $('body').on("click", "#chargemove1container", function (e) {
+                if (!started)
+                    return;
+                move = team[currentpoke].cinematicMove;
+                //console.log(move);
+                //move = $(this).data("name");
+            });
+            $('body').on("click", "#chargemove2container", function (e) {
+                if (!started)
+                    return;
+                move = team[currentpoke].cinematicMove2;
+                //console.log(move);
+                //move = $(this).data("name");
+            });
+            $('body').on("click", ".shieldbtn", function (e) {
+                shields--;
+                shielding = true;
+                socket.emit('shield', {});
+                $(this).hide();
+            });
+            $('body').on("click", "#switch button", function (e) {
+                if (!doingcharge)
+                    move = "switch_" + $(this).attr("name");
+            });
+            setInterval(function () {
+                $("#cd").text(switchcd);
+                $("#shieldcount2").text(shields);
+                $("#shieldcount1").text(oshields);
+                //https://play.pokemonshowdown.com/sprites/xydex/deoxys-defense.png
+                $("#img" + 2).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + team[currentpoke].name.toLowerCase().replace("_", "-") + ".png)");
+                $("#img" + 1).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + enemyteam[currentenemypoke].name.toLowerCase().replace("_", "-") + ".png)");
+                disableswitchbutton(team[currentpoke].name);
+                updateHP();
+                updateEn();
+                if (winner >= 0) {
+                    if (!sentendpacket) {
+                        sentendpacket = true;
+                        socket.emit('end', {});
+                    }
+                    display(winner === 1 ? "you win" : "you lose");
                 }
-            }
+            }, 50);
+
             function display(text) {
+                //console.log("display: " + text);
                 $("#win").html(text);
             }
 
+            function disableswitchbutton(poke) {
+
+                for (var i = 0; i < 3; i++) {
+                    $("button[name='" + i + "']").attr("disabled", team[i].hp < 1);
+                }
+                $("button[name='" + poke + "']").attr("disabled", true);
+                if (!(switchcd === 0 && started))
+                    $("#switch button").attr("disabled", true);
+            }
+            function updateswitchbtns() {
+                for (var i = 0; i < 3; i++) {
+                    $("#switch" + (i + 1)).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + team[i].name.toLowerCase().replace("_", "-") + ".png)");
+                }
+            }
+            setInterval(function () {
+                switchcd--;
+                if (switchcd < 0)
+                    switchcd = 0;
+            }, 1000);
+
+            function updateHP() {
+                if (winner >= 0) {
+                    display(winner === 1 ? "you win" : "you lose");
+                    return;
+                }
+                if (team[0].hp < 1 && team[1].hp < 1 && team[2].hp < 1)
+                    winner = 0;
+                if (enemyteam[0].hp < 1 && enemyteam[1].hp < 1 && enemyteam[2].hp < 1)
+                    winner = 1;
+
+                $("#hp2").css({width: (team[currentpoke].hp * 2)});
+                $("#hp1").css({width: (enemyteam[currentenemypoke].hp * 2)});
+            }
+            function updateEn() {
+                //$("#enin").css({width: (team[currentpoke].energy)});
+                //console.log(team[currentpoke].energy);
+                $("#move1progress").css({height: (80 * team[currentpoke].energy / team[currentpoke].req1)});
+                $("#move2progress").css({height: (80 * team[currentpoke].energy / team[currentpoke].req2)});
+                if (team[currentpoke].energy >= team[currentpoke].req1) {
+                    $("#chargemove1btn").addClass("active")
+                } else {
+                    $("#chargemove1btn").removeClass("active")
+                }
+                if (team[currentpoke].energy >= team[currentpoke].req2) {
+                    $("#chargemove2btn").addClass("active")
+                } else {
+                    $("#chargemove2btn").removeClass("active")
+                }
+
+            }
+            function updatemovebuttons() {
+                var q = currentquickmove();
+                var c1 = team[currentpoke].cinematicMove;
+                var c2 = team[currentpoke].cinematicMove2;
+                $("#quickmovebtn").text(q.toLowerCase().replace("_", " "));
+                $("#chargemove1btn").data("name", c1);
+                $("#chargemove1text").text(c1.toLowerCase().replace("_", " "));
+                $("#chargemove2btn").data("name", c2);
+                $("#chargemove2text").text(c2.toLowerCase().replace("_", " "));
+
+                console.log(team[currentpoke].ctype1);
+                for (var i = 1; i < 3; i++) {
+                    $("#chargemove" + i + "btn").attr("class", "movebtn noselect " + team[currentpoke]["ctype" + i + ""]);
+                    $("#move" + i + "background").attr("class", team[currentpoke]["ctype" + i + ""]);
+
+//                    $("#chargemove" + i + "btn").removeClass();
+//                    $("#chargemove" + i + "btn").addClass("movebtn");// noselect" + team[currentpoke].ctype1);
+//                    $("#chargemove" + i + "btn").addClass("noselect");// noselect" + team[currentpoke].ctype1);
+//                    $("#chargemove" + i + "btn").addClass(team[currentpoke]["ctype" + i + ""]);// noselect" + team[currentpoke].ctype1);
+//                    $("#move" + i + "background").removeClass();
+//                    $("#move" + i + "background").addClass(team[currentpoke]["ctype" + i + ""]);
+                }
+
+
+//                $("#chargemove2btn").attr("class","movebtn noselect " + team[currentpoke].ctype2);
+//                $("move2background").attr("class",team[currentpoke].ctype2);
+
+
+                updateEn();
+            }
+            function currentquickmove() {
+                return team[currentpoke].quickMove.replace("_FAST", "");
+            }
+            function currentquickMoveDelay() {
+                return team[currentpoke].quickMoveDelay;
+            }
+//            function removeTypes(el){
+//                el.removeClass();
+//            }
+
+
+
+
         </script>
+
     </body>
 </html>
