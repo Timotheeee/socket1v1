@@ -219,8 +219,8 @@
                     if (team[currentpoke].hp > 0)
                         switchcd = 30;
                     currentpoke = parseInt(move.split("_")[1]);
-                    updatemovebuttons();
-                    move = currentquickmove();
+                    updateMoveButtons();
+                    move = currentQuickMove();
                     socket.emit('switch', {id: currentpoke});
                     turnswaited = 0;
                     if ($("#win").html().includes("choose your next pokemon!"))
@@ -244,18 +244,18 @@
                  * case 4: we have enough energy with 1 more quick move (undertap)
                  **/
 
-                var quickmovedelta = convertToEnergy(currentquickmove());
+                var quickmovedelta = convertToEnergy(currentQuickMove());
                 var movedelta = -1 * convertToEnergy(move);
                 var nextenergy = team[currentpoke].energy + quickmovedelta;
                 var undertap = nextenergy >= movedelta;
                 var nextcharge = move;
 
                 doingcharge = true;
-                if (move === currentquickmove()) {
+                if (move === currentQuickMove()) {
                     doingcharge = false;
                     console.log("case1");
                     turnswaited++;
-                    if (currentquickMoveDelay() > turnswaited)
+                    if (currentQuickMoveDelay() > turnswaited)
                         return;
                     turnswaited = 0;
 
@@ -263,9 +263,9 @@
                 } else if (nextenergy < movedelta) {
                     doingcharge = false;
                     console.log("case2");
-                    move = currentquickmove();
+                    move = currentQuickMove();
                     turnswaited++;
-                    if (currentquickMoveDelay() > turnswaited)
+                    if (currentQuickMoveDelay() > turnswaited)
                         return;
                     turnswaited = 0;
 
@@ -277,9 +277,9 @@
                 } else if (undertap) {
                     doingcharge = false;
                     console.log("case4 undertap");
-                    move = currentquickmove();
+                    move = currentQuickMove();
                     turnswaited++;
-                    if (currentquickMoveDelay() > turnswaited)
+                    if (currentQuickMoveDelay() > turnswaited)
                         return;
                     turnswaited = 0;
                 } else {
@@ -312,7 +312,7 @@
                     doingcharge = false;
                     opponentshielding = false;
                     //if(!$("#win").html().includes("the charge move was "))display("");
-                    move = undertap ? nextcharge : currentquickmove();
+                    move = undertap ? nextcharge : currentQuickMove();
                 }, doingcharge ? 3000 : 0);
 
 
@@ -331,7 +331,7 @@
                 }, 2000);
                 setTimeout(function () {
                     display("");
-                    move = currentquickmove();
+                    move = currentQuickMove();
                     started = true;
                 }, 3000);
             });
@@ -367,8 +367,8 @@
                         //teamdata = data;
                         team = initteam(data);
                         socket.emit('enemychoseteam', {id});
-                        updatemovebuttons();
-                        updateswitchbtns();
+                        updateMoveButtons();
+                        updateSwitchButtons();
                     } catch (e) {
                         $("#pokebattlerinfo").text("an error occured. make sure your first battle party has the 3 pokemon you want to use and refresh this page");
                         console.log(e.message);
@@ -408,7 +408,7 @@
                 //https://play.pokemonshowdown.com/sprites/xydex/deoxys-defense.png
                 $("#img" + 2).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + team[currentpoke].name.toLowerCase().replace("_", "-") + ".png)");
                 $("#img" + 1).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + enemyteam[currentenemypoke].name.toLowerCase().replace("_", "-") + ".png)");
-                disableswitchbutton(team[currentpoke].name);
+                disableSwitchButton(team[currentpoke].name);
                 updateHP();
                 updateEn();
                 if (winner >= 0) {
@@ -425,7 +425,7 @@
                 $("#win").html(text);
             }
 
-            function disableswitchbutton(poke) {
+            function disableSwitchButton(poke) {
 
                 for (var i = 0; i < 3; i++) {
                     $("button[name='" + i + "']").attr("disabled", team[i].hp < 1);
@@ -434,7 +434,7 @@
                 if (!(switchcd === 0 && started))
                     $("#switch button").attr("disabled", true);
             }
-            function updateswitchbtns() {
+            function updateSwitchButtons() {
                 for (var i = 0; i < 3; i++) {
                     $("#switch" + (i + 1)).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + team[i].name.toLowerCase().replace("_", "-") + ".png)");
                 }
@@ -475,8 +475,8 @@
                 }
 
             }
-            function updatemovebuttons() {
-                var q = currentquickmove();
+            function updateMoveButtons() {
+                var q = currentQuickMove();
                 var c1 = team[currentpoke].cinematicMove;
                 var c2 = team[currentpoke].cinematicMove2;
                 $("#quickmovebtn").text(q.toLowerCase().replace("_", " "));
@@ -505,10 +505,10 @@
 
                 updateEn();
             }
-            function currentquickmove() {
+            function currentQuickMove() {
                 return team[currentpoke].quickMove.replace("_FAST", "");
             }
-            function currentquickMoveDelay() {
+            function currentQuickMoveDelay() {
                 return team[currentpoke].quickMoveDelay;
             }
 //            function removeTypes(el){
