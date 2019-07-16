@@ -12,19 +12,17 @@
 
         <link href="style.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-        <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">-->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
     </head>
-    <body>
+    <body class="noselect">
 
         <input type="text" id="pokebattlerid" placeholder="pokebattler id"> 
-        <!--<button id="loadteam">load</button>-->
         <a id="loadteam" class="button noselect">
-            <i class="fa fa-check"></i><strong>load</strong>
+            <strong>load</strong>
         </a>
-        <!--        <button id="ready">ready</button>-->
         <a id="ready" class="button button-green noselect">
-            <i class="fa fa-check"></i><strong>Ready</strong>
+            <i class="fa fa-check"></i> <strong>Ready</strong>
         </a>
         <div id="playercountcontainer" style="display: inline-block;">
             <b>players online:</b> <span id="playercount">1 (you)</span>
@@ -73,7 +71,7 @@
             <button id='switch3' name="2"></button>
             <b>cooldown:</b> <span id='cd'>0</span>
         </div>
-        <!--<div id="en"><div id="enin" style="width:0px;"></div></div>-->
+
 
         <div id="win"></div>
         <br>
@@ -137,7 +135,6 @@
                     team2[i].quickMoveDelay = (gm.getMoveById(team2[i].quickMove.replace("_FAST", "")).cooldown) / 500;
                 }
                 return team2;
-                //enemyteam = JSON.parse(JSON.stringify(team));
             }
 
             setTimeout(function () {
@@ -200,7 +197,6 @@
                 $.get("https://fight.pokebattler.com/profiles/" + data2.id, {}, function (data) {
                     try {
                         console.log(data);
-                        //teamdata = data;
                         enemyteam = initteam(data);
                     } catch (e) {
 
@@ -287,14 +283,10 @@
                 }
 
                 movedelta *= -1;
-//                if (team[currentpoke].energy + movedelta < 0) {
-//                    move = currentquickmove();
-//                }
                 console.log(team[currentpoke].energy);
                 console.log(move);
 
 
-//                if (movedelta < 0)
 
                 socket.emit('dmg', {move});
                 if (doingcharge)
@@ -311,7 +303,6 @@
                     //console.log(move);
                     doingcharge = false;
                     opponentshielding = false;
-                    //if(!$("#win").html().includes("the charge move was "))display("");
                     move = undertap ? nextcharge : currentQuickMove();
                 }, doingcharge ? 3000 : 0);
 
@@ -381,15 +372,11 @@
                 if (!started)
                     return;
                 move = team[currentpoke].cinematicMove;
-                //console.log(move);
-                //move = $(this).data("name");
             });
             $('body').on("click", "#chargemove2container", function (e) {
                 if (!started)
                     return;
                 move = team[currentpoke].cinematicMove2;
-                //console.log(move);
-                //move = $(this).data("name");
             });
             $('body').on("click", ".shieldbtn", function (e) {
                 shields--;
@@ -489,18 +476,8 @@
                 for (var i = 1; i < 3; i++) {
                     $("#chargemove" + i + "btn").attr("class", "movebtn noselect " + team[currentpoke]["ctype" + i + ""]);
                     $("#move" + i + "background").attr("class", team[currentpoke]["ctype" + i + ""]);
-
-//                    $("#chargemove" + i + "btn").removeClass();
-//                    $("#chargemove" + i + "btn").addClass("movebtn");// noselect" + team[currentpoke].ctype1);
-//                    $("#chargemove" + i + "btn").addClass("noselect");// noselect" + team[currentpoke].ctype1);
-//                    $("#chargemove" + i + "btn").addClass(team[currentpoke]["ctype" + i + ""]);// noselect" + team[currentpoke].ctype1);
-//                    $("#move" + i + "background").removeClass();
-//                    $("#move" + i + "background").addClass(team[currentpoke]["ctype" + i + ""]);
                 }
 
-
-//                $("#chargemove2btn").attr("class","movebtn noselect " + team[currentpoke].ctype2);
-//                $("move2background").attr("class",team[currentpoke].ctype2);
 
 
                 updateEn();
@@ -511,9 +488,7 @@
             function currentQuickMoveDelay() {
                 return team[currentpoke].quickMoveDelay;
             }
-//            function removeTypes(el){
-//                el.removeClass();
-//            }
+
 
 
 
