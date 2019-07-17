@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%;">
     <head>
         <meta charset="UTF-8">
         <title>PVP simulator</title>
@@ -15,31 +15,35 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
     <body class="noselect">
-
-        <input type="text" id="pokebattlerid" placeholder="pokebattler id"> 
-        <a id="loadteam" class="button noselect">
-            <strong>load</strong>
-        </a>
-        <a id="ready" class="button button-green noselect">
-            <i class="fa fa-check"></i> <strong>Ready</strong>
-        </a>
-        <div id="playercountcontainer" style="display: inline-block;">
-            <b>players online:</b> <span id="playercount">1 (you)</span>
+        <div class="bgcontainer">
+            <input type="text" id="pokebattlerid" placeholder="pokebattler id"> 
+            <a id="loadteam" class="button noselect">
+                <strong>load</strong>
+            </a>
+            <a id="ready" class="button button-green noselect">
+                <i class="fa fa-check"></i> <strong>Ready</strong>
+            </a>
+            <div id="playercountcontainer" style="display: inline-block;">
+                <b>players online:</b> <span id="playercount">1 (you)</span>
+            </div>
+            <br>
+            <span id="pokebattlerinfo"></span>
         </div>
-        <br>
-        <span id="pokebattlerinfo"></span>
 
-
-        <div class="bgcontainer" style="width: 550px;margin-top: 10px;height:510px">
+        <div class="bgcontainer" style="height:510px">
             <h1 style="margin-top: 3px">PVP simulator </h1>
-            <div class="pokeimage" id='img1' style='background-image: url("https://play.pokemonshowdown.com/sprites/xydex/quagsire.png")'></div>
-            <div class="pokeimage" id='img2' style='background-image: url("https://play.pokemonshowdown.com/sprites/xydex/quagsire.png")'></div>
-            <img src="shield.png" id="shield1" alt="shield">
-            <img src="shield.png" id="shield2" alt="shield">
-            <span id="shieldcount1">2</span>
-            <span id="shieldcount2">2</span>
             <div class="hp" style="width:364px" id="hp1"></div>
+            <div class="pokeimage" id='img1' style='background-image: url("https://play.pokemonshowdown.com/sprites/xydex/quagsire.png")'></div>
+            <img src="shield.png" id="shield1" alt="shield">
+            <span id="shieldcount1">2</span>
+            
+
+
+            <img src="shield.png" id="shield2" alt="shield">
+            <span id="shieldcount2">2</span>
             <div class="hp" style="width:364px" id="hp2"></div>
+            <div class="pokeimage" id='img2' style='background-image: url("https://play.pokemonshowdown.com/sprites/xydex/quagsire.png")'></div>
+            <div id="win"></div>
         </div>
         <div id="buttons"  class="bgcontainer">
             <div id="chargemove1container">
@@ -69,7 +73,7 @@
         </div>
 
 
-        <div id="win"></div>
+
         <br>
 
 
@@ -134,8 +138,8 @@
             }
 
             setTimeout(function () {
-                team = initteam(teamdata);
-                enemyteam = initteam(teamdata);
+                team = initteam(defaultteamdata);
+                enemyteam = initteam(defaultteamdata);
             }, 1);
 
 

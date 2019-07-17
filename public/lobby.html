@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>PVP simulator</title>
+        <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="data.js"></script>
+        <script type="text/javascript" src="gamemaster.js"></script>
+        <script type="text/javascript" src="default_team.js"></script>
+        <script type="text/javascript" src="battlelogic.js"></script>
+
+        <link href="style.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body class="noselect">
+        <div class="bgcontainer">
+            <input type="text" id="pokebattlerid" placeholder="pokebattler id"> 
+            <a id="loadteam" class="button noselect">
+                <strong>load</strong>
+            </a>
+            <div id="playercountcontainer" style="display: inline-block;">
+                <b>players online:</b> <span id="playercount">1 (you)</span>
+            </div>
+            <br>
+            <span id="pokebattlerinfo"></span>
+        </div>
+
+        <style>
+            #playerlist div{
+                display: inline-block;
+            }
+            #team div{
+                height: 100px;
+                width: 100px;
+                display: inline-block;
+            }
+        </style>
+        <div class="bgcontainer">
+            <h1 style="margin-top: 3px">Player list</h1>
+            <div id="playerlist">
+                <div class="player">name1</div><button>challenge</button><br>
+                <div class="player">name2</div><button>challenge</button><br>
+            </div>
+        </div>
+
+        <div id='team' class="bgcontainer"><b>team: </b>
+            <div id='team1'></div>
+            <div id='team2' class="selectedpoke"></div>
+            <div id='team3'></div>
+            <div id='team4'></div>
+            <div id='team5'></div>
+            <div id='team6'></div>
+        </div>
+
+
+
+        <br>
+
+
+        <script>
+            var gm = GameMaster.getInstance();
+            var team = JSON.parse(localStorage.team || defaultteamdata);
+            var name = localStorage.name || "default name";
+            if (team)
+                for (var i = 0; i < 6; i++) {
+                    try {
+                        $("#team" + (i + 1)).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + team[i].name.toLowerCase().replace("_", "-") + ".png)");
+                    } catch (exception) {
+
+                    }
+                }
+
+            //var socket = io.connect('http://localhost:3000');
+            var socket = io.connect('http://178.82.224.106:3000/');
+
+            console.log(socket);
+            $("#pokebattlerid").val(localStorage.id || "");
+            $("#pokebattlerid").change(function () {
+                localStorage.id = $(this).val();
+            });
+            if (socket.connected) {
+                socket.emit('playerupdate', {name, team});
+            }
+
+
+
+            function initteam(teamdata) {
+                var team2 = [];
+                for (var i = 0; i < 6; i++) {
+                    team2.push(JSON.parse(JSON.stringify(teamdata)).battleParties[0]["attacker" + (i + 1)]);
+                    team2[i].name = team2[i].pokemon.replace("_FORM", "");
+                }
+
+//                team2.push(JSON.parse(JSON.stringify(teamdata)).battleParties[0].attacker2);
+//                team2.push(JSON.parse(JSON.stringify(teamdata)).battleParties[0].attacker3);
+//                for (var i = 0; i < 3; i++) {
+//                    team2[i].name = team2[i].pokemon.replace("_FORM", "");
+//                }
+                return team2;
+            }
+
+//            setTimeout(function () {
+//                team = initteam(teamdata);
+//            }, 1);
+
+
+            socket.on('playercount', function (data) {
+                $("#playercount").text(data.count);
+            });
+
+            $("#loadteam").click(function () {
+                var id = $("#pokebattlerid").val();
+                $.get("https://fight.pokebattler.com/profiles/" + id, {}, function (data) {
+                    try {
+                        console.log(data);
+                        team = initteam(data);
+                        for (var i = 0; i < 3; i++) {
+                            $("#team" + (i + 1)).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + team[i].name.toLowerCase().replace("_", "-") + ".png)");
+                        }
+                        name = data.trainer.name;
+                        localStorage.name = name;
+                        localStorage.team = JSON.stringify(team);
+                        socket.emit('playerupdate', {name, team});
+                    } catch (e) {
+                        $("#pokebattlerinfo").text("an error occured. make sure your first battle party has the 3 pokemon you want to use and refresh this page");
+                        console.log(e.message);
+                    }
+                });
+            });
+
+            $("#team div").click(function () {
+                $(this).toggleClass("selectedpoke")
+            });
+
+
+
+
+        </script>
+
+    </body>
+</html>

@@ -13,12 +13,19 @@ body {
     box-sizing: border-box;
     border-radius: 8px;
     padding: 5px;
+    margin: auto;
+    width: 550px;
+    margin-top: 10px;
 }
-
+#img1{
+    position: relative;
+    top: -50px;
+    left: 0;
+}
 #img2{
-    position: absolute;
-    top:400px;
-    left:450px;
+    position: relative;
+    top: 50px;
+    left: 420px;
 }
 .pokeimage{
     width: 120px;
@@ -30,14 +37,14 @@ body {
     background-color: #66ff66;
 }
 #hp1{
-    position: absolute;
-    top:120px;
-    left:200px;
+    position: relative;
+    top: 13px;
+    left: 193px;
 }
 #hp2{
-    position: absolute;
-    top:500px;
-    left:050px;
+    position: relative;
+    top: 130px;
+    left: 18px;
 }
 
 #timer{
@@ -54,37 +61,24 @@ body {
 
 }
 
-#en{
-    border: 1px solid black;
-    height:20px;
-    width:100px;
-    position: absolute;
-    top:550px;
-    left:050px;
-}
-#enin{
-    background-color: #33ccff;
-    height:20px;
-
-}
 #shield1,#shield2{
     width:50px;
     height:50px;
 }
-#shield2{
-    position: absolute;
-    top:440px;
-    left:360px;
+#shield2,#shieldcount2{
+    position: relative;
+    top: 186px;
+    left: 300px;
 }
-#shieldcount2{
-    position: absolute;
-    top:480px;
-    left:340px;
+#shield1,#shieldcount1{
+    position: relative;
+    top: -146px;
+    left: 107px;
 }
 #win{
-    position: absolute;
-    top:280px;
-    left:210px;
+    position: relative;
+    top: -192px;
+    left: 180px;
 }
 #switch button{
     background-size: contain;
@@ -99,9 +93,9 @@ body {
     border: 2px solid red;
 }
 #switch{
-    position: absolute;
-    top:705px;
-    left:013px;
+    position: relative;
+    /* top: 705px; */
+    /* left: 013px; */
 }
 #switch1{background-image:  url("https://play.pokemonshowdown.com/sprites/xydex/quagsire.png");}
 #switch2{background-image:  url("https://play.pokemonshowdown.com/sprites/xydex/meganium.png");}
@@ -113,10 +107,10 @@ body {
     left: 290px;
 }*/
 #buttons{
-    position: absolute;
-    top: 585px;
-    left: 13px;
-    width: 400px;
+    position: relative;
+    /* top: 585px; */
+    /* left: 13px; */
+    /* width: 400px; */
     height: 108px;
 }   
 #buttons div{
@@ -125,34 +119,42 @@ body {
 }
 #chargemove2container, #chargemove1container{
     position: absolute;
-    left: 300px;
+    /*left: 300px;*/
     top:6px;
     text-align:center;
     -webkit-transition: all 0.2s ease 0s;
     -moz-transition: all 0.2s ease 0s;
     -o-transition: all 0.2s ease 0s;
     transition: all 0.2s ease 0s;
-    
+
 }
 #chargemove1container{
     left: 10px;
 }
+#chargemove2container{
+    right:10px
+}
 .active{
     box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 1);
     /*border: 2px solid #000;*/
-/*    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
-    -moz-transform: scale(1.25, 1.25);
-    -webkit-transform: scale(1.25, 1.25);
-    -o-transform: scale(1.25, 1.25);
-    -ms-transform: scale(1.25, 1.25);
-    transform: scale(1.25, 1.25);*/
+    /*    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+        -moz-transform: scale(1.25, 1.25);
+        -webkit-transform: scale(1.25, 1.25);
+        -o-transform: scale(1.25, 1.25);
+        -ms-transform: scale(1.25, 1.25);
+        transform: scale(1.25, 1.25);*/
+}
+.selectedpoke{
+    border: 2px solid lightblue;
 }
 
 #quickmovecontainer{
-    position: absolute;
-    left: 117px;
+    position: relative;
+    /* left: 117px; */
     top: 35px;
-    width: 179px;
+    /* width: auto; */
+    /* margin: auto; */
+    text-align: center;
 }
 
 #chargemove1btn,#chargemove2btn{

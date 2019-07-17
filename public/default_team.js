@@ -1,4 +1,4 @@
-var teamdata = {
+var defaultteamdata = {
     "battleParties": [
         {
             "id": 55067,
