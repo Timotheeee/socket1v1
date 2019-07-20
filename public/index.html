@@ -30,7 +30,7 @@
         <div class="bgcontainer" style="height:510px">
             <h1 style="margin-top: 3px">PVP simulator </h1>
             <div class="hp" style="width:364px" id="hp1"></div>
-            <div class="pokeimage" id='img1' style='background-image: url("question.svg")'></div><!--https://play.pokemonshowdown.com/sprites/xydex/quagsire.png-->
+            <div class="pokeimage" id='img1' style='background-image: url("question.PNG")'></div><!--https://play.pokemonshowdown.com/sprites/xydex/quagsire.png-->
             <img src="shield.png" id="shield1" alt="shield">
             <span id="shieldcount1">2</span>
 
@@ -39,7 +39,7 @@
             <img src="shield.png" id="shield2" alt="shield">
             <span id="shieldcount2">2</span>
             <div class="hp" style="width:364px" id="hp2"></div>
-            <div class="pokeimage" id='img2' style='background-image: url("question.svg")'></div>
+            <div class="pokeimage" id='img2' style='background-image: url("question.PNG")'></div>
             <div id="win"></div>
         </div>
         <div id="buttons"  class="bgcontainer">
@@ -115,7 +115,7 @@
 
             var socket;
             if (window.location.href.includes("heroku")) {
-                socket = io.connect('ws://node1v1.herokuapp.com/');
+                socket = io.connect(window.location.href.replace("http","ws"));
             } else {
                 socket = io.connect('http://178.82.224.106:3000/');
             }
@@ -422,11 +422,11 @@
                 $("#shieldcount2").text(shields);
                 $("#shieldcount1").text(oshields);
                 //https://play.pokemonshowdown.com/sprites/xydex/deoxys-defense.png
-                //question.svg
+                //question.PNG
                 if (started) {
                     $("#img" + 1).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + enemyteam[currentenemypoke].name.toLowerCase().replace("_", "-") + ".png)");
                 } else {
-                    $("#img" + 1).css("background-image", "url(question.png)");
+                    $("#img" + 1).css("background-image", "url(question.PNG)");
                 }
                 $("#img" + 2).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + team[currentpoke].name.toLowerCase().replace("_", "-") + ".png)");
 
