@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <!--<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />-->
         <!--<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>-->
-        <meta             name="viewport"             content="target-densitydpi=device-dpi; width=device-width; minimum-scale=0.65 initial-scale=0.65; maximum-scale=0.65; user-scalable=0;"             />
+        <meta name="viewport" content="target-densitydpi=device-dpi width=device-width minimum-scale=0.65 initial-scale=0.65 maximum-scale=0.65 user-scalable=0"/>
         <title>PVP simulator</title>
         <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
         <script type="text/javascript" src="jquery.js"></script>
@@ -81,6 +81,9 @@
             </div>
             <div id="playercountinlobbycontainer">
                 <b>players in your lobby:</b> <span id="playercountinlobby">1</span>/2
+            </div>
+            <div id="changelobbycontainer">
+                <input type="text" id="lobbyinput"><button id="changelobbybtn">change lobby</button>
             </div>
         </div>
 
@@ -420,6 +423,14 @@
                 if (!doingcharge)
                     move = "switch_" + $(this).attr("name");
             });
+            $("#changelobbybtn").click(function (){
+                if(started)return;
+                var n = Number.parseInt($("#lobbyinput").val());
+                if(!isNaN(n) && n > 0 && n < 1001){
+                    socket.emit('lobbyrequest', {num:(n-1)});
+                }
+            });
+            
             setInterval(function () {
                 $("#cd").text(switchcd);
                 $("#shieldcount2").text(shields);

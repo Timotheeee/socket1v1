@@ -23,8 +23,11 @@ var lobbies = [];
 for (var i = 0; i < 1000; i++) {
     lobbies.push({player1: undefined, player2: undefined});
 }
-function addPlayerToLobby(player) {
+function addPlayerToLobby(player, id) {
     for (var i = 0; i < 1000; i++) {
+        if (id !== -1)
+            i = id;
+
         if (!lobbies[i].player1) {
             lobbies[i].player1 = player;
             lobbies[i].player1.lobbyid = i;
@@ -47,6 +50,7 @@ function addPlayerToLobby(player) {
             return i;
         }
     }
+    return -1;
 }
 function removePlayerFromLobby(player) {
     var i = player.lobbyid;
@@ -94,8 +98,20 @@ io.sockets.on('connection',
                     io.sockets.emit('playercount', {count: players});
                     console.log("We have a new client: " + socket.id + "\nplayers: " + players);
                     socket.ready = false;
-                    var lobbypos = addPlayerToLobby(socket);
+                    var lobbypos = addPlayerToLobby(socket, -1);
                     socket.emit("lobbypos", {lobbypos});
+
+                    socket.on('lobbyrequest',
+                            function (data) {
+                                console.log("lobbyrequest " + data.num);
+                                removePlayerFromLobby(socket);
+                                var newpos = addPlayerToLobby(socket, data.num);
+                                if (newpos === -1) {
+                                    newpos = addPlayerToLobby(socket, -1);
+                                }
+                                socket.emit("lobbypos", {lobbypos:newpos});
+                            }
+                    );
 
                     // When this user emits, client side: socket.emit('otherevent',some data);
                     socket.on('dmg',
@@ -134,11 +150,11 @@ io.sockets.on('connection',
                         var i = socket.lobbyid;
                         var pos = socket.lobbypos;
                         var pos2 = other(pos);
-                        if (lobbies[i]["player" + pos2] && lobbies[i]["player" + pos2].ready){
+                        if (lobbies[i]["player" + pos2] && lobbies[i]["player" + pos2].ready) {
                             lobbies[i]["player" + pos].emit('start', {});
                             lobbies[i]["player" + pos2].emit('start', {});
                         }
-                            
+
                         //io.sockets.emit('start', {});
                     });
                     socket.on('enemychoseteam', function (data) {
