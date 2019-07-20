@@ -27,6 +27,10 @@ function addPlayerToLobby(player, id) {
     for (var i = 0; i < 1000; i++) {
         if (id !== -1)
             i = id;
+        
+        console.log(i);        
+        console.log(!lobbies[i].player1);
+        console.log(!lobbies[i].player2);
 
         if (!lobbies[i].player1) {
             lobbies[i].player1 = player;
@@ -49,6 +53,7 @@ function addPlayerToLobby(player, id) {
             }
             return i;
         }
+        if (id !== -1)break;
     }
     return -1;
 }
@@ -106,8 +111,10 @@ io.sockets.on('connection',
                                 console.log("lobbyrequest " + data.num);
                                 removePlayerFromLobby(socket);
                                 var newpos = addPlayerToLobby(socket, data.num);
+                                console.log("try 1: " + newpos);
                                 if (newpos === -1) {
                                     newpos = addPlayerToLobby(socket, -1);
+                                    console.log("try 2: " + newpos);
                                 }
                                 socket.emit("lobbypos", {lobbypos:newpos});
                             }
