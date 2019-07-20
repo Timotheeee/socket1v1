@@ -113,8 +113,14 @@
 
             var winner = -1;
 
-            //var socket = io.connect('http://localhost:3000');
-            var socket = io.connect('http://178.82.224.106:3000/');
+            var socket;
+            if (window.location.href.includes("heroku")) {
+                socket = io.connect('ws://node1v1.herokuapp.com/');
+            } else {
+                socket = io.connect('http://178.82.224.106:3000/');
+            }
+
+
 
             console.log(socket);
 
@@ -152,10 +158,10 @@
             }, 1);
 
             socket.on('lobbypos', function (data) {
-                $("#lobbynumber").text(data.lobbypos+1);
+                $("#lobbynumber").text(data.lobbypos + 1);
             });
             socket.on('lobbycount', function (data) {
-                if(data.count === 1 && started){
+                if (data.count === 1 && started) {
                     display("the enemy disconnected, refresh the page");
                     started = false;
                 }
@@ -438,8 +444,8 @@
 
             function display(text) {
                 //console.log("display: " + text);
-                if(!$("#win").html().includes("enemy disconnected"))
-                $("#win").html(text);
+                if (!$("#win").html().includes("enemy disconnected"))
+                    $("#win").html(text);
             }
 
             function disableSwitchButton(poke) {
