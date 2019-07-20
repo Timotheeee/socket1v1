@@ -17,9 +17,62 @@ function listen() {
 app.use(express.static('public'));
 
 var players = 0;
-var ready = [];
+//var ready = [];
+
+var lobbies = [];
+for (var i = 0; i < 1000; i++) {
+    lobbies.push({player1: undefined, player2: undefined});
+}
+function addPlayerToLobby(player) {
+    for (var i = 0; i < 1000; i++) {
+        if (!lobbies[i].player1) {
+            lobbies[i].player1 = player;
+            lobbies[i].player1.lobbyid = i;
+            lobbies[i].player1.lobbypos = 1;
+            if (lobbies[i].player2) {
+                lobbies[i].player1.emit("lobbycount", {count: 2});
+                lobbies[i].player2.emit("lobbycount", {count: 2});
+            }
+
+            return i;
+        }
+        if (!lobbies[i].player2) {
+            lobbies[i].player2 = player;
+            lobbies[i].player2.lobbyid = i;
+            lobbies[i].player2.lobbypos = 2;
+            if (lobbies[i].player1) {
+                lobbies[i].player1.emit("lobbycount", {count: 2});
+                lobbies[i].player2.emit("lobbycount", {count: 2});
+            }
+            return i;
+        }
+    }
+}
+function removePlayerFromLobby(player) {
+    var i = player.lobbyid;
+    var pos = player.lobbypos;
+    var pos2 = other(pos);
+    lobbies[i]["player" + pos] = undefined;
+    if (lobbies[i]["player" + pos2])
+        lobbies[i]["player" + pos2].emit("lobbycount", {count: 1});
+}
+function sendToOther(player, msg, data) {
+    var i = player.lobbyid;
+    var pos = player.lobbypos;
+    var pos2 = other(pos);
+    console.log("send to other: " + i + " " + pos + " " + pos2);
+    if (lobbies[i]["player" + pos2])
+        lobbies[i]["player" + pos2].emit(msg, data);
+}
+
+function other(pos) {
+    return pos === 2 ? 1 : 2
+}
+
 
 var io = require('socket.io')(server);
+
+
 
 Array.prototype.remove = function () {
     var what, a = arguments, L = a.length, ax;
@@ -40,6 +93,9 @@ io.sockets.on('connection',
                     players++;
                     io.sockets.emit('playercount', {count: players});
                     console.log("We have a new client: " + socket.id + "\nplayers: " + players);
+                    socket.ready = false;
+                    var lobbypos = addPlayerToLobby(socket);
+                    socket.emit("lobbypos", {lobbypos});
 
                     // When this user emits, client side: socket.emit('otherevent',some data);
                     socket.on('dmg',
@@ -48,7 +104,7 @@ io.sockets.on('connection',
                                 console.log("Received: " + data.move);
 
                                 //Send it to all other clients
-                                socket.broadcast.emit('dmg', data);
+                                sendToOther(socket, 'dmg', data);
 
                                 // This is a way to send to everyone including sender
                                 // io.sockets.emit('msg', data);
@@ -61,7 +117,7 @@ io.sockets.on('connection',
                                 console.log("Received shield");
 
                                 //Send it to all other clients
-                                socket.broadcast.emit('shield', {});
+                                sendToOther(socket, 'shield', {});
 
                                 // This is a way to send to everyone including sender
                                 // io.sockets.emit('msg', data);
@@ -70,17 +126,24 @@ io.sockets.on('connection',
                     );
                     socket.on('switch', function (data) {
                         console.log(data.poke);
-                        socket.broadcast.emit('switch', data);
+                        sendToOther(socket, 'switch', data);
                     });
                     socket.on('ready', function (data) {
                         console.log("ready: " + data.id);
-                        ready.push(data.id);
-                        if (ready.length === 2)
-                            io.sockets.emit('start', {});
+                        socket.ready = true;
+                        var i = socket.lobbyid;
+                        var pos = socket.lobbypos;
+                        var pos2 = other(pos);
+                        if (lobbies[i]["player" + pos2] && lobbies[i]["player" + pos2].ready){
+                            lobbies[i]["player" + pos].emit('start', {});
+                            lobbies[i]["player" + pos2].emit('start', {});
+                        }
+                            
+                        //io.sockets.emit('start', {});
                     });
                     socket.on('enemychoseteam', function (data) {
                         console.log("enemychoseteam: " + data.id);
-                        socket.broadcast.emit('enemychoseteam', data);
+                        sendToOther(socket, 'enemychoseteam', data);
                     });
 
 
@@ -88,7 +151,6 @@ io.sockets.on('connection',
                             function (data) {
                                 // Data comes in as whatever was sent, including objects
                                 console.log("Received end");
-                                ready = [];
                                 //players = 0;
 
 
@@ -101,7 +163,7 @@ io.sockets.on('connection',
                         if (players < 0)
                             players = 0;
                         io.sockets.emit('playercount', {count: players});
-                        ready.remove(socket.id);
+                        removePlayerFromLobby(socket);
                     });
                 }
         );

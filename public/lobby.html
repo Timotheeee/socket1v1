@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%;">
     <head>
         <meta charset="UTF-8">
         <title>PVP simulator</title>
@@ -61,7 +61,7 @@
 
         <script>
             var gm = GameMaster.getInstance();
-            var team = JSON.parse(localStorage.team || defaultteamdata);
+            var team = localStorage.team ? JSON.parse(localStorage.team) : defaultteamdataconverted;
             var name = localStorage.name || "default name";
             if (team)
                 for (var i = 0; i < 6; i++) {
@@ -108,6 +108,10 @@
 
             socket.on('playercount', function (data) {
                 $("#playercount").text(data.count);
+            });
+
+            socket.on('lobbyupdate', function (data) {
+                console.log(data);
             });
 
             $("#loadteam").click(function () {

@@ -23,9 +23,6 @@
             <a id="ready" class="button button-green noselect">
                 <i class="fa fa-check"></i> <strong>Ready</strong>
             </a>
-            <div id="playercountcontainer" style="display: inline-block;">
-                <b>players online:</b> <span id="playercount">1 (you)</span>
-            </div>
             <br>
             <span id="pokebattlerinfo"></span>
         </div>
@@ -33,19 +30,20 @@
         <div class="bgcontainer" style="height:510px">
             <h1 style="margin-top: 3px">PVP simulator </h1>
             <div class="hp" style="width:364px" id="hp1"></div>
-            <div class="pokeimage" id='img1' style='background-image: url("https://play.pokemonshowdown.com/sprites/xydex/quagsire.png")'></div>
+            <div class="pokeimage" id='img1' style='background-image: url("question.svg")'></div><!--https://play.pokemonshowdown.com/sprites/xydex/quagsire.png-->
             <img src="shield.png" id="shield1" alt="shield">
             <span id="shieldcount1">2</span>
-            
+
 
 
             <img src="shield.png" id="shield2" alt="shield">
             <span id="shieldcount2">2</span>
             <div class="hp" style="width:364px" id="hp2"></div>
-            <div class="pokeimage" id='img2' style='background-image: url("https://play.pokemonshowdown.com/sprites/xydex/quagsire.png")'></div>
+            <div class="pokeimage" id='img2' style='background-image: url("question.svg")'></div>
             <div id="win"></div>
         </div>
         <div id="buttons"  class="bgcontainer">
+            <div id="quickmovecontainer"><b>quick move:</b> <span id="quickmovebtn">mud shot</span></div>
             <div id="chargemove1container">
                 <div id="chargemove1btn" class="movebtn noselect rock active"></div>
                 <div id="move1progress" style="height: 60px">                
@@ -63,13 +61,24 @@
                 <div id="chargemove2text" class="">earthquake</div>
             </div>
 
-            <div id="quickmovecontainer"><b>quick move:</b> <span id="quickmovebtn">mud shot</span></div>
+
         </div>
         <div id='switch' class="bgcontainer"><b>switch: </b>
             <button id='switch1' name="0"></button>
             <button id='switch2' name="1"></button>
             <button id='switch3' name="2"></button>
             <b>cooldown:</b> <span id='cd'>0</span>
+        </div>
+        <div id='lobby' class="bgcontainer">
+            <div id="playercountcontainer">
+                <b>players online:</b> <span id="playercount">1</span>
+            </div>
+            <div id="lobbynumbercontainer">
+                <b>lobby number:</b> <span id="lobbynumber">0</span>/1000
+            </div>
+            <div id="playercountinlobbycontainer">
+                <b>players in your lobby:</b> <span id="playercountinlobby">1</span>/2
+            </div>
         </div>
 
 
@@ -142,7 +151,16 @@
                 enemyteam = initteam(defaultteamdata);
             }, 1);
 
-
+            socket.on('lobbypos', function (data) {
+                $("#lobbynumber").text(data.lobbypos+1);
+            });
+            socket.on('lobbycount', function (data) {
+                if(data.count === 1 && started){
+                    display("the enemy disconnected, refresh the page");
+                    started = false;
+                }
+                $("#playercountinlobby").text(data.count);
+            });
 
             socket.on('dmg',
                     function (data) {
@@ -194,15 +212,18 @@
             });
             socket.on('enemychoseteam', function (data2) {
                 console.log("enemychoseteam" + data2.id);
-                $.get("https://fight.pokebattler.com/profiles/" + data2.id, {}, function (data) {
-                    try {
-                        console.log(data);
-                        enemyteam = initteam(data);
-                    } catch (e) {
+                if (data2.id === "") {
+                    enemyteam = defaultteamdataconverted;
+                } else
+                    $.get("https://fight.pokebattler.com/profiles/" + data2.id, {}, function (data) {
+                        try {
+                            console.log(data);
+                            enemyteam = initteam(data);
+                        } catch (e) {
 
-                        console.log(e);
-                    }
-                });
+                            console.log(e);
+                        }
+                    });
             });
 
 
@@ -312,7 +333,9 @@
 
             socket.on('start', function (data) {
                 setTimeout(function () {
-                    display("3")
+                    display("3");
+                    var id = $("#pokebattlerid").val();
+                    socket.emit('enemychoseteam', {id});
                 }, 0);
                 setTimeout(function () {
                     display("2")
@@ -357,7 +380,7 @@
                         console.log(data);
                         //teamdata = data;
                         team = initteam(data);
-                        socket.emit('enemychoseteam', {id});
+                        //socket.emit('enemychoseteam', {id});//removed for privacy
                         updateMoveButtons();
                         updateSwitchButtons();
                     } catch (e) {
@@ -393,8 +416,14 @@
                 $("#shieldcount2").text(shields);
                 $("#shieldcount1").text(oshields);
                 //https://play.pokemonshowdown.com/sprites/xydex/deoxys-defense.png
+                //question.svg
+                if (started) {
+                    $("#img" + 1).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + enemyteam[currentenemypoke].name.toLowerCase().replace("_", "-") + ".png)");
+                } else {
+                    $("#img" + 1).css("background-image", "url(question.png)");
+                }
                 $("#img" + 2).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + team[currentpoke].name.toLowerCase().replace("_", "-") + ".png)");
-                $("#img" + 1).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + enemyteam[currentenemypoke].name.toLowerCase().replace("_", "-") + ".png)");
+
                 disableSwitchButton(team[currentpoke].name);
                 updateHP();
                 updateEn();
@@ -409,6 +438,7 @@
 
             function display(text) {
                 //console.log("display: " + text);
+                if(!$("#win").html().includes("enemy disconnected"))
                 $("#win").html(text);
             }
 
@@ -442,8 +472,8 @@
                 if (enemyteam[0].hp < 1 && enemyteam[1].hp < 1 && enemyteam[2].hp < 1)
                     winner = 1;
 
-                $("#hp2").css({width: (team[currentpoke].hp * 2)});
-                $("#hp1").css({width: (enemyteam[currentenemypoke].hp * 2)});
+                $("#hp2").css({width: (team[currentpoke].hp * 1.8)});
+                $("#hp1").css({width: (enemyteam[currentenemypoke].hp * 1.8)});
             }
             function updateEn() {
                 //$("#enin").css({width: (team[currentpoke].energy)});

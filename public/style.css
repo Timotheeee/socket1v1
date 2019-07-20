@@ -35,6 +35,9 @@ body {
 .hp{
     height:40px;
     background-color: #66ff66;
+    
+    transition: width 0.5s;
+    transition-timing-function: cubic-bezier(0, 0, 0, 1.04);
 }
 #hp1{
     position: relative;
