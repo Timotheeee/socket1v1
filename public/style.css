@@ -14,7 +14,8 @@ body {
     border-radius: 8px;
     padding: 5px;
     margin: auto;
-    width: 550px;
+width: 100%;
+max-width: 550px;
     margin-top: 10px;
 }
 #img1{

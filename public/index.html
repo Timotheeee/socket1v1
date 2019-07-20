@@ -2,6 +2,9 @@
 <html style="height: 100%;">
     <head>
         <meta charset="UTF-8">
+        <!--<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />-->
+        <!--<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>-->
+        <meta             name="viewport"             content="target-densitydpi=device-dpi; width=device-width; minimum-scale=0.65 initial-scale=0.65; maximum-scale=0.65; user-scalable=0;"             />
         <title>PVP simulator</title>
         <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
         <script type="text/javascript" src="jquery.js"></script>
@@ -115,7 +118,7 @@
 
             var socket;
             if (window.location.href.includes("heroku")) {
-                socket = io.connect(window.location.href.replace("http","ws"));
+                socket = io.connect(window.location.href.replace("http", "ws"));
             } else {
                 socket = io.connect('http://178.82.224.106:3000/');
             }
@@ -124,7 +127,7 @@
 
             console.log(socket);
 
- 
+
 
 
             function initteam(teamdata) {
