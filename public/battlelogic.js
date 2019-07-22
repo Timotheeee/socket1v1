@@ -11,10 +11,35 @@ function convertToDamage(move, attacking) {
     var atk = user.atk;
     var def = receiver.def;
 
+    var atkboosts = boostMultiplier(user.atkboosts);
+    var defboosts = boostMultiplier(receiver.defboosts);
+    var totalboosts = atkboosts / defboosts;
 
-    var damage = Math.floor(power * stab * (atk / def) * effectiveness * 0.5 * bonusMultiplier) + 1;
 
+    var damage = Math.floor(totalboosts * power * stab * (atk / def) * effectiveness * 0.5 * bonusMultiplier) + 1;
+    if(damage > 5){
+        console.log(damage);
+        console.log(atkboosts);
+    }
     return damage;
+}
+function boostMultiplier(boosts) {
+
+    var temp = 1 + 0.25 * Math.abs(boosts);
+    return boosts >= 0 ? temp : 1 / temp;
+}
+function limit(stat) {
+    if (stat > 4)
+        stat = 4;
+    if (stat < -4)
+        stat = -4;
+    return stat;
+}
+function limitboosts() {
+    team[currentpoke].atkboosts = limit(team[currentpoke].atkboosts);
+    team[currentpoke].defboosts = limit(team[currentpoke].defboosts);
+    enemyteam[currentenemypoke].atkboosts = limit(enemyteam[currentenemypoke].atkboosts);
+    enemyteam[currentenemypoke].defboosts = limit(enemyteam[currentenemypoke].defboosts);
 }
 function getEffectiveness(moveType, targetTypes) {
     var effectiveness = 1;

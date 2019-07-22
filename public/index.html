@@ -154,6 +154,10 @@
                     team2[i].ctype1 = cmove1.type;
                     team2[i].ctype2 = cmove2.type;
                     team2[i].quickMoveDelay = (gm.getMoveById(team2[i].quickMove.replace("_FAST", "")).cooldown) / 500;
+                    team2[i].atkboosts = 0;
+                    team2[i].defboosts = 0;
+                    team2[i].cmove1 = cmove1;
+                    team2[i].cmove2 = cmove2;
                 }
                 return team2;
             }
@@ -184,13 +188,28 @@
                             display("charge move incoming!" + (shields > 0 ? btn : ""));
                         }
                         setTimeout(function () {
-                            var temp = team[currentpoke].hp;
                             team[currentpoke].hp -= shielding ? 1 : convertToDamage(data.move, false);
-                            if (team[currentpoke].hp < 1 && doingcharge) {
-                                team[currentpoke].hp = temp;
-                                return;
+                            if (team[currentpoke].hp < 1 && doingcharge) {//prevent bug
+                                team[currentpoke].hp = 1;
+                                //return;
                             }
                             updateHP();
+                            var movedata = gm.getMoveById(data.move);
+
+                            //acid spray
+                            //console.log(movedata);
+                            if (movedata.buffApplyChance && movedata.buffApplyChance === 1) {
+                                console.log(movedata);
+                                if (movedata.buffTarget === "opponent") {
+                                    team[currentpoke].atkboosts += movedata.buffs[0];
+                                    team[currentpoke].defboosts += movedata.buffs[1];
+                                } else {
+                                    enemyteam[currentenemypoke].atkboosts += movedata.buffs[0];
+                                    enemyteam[currentenemypoke].defboosts += movedata.buffs[1];
+                                }
+                                limitboosts();
+                            }
+
                             if (chargeincoming)
                                 display("the charge move was " + data.move.toLowerCase().replace("_", " "));
                             setTimeout(function () {
@@ -213,8 +232,8 @@
                 oshields--;
             });
             socket.on('switch', function (data) {
-                console.log("switch");
-                console.log(data);
+                //console.log("switch");
+                //console.log(data);
                 currentenemypoke = data.id;
                 if ($("#win").html().includes("the opponent is choosing their next pokemon!"))
                     display("");
@@ -223,13 +242,13 @@
                 $("#playercount").text(data.count);
             });
             socket.on('enemychoseteam', function (data2) {
-                console.log("enemychoseteam" + data2.id);
+                //console.log("enemychoseteam" + data2.id);
                 if (data2.id === "") {
-                    enemyteam = defaultteamdataconverted;
+                    enemyteam = initteam(defaultteamdata);
                 } else
                     $.get("https://fight.pokebattler.com/profiles/" + data2.id, {}, function (data) {
                         try {
-                            console.log(data);
+                            //console.log(data);
                             enemyteam = initteam(data);
                         } catch (e) {
 
@@ -276,13 +295,14 @@
                 var quickmovedelta = convertToEnergy(currentQuickMove());
                 var movedelta = -1 * convertToEnergy(move);
                 var nextenergy = team[currentpoke].energy + quickmovedelta;
+//                var nextenergy2 = team[currentpoke].energy + quickmovedelta*2;
                 var undertap = nextenergy >= movedelta;
                 var nextcharge = move;
 
                 doingcharge = true;
                 if (move === currentQuickMove()) {
                     doingcharge = false;
-                    console.log("case1");
+                    //console.log("case1");
                     turnswaited++;
                     if (currentQuickMoveDelay() > turnswaited)
                         return;
@@ -291,7 +311,7 @@
 
                 } else if (nextenergy < movedelta) {
                     doingcharge = false;
-                    console.log("case2");
+                    //console.log("case2");
                     move = currentQuickMove();
                     turnswaited++;
                     if (currentQuickMoveDelay() > turnswaited)
@@ -300,12 +320,12 @@
 
 
                 } else if (team[currentpoke].energy >= movedelta) {
-                    console.log("case3 " + movedelta + " " + team[currentpoke].energy);
+                    //console.log("case3 " + movedelta + " " + team[currentpoke].energy);
                     //no problem
 
                 } else if (undertap) {
                     doingcharge = false;
-                    console.log("case4 undertap");
+                    //console.log("case4 undertap");
                     move = currentQuickMove();
                     turnswaited++;
                     if (currentQuickMoveDelay() > turnswaited)
@@ -316,8 +336,8 @@
                 }
 
                 movedelta *= -1;
-                console.log(team[currentpoke].energy);
-                console.log(move);
+                //console.log(team[currentpoke].energy);
+                //console.log(move);
 
 
 
@@ -326,17 +346,36 @@
                     display("waiting for opponent to shield")
 
                 setTimeout(function () {
+                    console.log(team[currentpoke].atkboosts);
                     enemyteam[currentenemypoke].hp -= (opponentshielding ? 1 : convertToDamage(move, true));
                     if ($("#win").html().includes("opponent shielded") || $("#win").html().includes("waiting for opponent to shield"))
                         display("");
                     team[currentpoke].energy += convertToEnergy(move);
                     team[currentpoke].energy = team[currentpoke].energy > 100 ? 100 : team[currentpoke].energy;
+
+                    var movedata = gm.getMoveById(move);
+
+                    if (movedata.buffApplyChance && movedata.buffApplyChance === 1) {
+                        console.log(movedata);
+                        if (movedata.buffTarget === "self") {
+                            team[currentpoke].atkboosts += movedata.buffs[0];
+                            team[currentpoke].defboosts += movedata.buffs[1];
+                        } else {
+                            enemyteam[currentenemypoke].atkboosts += movedata.buffs[0];
+                            enemyteam[currentenemypoke].defboosts += movedata.buffs[1];
+                        }
+                        limitboosts();
+                    }
+
                     updateHP();
                     updateEn();
                     //console.log(move);
-                    doingcharge = false;
+
                     opponentshielding = false;
+                    console.log(undertap);
                     move = undertap ? nextcharge : currentQuickMove();
+                    if(doingcharge)move=currentQuickMove();
+                    doingcharge = false;
                 }, doingcharge ? 3000 : 0);
 
 
@@ -389,7 +428,7 @@
                 var id = $("#pokebattlerid").val();
                 $.get("https://fight.pokebattler.com/profiles/" + id, {}, function (data) {
                     try {
-                        console.log(data);
+                        //console.log(data);
                         //teamdata = data;
                         team = initteam(data);
                         //socket.emit('enemychoseteam', {id});//removed for privacy
@@ -423,14 +462,15 @@
                 if (!doingcharge)
                     move = "switch_" + $(this).attr("name");
             });
-            $("#changelobbybtn").click(function (){
-                if(started)return;
+            $("#changelobbybtn").click(function () {
+                if (started)
+                    return;
                 var n = Number.parseInt($("#lobbyinput").val());
-                if(!isNaN(n) && n > 0 && n < 1001){
-                    socket.emit('lobbyrequest', {num:(n-1)});
+                if (!isNaN(n) && n > 0 && n < 1001) {
+                    socket.emit('lobbyrequest', {num: (n - 1)});
                 }
             });
-            
+
             setInterval(function () {
                 $("#cd").text(switchcd);
                 $("#shieldcount2").text(shields);
@@ -516,13 +556,13 @@
                 var q = currentQuickMove();
                 var c1 = team[currentpoke].cinematicMove;
                 var c2 = team[currentpoke].cinematicMove2;
-                $("#quickmovebtn").text(q.toLowerCase().replace("_", " "));
+                $("#quickmovebtn").text(q.toLowerCase().replace("_", " ").replace("_", " "));
                 $("#chargemove1btn").data("name", c1);
-                $("#chargemove1text").text(c1.toLowerCase().replace("_", " "));
+                $("#chargemove1text").text(c1.toLowerCase().replace("_", " ").replace("_", " "));
                 $("#chargemove2btn").data("name", c2);
-                $("#chargemove2text").text(c2.toLowerCase().replace("_", " "));
+                $("#chargemove2text").text(c2.toLowerCase().replace("_", " ").replace("_", " "));
 
-                console.log(team[currentpoke].ctype1);
+                //console.log(team[currentpoke].ctype1);
                 for (var i = 1; i < 3; i++) {
                     $("#chargemove" + i + "btn").attr("class", "movebtn noselect " + team[currentpoke]["ctype" + i + ""]);
                     $("#move" + i + "background").attr("class", team[currentpoke]["ctype" + i + ""]);
