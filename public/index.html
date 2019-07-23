@@ -151,11 +151,13 @@
                 team2.push(JSON.parse(JSON.stringify(teamdata))[2]);
                 console.log(team2[0]);
                 for (var i = 0; i < 3; i++) {
+                    if(!team2[i].cinematicMove2)team2[i].cinematicMove2 = team2[i].cinematicMove;
                     team2[i].name = team2[i].pokemon.replace("_FORM", "");
                     var p = gm.getPokemonById(team2[i].name.toLowerCase());
                     var cpm = cpms[(team2[i].level - 1) * 2];
                     var cmove1 = gm.getMoveById(team2[i].cinematicMove);
                     var cmove2 = gm.getMoveById(team2[i].cinematicMove2);
+                    //if(cmove2===undefined)cmove2=JSON.parse(JSON.stringify(cmove1));//for things with 1 charge move
 
                     team2[i].hp = Math.floor((p.baseStats.hp + team2[i].individualStamina) * cpm);
                     team2[i].atk = (p.baseStats.atk + team2[i].individualAttack) * cpm;
@@ -449,7 +451,8 @@
                 if (len === 3) {
                     var party = [];
                     var id = $(".lead").data("id");
-                    party.push(pokebox[id]);
+                    if ($(".lead").length === 1)
+                        party.push(pokebox[id]);
                     var leadid = id;
                     for (var i = 0; i < 3; i++) {
                         id = $(".selectedpoke").eq(i).data("id");
