@@ -46,6 +46,7 @@
             <div class="hp" style="width:364px" id="hp2"></div>
             <div class="pokeimage" id='img2' style='background-image: url("question.PNG")'></div>
             <div id="win"></div>
+            <div id="win2"></div>
         </div>
         <div id="buttons"  class="bgcontainer">
             <div id="quickmovecontainer"><b>quick move:</b> <span id="quickmovebtn">mud shot</span></div>
@@ -196,14 +197,14 @@
                         if (convertToEnergy(data.move) < 0) {
                             chargeincoming = true;
                             var btn = "<button class='shieldbtn '>shield</button>";
-                            display("charge move incoming!" + (shields > 0 ? btn : ""));
+                            display2("charge move incoming!" + (shields > 0 ? btn : ""));
                         }
                         setTimeout(function () {
                             team[currentpoke].hp -= shielding ? 1 : convertToDamage(data.move, false);
-                            if (team[currentpoke].hp < 1 && doingcharge) {//prevent bug
-                                team[currentpoke].hp = 1;
-                                //return;
-                            }
+//                            if (team[currentpoke].hp < 1 && doingcharge) {//prevent bug
+//                                team[currentpoke].hp = 1;
+//                                //return;
+//                            }
                             updateHP();
                             var movedata = gm.getMoveById(data.move);
 
@@ -221,8 +222,15 @@
                                 limitboosts();
                             }
 
-                            if (chargeincoming)
-                                display("the charge move was " + data.move.toLowerCase().replace("_", " "));
+                            if (chargeincoming) {
+                                //display("the charge move was " + data.move.toLowerCase().replace("_", " "));
+                                display2("the charge move was " + data.move.toLowerCase().replace("_", " "));
+                                setTimeout(function () {
+                                    if ($("#win2").html().includes("the charge move was "))
+                                        display2("");
+                                }, 1500);
+                            }
+
                             setTimeout(function () {
                                 if ($("#win").html().includes("the charge move was "))
                                     display("")
@@ -538,9 +546,11 @@
             }, 50);
 
             function display(text) {
-                //console.log("display: " + text);
                 if (!$("#win").html().includes("enemy disconnected"))
                     $("#win").html(text);
+            }
+            function display2(text) {
+                $("#win2").html(text);
             }
 
             function disableSwitchButton(poke) {
@@ -627,7 +637,7 @@
                 for (var i = 0; i < data.pokemon.length; i++) {
                     try {
                         var name = showdownURL(data.pokemon[i].pokemon);
-                        console.log(name);
+                        //console.log(name);
                         //.css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" +  + ".png)");
                         var selected = i < 3 ? "class='selectedpoke'" : "";
                         selected = i < 1 ? "class='selectedpoke lead'" : selected;

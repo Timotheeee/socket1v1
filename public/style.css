@@ -93,6 +93,11 @@ body {
     top: -192px;
     left: 180px;
 }
+#win2{
+    position: relative;
+    top: -172px;
+    left: 180px;
+}
 #switch button{
     background-size: contain;
     color: #000000;
