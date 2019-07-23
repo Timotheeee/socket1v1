@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html style="height: 100%;">
+<html style="min-height: 100%;">
     <head>
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
         <meta charset="UTF-8">
         <!--<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />-->
         <!--<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>-->
@@ -14,6 +15,7 @@
         <script type="text/javascript" src="battlelogic.js"></script>
 
         <link href="style.css" rel="stylesheet">
+
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
@@ -86,6 +88,12 @@
                 <input type="text" id="lobbyinput"><button id="changelobbybtn">change lobby</button>
             </div>
         </div>
+        <div id='teamselection' class="bgcontainer">
+            <b>team: </b>
+            <div id="team">
+
+            </div>
+        </div>
 
 
 
@@ -119,6 +127,8 @@
 
             var winner = -1;
 
+            var pokebox = defaultbox.pokemon;//stuff from pokebattler
+
             var socket;
             if (window.location.href.includes("heroku")) {
                 socket = io.connect(window.location.href.replace("http", "ws"));
@@ -135,9 +145,10 @@
 
             function initteam(teamdata) {
                 var team2 = [];
-                team2.push(JSON.parse(JSON.stringify(teamdata)).battleParties[0].attacker1);
-                team2.push(JSON.parse(JSON.stringify(teamdata)).battleParties[0].attacker2);
-                team2.push(JSON.parse(JSON.stringify(teamdata)).battleParties[0].attacker3);
+                team2.push(JSON.parse(JSON.stringify(teamdata))[0]);
+                team2.push(JSON.parse(JSON.stringify(teamdata))[1]);
+                team2.push(JSON.parse(JSON.stringify(teamdata))[2]);
+                console.log(team2[0]);
                 for (var i = 0; i < 3; i++) {
                     team2[i].name = team2[i].pokemon.replace("_FORM", "");
                     var p = gm.getPokemonById(team2[i].name.toLowerCase());
@@ -163,8 +174,8 @@
             }
 
             setTimeout(function () {
-                team = initteam(defaultteamdata);
-                enemyteam = initteam(defaultteamdata);
+                team = initteam(defaultbox.pokemon);
+                enemyteam = initteam(defaultbox.pokemon);
             }, 1);
 
             socket.on('lobbypos', function (data) {
@@ -242,19 +253,8 @@
                 $("#playercount").text(data.count);
             });
             socket.on('enemychoseteam', function (data2) {
-                //console.log("enemychoseteam" + data2.id);
-                if (data2.id === "") {
-                    enemyteam = initteam(defaultteamdata);
-                } else
-                    $.get("https://fight.pokebattler.com/profiles/" + data2.id, {}, function (data) {
-                        try {
-                            //console.log(data);
-                            enemyteam = initteam(data);
-                        } catch (e) {
-
-                            console.log(e);
-                        }
-                    });
+                console.log(data2);
+                enemyteam = data2;
             });
 
 
@@ -374,7 +374,8 @@
                     opponentshielding = false;
                     console.log(undertap);
                     move = undertap ? nextcharge : currentQuickMove();
-                    if(doingcharge)move=currentQuickMove();
+                    if (doingcharge)
+                        move = currentQuickMove();
                     doingcharge = false;
                 }, doingcharge ? 3000 : 0);
 
@@ -386,7 +387,7 @@
                 setTimeout(function () {
                     display("3");
                     var id = $("#pokebattlerid").val();
-                    socket.emit('enemychoseteam', {id});
+                    socket.emit('enemychoseteam', team);
                 }, 0);
                 setTimeout(function () {
                     display("2")
@@ -422,15 +423,55 @@
                 }
 
             });
+
+            $("#team").on("click", "div", function () {
+                //console.log($(this));
+                var len = $(".selectedpoke").length;
+                $(this).removeClass("lead");
+                if ($(".lead").length === 0 && !$(this).hasClass("selectedpoke"))
+                    $(this).addClass("lead");
+                $(this).toggleClass("selectedpoke");
+                len = $(".selectedpoke").length;
+                //console.log(len);
+                if (len === 3) {
+                    var party = [];
+                    var id = $(".lead").data("id");
+                    party.push(pokebox[id]);
+                    var leadid = id;
+                    for (var i = 0; i < 3; i++) {
+                        id = $(".selectedpoke").eq(i).data("id");
+                        if (id === leadid)
+                            continue;
+                        console.log(id);
+                        party.push(pokebox[id]);
+                    }
+                    console.log(party);
+                    team = initteam(party);
+                    updateSwitchButtons();
+                    updateMoveButtons();
+                }
+            });
+
+            if (localStorage.id && localStorage.id !== "") {
+                $("#pokebattlerid").val(localStorage.id);
+                setTimeout(function () {
+                    $("#loadteam").click();
+                }, 0);
+            }
             $("#loadteam").click(function () {
                 if (started)
                     return;
-                var id = $("#pokebattlerid").val();
+                var id = Number.parseInt($("#pokebattlerid").val());
+                if (isNaN(id))
+                    return;
+                localStorage.id = id;
                 $.get("https://fight.pokebattler.com/profiles/" + id, {}, function (data) {
                     try {
                         //console.log(data);
                         //teamdata = data;
-                        team = initteam(data);
+                        pokebox = data.pokemon;
+                        team = initteam(pokebox);
+                        updateTeamSelector(data);
                         //socket.emit('enemychoseteam', {id});//removed for privacy
                         updateMoveButtons();
                         updateSwitchButtons();
@@ -478,11 +519,11 @@
                 //https://play.pokemonshowdown.com/sprites/xydex/deoxys-defense.png
                 //question.PNG
                 if (started) {
-                    $("#img" + 1).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + enemyteam[currentenemypoke].name.toLowerCase().replace("_", "-") + ".png)");
+                    $("#img" + 1).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + showdownURL(enemyteam[currentenemypoke].name) + ".png)");
                 } else {
                     $("#img" + 1).css("background-image", "url(question.PNG)");
                 }
-                $("#img" + 2).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + team[currentpoke].name.toLowerCase().replace("_", "-") + ".png)");
+                $("#img" + 2).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + showdownURL(team[currentpoke].name) + ".png)");
 
                 disableSwitchButton(team[currentpoke].name);
                 updateHP();
@@ -513,7 +554,7 @@
             }
             function updateSwitchButtons() {
                 for (var i = 0; i < 3; i++) {
-                    $("#switch" + (i + 1)).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + team[i].name.toLowerCase().replace("_", "-") + ".png)");
+                    $("#switch" + (i + 1)).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + showdownURL(team[i].name) + ".png)");
                 }
             }
             setInterval(function () {
@@ -579,7 +620,27 @@
                 return team[currentpoke].quickMoveDelay;
             }
 
+            updateTeamSelector(defaultbox);
+            function updateTeamSelector(data) {
+                console.log(data.pokemon);
+                $("#team").html("");
+                for (var i = 0; i < data.pokemon.length; i++) {
+                    try {
+                        var name = showdownURL(data.pokemon[i].pokemon);
+                        console.log(name);
+                        //.css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" +  + ".png)");
+                        var selected = i < 3 ? "class='selectedpoke'" : "";
+                        selected = i < 1 ? "class='selectedpoke lead'" : selected;
+                        $("#team").append("<div " + selected + " data-name='" + name + "' data-id='" + i + "' style='background-image: url(https://play.pokemonshowdown.com/sprites/xydex/" + name + ".png)'></div>")//
 
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }
+            }
+            function showdownURL(url) {
+                return url.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-");
+            }
 
 
 

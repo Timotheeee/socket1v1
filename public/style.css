@@ -1,21 +1,30 @@
 body {
     padding: 5px;
-    width: 97%;
-    height: 894px;
+/*    width: 97%;
+    height: 894px;*/
 }
 *{
     font-family: 'Roboto', sans-serif;
     text-transform: capitalize;
 }
-
+#team div{
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+    border: 2px solid transparent;
+    margin: 1px
+}
+.selectedpoke{
+    border: 2px solid blue !important;
+}
 .bgcontainer{
     background: rgba(255,255,255,0.75);
     box-sizing: border-box;
     border-radius: 8px;
     padding: 5px;
     margin: auto;
-width: 100%;
-max-width: 550px;
+    width: 100%;
+    max-width: 550px;
     margin-top: 10px;
 }
 #img1{
@@ -36,7 +45,7 @@ max-width: 550px;
 .hp{
     height:40px;
     background-color: #66ff66;
-    
+
     transition: width 0.5s;
     transition-timing-function: cubic-bezier(0, 0, 0, 1.04);
 }
@@ -148,9 +157,7 @@ max-width: 550px;
         -ms-transform: scale(1.25, 1.25);
         transform: scale(1.25, 1.25);*/
 }
-.selectedpoke{
-    border: 2px solid lightblue;
-}
+
 
 #quickmovecontainer{
     position: relative;
