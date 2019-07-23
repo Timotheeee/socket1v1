@@ -192,11 +192,16 @@
 
             socket.on('dmg',
                     function (data) {
+                        if (!started)
+                            return;
                         //console.log("Got: " + data.move);
                         chargeincoming = false;
                         if (convertToEnergy(data.move) < 0) {
                             chargeincoming = true;
-                            var btn = "<button class='shieldbtn '>shield</button>";
+                            var btn = "<button class='shieldbtn'>shield</button>";
+                            setTimeout(function () {
+                                $(".shieldbtn").fadeOut(0);
+                            }, 3000);
                             display2("charge move incoming!" + (shields > 0 ? btn : ""));
                         }
                         setTimeout(function () {
@@ -237,7 +242,7 @@
                             }, 1500);
                             shielding = false;
                             chargeincoming = false;
-                        }, chargeincoming ? 3000 : 0);
+                        }, chargeincoming ? 3500 : 0);
 
 
                     }
@@ -385,7 +390,7 @@
                     if (doingcharge)
                         move = currentQuickMove();
                     doingcharge = false;
-                }, doingcharge ? 3000 : 0);
+                }, doingcharge ? 3500 : 0);
 
 
             }, 500);
