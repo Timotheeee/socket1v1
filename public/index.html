@@ -451,12 +451,9 @@
 
             //------------------------------------------------------------------------------------------------------------
             //INTERFACE STUFF
-            var ready = false;
+
             $('#ready').click(function () {
-                if (!ready) {
-                    ready = true;
-                    socket.emit('ready', {id: socket.id});
-                }
+                socket.emit('ready', {id: socket.id});
 
             });
 
