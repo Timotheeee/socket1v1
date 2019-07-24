@@ -332,7 +332,7 @@
                 var movedelta = -1 * convertToEnergy(move);
                 var nextenergy = team[currentpoke].energy + quickmovedelta;
 //                var nextenergy2 = team[currentpoke].energy + quickmovedelta*2;
-                var undertap = nextenergy >= movedelta;
+                var undertap = nextenergy >= movedelta && move !== currentQuickMove();
                 var nextcharge = move;
 
                 doingcharge = true;
@@ -361,7 +361,7 @@
 
                 } else if (undertap) {
                     doingcharge = false;
-                    //console.log("case4 undertap");
+                    console.log("case4 undertap");
                     move = currentQuickMove();
                     turnswaited++;
                     if (currentQuickMoveDelay() > turnswaited)
@@ -382,7 +382,7 @@
                     display("waiting for opponent to shield")
 
                 setTimeout(function () {
-                    console.log(team[currentpoke].atkboosts);
+                    //console.log(team[currentpoke].atkboosts);
                     enemyteam[currentenemypoke].hp -= (opponentshielding ? 1 : convertToDamage(move, true));
                     if ($("#win").html().includes("opponent shielded") || $("#win").html().includes("waiting for opponent to shield"))
                         display("");

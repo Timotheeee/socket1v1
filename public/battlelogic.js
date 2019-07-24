@@ -18,8 +18,8 @@ function convertToDamage(move, attacking) {
 
     var damage = Math.floor(totalboosts * power * stab * (atk / def) * effectiveness * 0.5 * bonusMultiplier) + 1;
     if(damage > 5){
-        console.log(damage);
-        console.log(atkboosts);
+        //console.log(damage);
+        //console.log(atkboosts);
     }
     return damage;
 }
