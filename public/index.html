@@ -166,7 +166,7 @@
                 for (var i = 0; i < 3; i++) {
                     if (!team2[i].cinematicMove2)
                         team2[i].cinematicMove2 = team2[i].cinematicMove;
-                    team2[i].name = team2[i].pokemon.replace("_FORM", "");
+                    team2[i].name = team2[i].pokemon.replace("_FORM", "").replace("ALOLA","ALOLAN");
                     var p = gm.getPokemonById(team2[i].name.toLowerCase());
                     var cpm = cpms[(team2[i].level - 1) * 2];
                     var cmove1 = gm.getMoveById(team2[i].cinematicMove);
@@ -674,7 +674,7 @@
                 }
             }
             function showdownURL(url) {
-                var t = url.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-");
+                var t = url.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-").replace("alolan","alola");
                 return "./sprites/" + t + "/" + t + ".png";
             }
 
