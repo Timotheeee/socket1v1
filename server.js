@@ -82,19 +82,24 @@ function sendToOther(player, msg, data) {
 function other(pos) {
     return pos === 2 ? 1 : 2
 }
-function sendLobbyCount(){
-    var res = {lobbies1:"",lobbies2:""};
+function sendLobbyCount() {
+    var res = {lobbies1: "", lobbies2: ""};
     for (var i = 0; i < 9999; i++) {
-        if (lobbies[i].player1 && lobbies[i].player2){
-             res.lobbies2+=(", " + (i+1));
-             continue;
+        if (lobbies[i].player1 && lobbies[i].player2) {
+            res.lobbies2 += (", " + (i + 1));
+            continue;
         }
-        if (lobbies[i].player1 || lobbies[i].player2) res.lobbies1+=(", " + (i+1));
-            
-        
+        if (lobbies[i].player1 || lobbies[i].player2)
+            res.lobbies1 += (", " + (i + 1));
+
+        if (lobbies[i].player1 && lobbies[i].player1.ready && lobbies[i].player2 && lobbies[i].player2.ready ) {
+            lobbies[i]["player1"].emit('start', {});
+            lobbies[i]["player2"].emit('start', {});
+        }
+
     }
-    res.lobbies1 = res.lobbies1.replace(", ","");
-    res.lobbies2 = res.lobbies2.replace(", ","");
+    res.lobbies1 = res.lobbies1.replace(", ", "");
+    res.lobbies2 = res.lobbies2.replace(", ", "");
     io.sockets.emit('lobbycount', res);
 }
 

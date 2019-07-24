@@ -418,8 +418,11 @@
 
             }, 500);
 
-
+            var startrecv = false;
             socket.on('start', function (data) {
+                console.log("received start");
+                if(startrecv)return;
+                startrecv = true;
                 setTimeout(function () {
                     display("3");
                     var id = $("#pokebattlerid").val();
@@ -550,6 +553,7 @@
                 if (!isNaN(n) && n > 0 && n < 1001) {
                     socket.emit('lobbyrequest', {num: (n - 1)});
                 }
+                $("#ready").click();
             });
 
             setInterval(function () {
