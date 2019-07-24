@@ -20,11 +20,11 @@ var players = 0;
 //var ready = [];
 
 var lobbies = [];
-for (var i = 0; i < 1000; i++) {
+for (var i = 0; i < 9999; i++) {
     lobbies.push({player1: undefined, player2: undefined});
 }
 function addPlayerToLobby(player, id) {
-    for (var i = 0; i < 1000; i++) {
+    for (var i = 0; i < 9999; i++) {
         if (id !== -1)
             i = id;
         

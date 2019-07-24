@@ -36,7 +36,7 @@
         <div class="bgcontainer" style="height:510px">
             <h1 style="margin-top: 3px">PVP simulator </h1>
             <div class="hp" style="width:364px" id="hp1"></div>
-            <div class="pokeimage" id='img1' style='background-image: url("question.PNG")'></div><!--https://play.pokemonshowdown.com/sprites/xydex/quagsire.png-->
+            <div class="pokeimage" id='img1' style='background-image: url("question.PNG")'></div>
             <img src="shield.png" id="shield1" alt="shield">
             <span id="shieldcount1">2</span>
 
@@ -101,7 +101,8 @@
             This site is not officially affiliated with Pokémon Go and is intended to fall under Fair Use doctrine, similar to any other informational site such as a wiki.<br>
 
             All Pokémon Go trademarks, copyrights etc are held by Niantic, Inc.; Pokémon; and Nintendo / Creatures Inc. / GAME FREAK inc. Pokémon and Pokémon character names are trademarks of Nintendo.<br><br>
-            This site uses the Pokebattler API but is not affiliated with Pokebattler
+            This site uses the Pokebattler API but is not affiliated with Pokebattler<br>
+            This site is not affiliated with PVPoke
             <br><br><br>
             Credits:<br>
             pvpoke.com for some of the battle logic<br>
@@ -491,6 +492,13 @@
                 if (started)
                     return;
                 var id = Number.parseInt($("#pokebattlerid").val());
+                if ($("#pokebattlerid").val() === "") {
+                    pokebox = defaultbox.pokemon;
+                    team = initteam(pokebox);
+                    updateTeamSelector(defaultbox);
+                    updateMoveButtons();
+                    updateSwitchButtons();
+                }
                 if (isNaN(id))
                     return;
                 localStorage.id = id;
@@ -501,7 +509,6 @@
                         pokebox = data.pokemon;
                         team = initteam(pokebox);
                         updateTeamSelector(data);
-                        //socket.emit('enemychoseteam', {id});//removed for privacy
                         updateMoveButtons();
                         updateSwitchButtons();
                     } catch (e) {
@@ -545,14 +552,13 @@
                 $("#cd").text(switchcd);
                 $("#shieldcount2").text(shields);
                 $("#shieldcount1").text(oshields);
-                //https://play.pokemonshowdown.com/sprites/xydex/deoxys-defense.png
                 //question.PNG
                 if (started) {
-                    $("#img" + 1).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + showdownURL(enemyteam[currentenemypoke].name) + ".png)");
+                    $("#img" + 1).css("background-image", "url(" + showdownURL(enemyteam[currentenemypoke].name) + ")");
                 } else {
                     $("#img" + 1).css("background-image", "url(question.PNG)");
                 }
-                $("#img" + 2).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + showdownURL(team[currentpoke].name) + ".png)");
+                $("#img" + 2).css("background-image", "url(" + showdownURL(team[currentpoke].name) + ")");
 
                 disableSwitchButton(team[currentpoke].name);
                 updateHP();
@@ -585,7 +591,7 @@
             }
             function updateSwitchButtons() {
                 for (var i = 0; i < 3; i++) {
-                    $("#switch" + (i + 1)).css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" + showdownURL(team[i].name) + ".png)");
+                    $("#switch" + (i + 1)).css("background-image", "url(" + showdownURL(team[i].name) + ")");
                 }
             }
             setInterval(function () {
@@ -657,12 +663,10 @@
                 $("#team").html("");
                 for (var i = 0; i < data.pokemon.length; i++) {
                     try {
-                        var name = showdownURL(data.pokemon[i].pokemon);
-                        //console.log(name);
-                        //.css("background-image", "url(https://play.pokemonshowdown.com/sprites/xydex/" +  + ".png)");
+                        var name = data.pokemon[i].pokemon.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-");
                         var selected = i < 3 ? "class='selectedpoke'" : "";
                         selected = i < 1 ? "class='selectedpoke lead'" : selected;
-                        $("#team").append("<div " + selected + " data-name='" + name + "' data-id='" + i + "' style='background-image: url(https://play.pokemonshowdown.com/sprites/xydex/" + name + ".png)'></div>")//
+                        $("#team").append("<div " + selected + " data-name='" + name + "' data-id='" + i + "' style='background-image: url(" + showdownURL(data.pokemon[i].pokemon) + ")'></div>")//
 
                     } catch (e) {
                         console.log(e);
@@ -670,7 +674,8 @@
                 }
             }
             function showdownURL(url) {
-                return url.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-");
+                var t = url.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-");
+                return "./sprites/" + t + "/" + t + ".png";
             }
 
 
