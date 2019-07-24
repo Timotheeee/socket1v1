@@ -296,6 +296,7 @@
 
             //switch or use a move
             var turnswaited = 0;
+            var lock = false;
             setInterval(function () {
                 if (move === "" || doingcharge || chargeincoming || winner >= 0)
                     return;
@@ -378,10 +379,14 @@
 
 
                 socket.emit('dmg', {move});
-                if (doingcharge)
-                    display("waiting for opponent to shield")
-
+                if (doingcharge){
+                    display("waiting for opponent to shield");
+                }
+                    
+                
+                if(!doingcharge)lock = true;
                 setTimeout(function () {
+                    lock = false;
                     //console.log(team[currentpoke].atkboosts);
                     enemyteam[currentenemypoke].hp -= (opponentshielding ? 1 : convertToDamage(move, true));
                     if ($("#win").html().includes("opponent shielded") || $("#win").html().includes("waiting for opponent to shield"))
@@ -527,12 +532,12 @@
 
 
             $('body').on("click", "#chargemove1container", function (e) {
-                if (!started)
+                if (!started || lock)
                     return;
                 move = team[currentpoke].cinematicMove;
             });
             $('body').on("click", "#chargemove2container", function (e) {
-                if (!started)
+                if (!started || lock)
                     return;
                 move = team[currentpoke].cinematicMove2;
             });
