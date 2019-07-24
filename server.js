@@ -27,8 +27,8 @@ function addPlayerToLobby(player, id) {
     for (var i = 0; i < 9999; i++) {
         if (id !== -1)
             i = id;
-        
-        console.log(i);        
+
+        console.log(i);
         console.log(!lobbies[i].player1);
         console.log(!lobbies[i].player2);
 
@@ -39,6 +39,8 @@ function addPlayerToLobby(player, id) {
             if (lobbies[i].player2) {
                 lobbies[i].player1.emit("lobbycount", {count: 2});
                 lobbies[i].player2.emit("lobbycount", {count: 2});
+            } else {
+                lobbies[i].player1.emit("lobbycount", {count: 1});
             }
 
             return i;
@@ -50,10 +52,13 @@ function addPlayerToLobby(player, id) {
             if (lobbies[i].player1) {
                 lobbies[i].player1.emit("lobbycount", {count: 2});
                 lobbies[i].player2.emit("lobbycount", {count: 2});
+            } else {
+                lobbies[i].player2.emit("lobbycount", {count: 1});
             }
             return i;
         }
-        if (id !== -1)break;
+        if (id !== -1)
+            break;
     }
     return -1;
 }
@@ -116,7 +121,7 @@ io.sockets.on('connection',
                                     newpos = addPlayerToLobby(socket, -1);
                                     console.log("try 2: " + newpos);
                                 }
-                                socket.emit("lobbypos", {lobbypos:newpos});
+                                socket.emit("lobbypos", {lobbypos: newpos});
                             }
                     );
 
