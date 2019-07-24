@@ -76,7 +76,7 @@
             <button id='switch3' name="2"></button>
             <b>cooldown:</b> <span id='cd'>0</span>
         </div>
-        <div id='lobby' class="bgcontainer">
+        <div id='lobby' class="bgcontainer" style='text-transform: none'>
             <div id="playercountcontainer">
                 <b>players online:</b> <span id="playercount">1</span>
             </div>
@@ -86,10 +86,13 @@
             <div id="playercountinlobbycontainer">
                 <b>players in your lobby:</b> <span id="playercountinlobby">1</span>/2
             </div>
+            <div>
+                <b>lobbies with 1 player:</b> <span id='lobbies1'>none</span><br>
+                <b>full lobbies:</b> <span id='lobbies2'>none</span>
+            </div>
             <div id="changelobbycontainer">
                 <input type="text" id="lobbyinput"><button id="changelobbybtn">change lobby</button>
             </div>
-            <div style='text-transform: none'>If you can't join a specific lobby, it might be full</div>
         </div>
         <div id='teamselection' class="bgcontainer">
             <b>team: </b>
@@ -166,7 +169,7 @@
                 for (var i = 0; i < 3; i++) {
                     if (!team2[i].cinematicMove2)
                         team2[i].cinematicMove2 = team2[i].cinematicMove;
-                    team2[i].name = team2[i].pokemon.replace("_FORM", "").replace("ALOLA","ALOLAN");
+                    team2[i].name = team2[i].pokemon.replace("_FORM", "").replace("ALOLA", "ALOLAN");
                     var p = gm.getPokemonById(team2[i].name.toLowerCase());
                     var cpm = cpms[(team2[i].level - 1) * 2];
                     var cmove1 = gm.getMoveById(team2[i].cinematicMove);
@@ -197,6 +200,10 @@
 
             socket.on('lobbypos', function (data) {
                 $("#lobbynumber").text(data.lobbypos + 1);
+            });
+            socket.on('lobbycount', function (data) {
+                $("#lobbies1").text(data.lobbies1 === "" ? "none" : data.lobbies1);
+                $("#lobbies2").text(data.lobbies2 === "" ? "none" : data.lobbies2);
             });
             socket.on('lobbycount', function (data) {
                 if (data.count === 1 && started) {
@@ -674,7 +681,7 @@
                 }
             }
             function showdownURL(url) {
-                var t = url.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-").replace("alolan","alola");
+                var t = url.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-").replace("alolan", "alola");
                 return "./sprites/" + t + "/" + t + ".png";
             }
 

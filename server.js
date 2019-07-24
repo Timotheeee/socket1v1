@@ -82,6 +82,21 @@ function sendToOther(player, msg, data) {
 function other(pos) {
     return pos === 2 ? 1 : 2
 }
+function sendLobbyCount(){
+    var res = {lobbies1:"",lobbies2:""};
+    for (var i = 0; i < 9999; i++) {
+        if (lobbies[i].player1 && lobbies[i].player2){
+             res.lobbies2+=(", " + (i+1));
+             continue;
+        }
+        if (lobbies[i].player1 || lobbies[i].player2) res.lobbies1+=(", " + (i+1));
+            
+        
+    }
+    res.lobbies1 = res.lobbies1.replace(", ","");
+    res.lobbies2 = res.lobbies2.replace(", ","");
+    io.sockets.emit('lobbycount', res);
+}
 
 
 var io = require('socket.io')(server);
@@ -110,6 +125,7 @@ io.sockets.on('connection',
                     socket.ready = false;
                     var lobbypos = addPlayerToLobby(socket, -1);
                     socket.emit("lobbypos", {lobbypos});
+                    sendLobbyCount();
 
                     socket.on('lobbyrequest',
                             function (data) {
@@ -122,6 +138,7 @@ io.sockets.on('connection',
                                     console.log("try 2: " + newpos);
                                 }
                                 socket.emit("lobbypos", {lobbypos: newpos});
+                                sendLobbyCount();
                             }
                     );
 
@@ -192,6 +209,7 @@ io.sockets.on('connection',
                             players = 0;
                         io.sockets.emit('playercount', {count: players});
                         removePlayerFromLobby(socket);
+                        sendLobbyCount();
                     });
                 }
         );
