@@ -516,6 +516,7 @@
             });
 
             $("#team").on("click", "div", function () {
+                if(startrecv)return;
                 selectedNewTeam(this);
             });
             function selectedNewTeam(this2) {
