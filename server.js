@@ -28,9 +28,6 @@ function addPlayerToLobby(player, id) {
         if (id !== -1)
             i = id;
 
-        console.log(i);
-        console.log(!lobbies[i].player1);
-        console.log(!lobbies[i].player2);
 
         if (!lobbies[i].player1) {
             lobbies[i].player1 = player;
@@ -59,6 +56,37 @@ function addPlayerToLobby(player, id) {
         }
         if (id !== -1)
             break;
+    }
+    if (id > 7100) {
+        for (var i = 7200; i < 9999; i++) {
+
+
+            if (!lobbies[i].player1) {
+                lobbies[i].player1 = player;
+                lobbies[i].player1.lobbyid = i;
+                lobbies[i].player1.lobbypos = 1;
+                if (lobbies[i].player2) {
+                    lobbies[i].player1.emit("lobbycount", {count: 2});
+                    lobbies[i].player2.emit("lobbycount", {count: 2});
+                } else {
+                    lobbies[i].player1.emit("lobbycount", {count: 1});
+                }
+
+                return i;
+            }
+            if (!lobbies[i].player2) {
+                lobbies[i].player2 = player;
+                lobbies[i].player2.lobbyid = i;
+                lobbies[i].player2.lobbypos = 2;
+                if (lobbies[i].player1) {
+                    lobbies[i].player1.emit("lobbycount", {count: 2});
+                    lobbies[i].player2.emit("lobbycount", {count: 2});
+                } else {
+                    lobbies[i].player2.emit("lobbycount", {count: 1});
+                }
+                return i;
+            }
+        }
     }
     return -1;
 }
@@ -164,7 +192,7 @@ io.sockets.on('connection',
                     socket.on('chat',
                             function (data) {
                                 //console.log("Received: " + data.msg);
-                                chatlog+=(data.playername + ": " + data.msg + "\n").replace(/</g,"&lt").replace(/>/g,"&gt").substring(0,200);
+                                chatlog += (data.playername + ": " + data.msg + "\n").replace(/</g, "&lt").replace(/>/g, "&gt").substring(0, 200);
                                 io.sockets.emit('chat', {chatlog});
 
                             }
