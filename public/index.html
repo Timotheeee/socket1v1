@@ -225,8 +225,16 @@
                         if (!started)
                             return;
                         //console.log("Got: " + data.move);
+                        //console.log(data);
+                        var dmg = convertToDamage(data.move, false);
+                        var energyused = convertToEnergy(data.move);
+                        console.log(data.health[currentpoke]-dmg);
+                        var enemyExpectsUsToDie = data.health[currentpoke]-dmg <= 0;
+                        if(enemyExpectsUsToDie){
+                            console.log("enemy expects us to die");
+                        }
                         chargeincoming = false;
-                        if (convertToEnergy(data.move) < 0) {
+                        if (energyused < 0) {
                             chargeincoming = true;
                             var btn = "<button class='shieldbtn'>shield</button>";
                             setTimeout(function () {
@@ -237,7 +245,7 @@
                         setTimeout(function () {
                             if (!chargeincoming)
                                 animate(1);
-                            team[currentpoke].hp -= shielding ? 1 : convertToDamage(data.move, false);
+                            team[currentpoke].hp -= shielding ? 1 : dmg;
 
 
                             updateHP();
@@ -390,7 +398,7 @@
 
 
 
-                socket.emit('dmg', {move});
+                socket.emit('dmg', {move,health:[enemyteam[0].hp,enemyteam[1].hp,enemyteam[2].hp]});
                 if (doingcharge) {
                     display("waiting for opponent to shield");
                 }
@@ -400,8 +408,8 @@
                     lock = true;
                 setTimeout(function () {
                     lock = false;
-                    if (!doingcharge)
-                        ;
+//                    if (!doingcharge)
+//                        ;
                     animate(2);
                     //console.log(team[currentpoke].atkboosts);
                     enemyteam[currentenemypoke].hp -= (opponentshielding ? 1 : convertToDamage(move, true));
@@ -429,15 +437,21 @@
                     //console.log(move);
 
                     opponentshielding = false;
-                    console.log(undertap);
+                    //console.log(undertap);
                     move = undertap ? nextcharge : currentQuickMove();
                     if (doingcharge)
                         move = currentQuickMove();
                     doingcharge = false;
+                    
+                    if(enemyteam[currentenemypoke].hp <= 0)socket.emit("expecting0health",{expectedteam:enemyteam});
                 }, doingcharge ? 3500 : 0);
 
 
             }, 500);
+            socket.on('expecting0health', function (data) {
+                if(team[currentpoke].hp > 0)
+                    team = data.expectedteam;
+            });
 
             var startrecv = false;
             socket.on('start', function (data) {

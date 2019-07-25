@@ -149,18 +149,16 @@ io.sockets.on('connection',
                             }
                     );
 
-                    // When this user emits, client side: socket.emit('otherevent',some data);
+                    socket.on('expecting0health',
+                            function (data) {
+                                //console.log("Received: " + data.move);
+                                sendToOther(socket, 'expecting0health', data);
+                            }
+                    );
                     socket.on('dmg',
                             function (data) {
-                                // Data comes in as whatever was sent, including objects
-                                console.log("Received: " + data.move);
-
-                                //Send it to all other clients
+                                //console.log("Received: " + data.move);
                                 sendToOther(socket, 'dmg', data);
-
-                                // This is a way to send to everyone including sender
-                                // io.sockets.emit('msg', data);
-
                             }
                     );
                     socket.on('chat',
