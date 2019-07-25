@@ -228,11 +228,11 @@
                             display2("charge move incoming!" + (shields > 0 ? btn : ""));
                         }
                         setTimeout(function () {
+                            if (!chargeincoming)
+                                animate(1);
                             team[currentpoke].hp -= shielding ? 1 : convertToDamage(data.move, false);
-//                            if (team[currentpoke].hp < 1 && doingcharge) {//prevent bug
-//                                team[currentpoke].hp = 1;
-//                                //return;
-//                            }
+
+
                             updateHP();
                             var movedata = gm.getMoveById(data.move);
 
@@ -379,14 +379,18 @@
 
 
                 socket.emit('dmg', {move});
-                if (doingcharge){
+                if (doingcharge) {
                     display("waiting for opponent to shield");
                 }
-                    
-                
-                if(!doingcharge)lock = true;
+
+
+                if (!doingcharge)
+                    lock = true;
                 setTimeout(function () {
                     lock = false;
+                    if (!doingcharge)
+                        ;
+                    animate(2);
                     //console.log(team[currentpoke].atkboosts);
                     enemyteam[currentenemypoke].hp -= (opponentshielding ? 1 : convertToDamage(move, true));
                     if ($("#win").html().includes("opponent shielded") || $("#win").html().includes("waiting for opponent to shield"))
@@ -426,7 +430,8 @@
             var startrecv = false;
             socket.on('start', function (data) {
                 console.log("received start");
-                if(startrecv)return;
+                if (startrecv)
+                    return;
                 startrecv = true;
                 setTimeout(function () {
                     display("3");
@@ -689,6 +694,16 @@
             function showdownURL(url) {
                 var t = url.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-").replace("alolan", "alola");
                 return "./sprites/" + t + "/" + t + ".png";
+            }
+            function animate(n) {
+                if (n === 1)
+                    $("#img1").animate({top: "-40px", left: "10px"}, 240, "linear", function () {
+                        $("#img1").animate({top: "-50px", left: "0px"}, 240, "linear");
+                    });
+                if (n === 2)
+                    $("#img2").animate({top: "40px", left: "410px"}, 240, "linear", function () {
+                        $("#img2").animate({top: "50px", left: "420px"}, 240, "linear");
+                    });
             }
 
 
