@@ -3,9 +3,12 @@ body {
 /*    width: 97%;
     height: 894px;*/
 }
-*{
+html{
     font-family: 'Roboto', sans-serif;
     text-transform: capitalize;
+}
+#chatcontainer{
+    text-transform:none;
 }
 #team div{
     height: 100px;

@@ -92,7 +92,7 @@ function sendLobbyCount() {
         if (lobbies[i].player1 || lobbies[i].player2)
             res.lobbies1 += (", " + (i + 1));
 
-        if (lobbies[i].player1 && lobbies[i].player1.ready && lobbies[i].player2 && lobbies[i].player2.ready ) {
+        if (lobbies[i].player1 && lobbies[i].player1.ready && lobbies[i].player2 && lobbies[i].player2.ready) {
             lobbies[i]["player1"].emit('start', {});
             lobbies[i]["player2"].emit('start', {});
         }
@@ -119,6 +119,7 @@ Array.prototype.remove = function () {
     return this;
 };
 
+var chatlog = "";
 // Register a callback function to run when we have an individual connection
 // This is run for each individual user that connects
 io.sockets.on('connection',
@@ -131,6 +132,7 @@ io.sockets.on('connection',
                     var lobbypos = addPlayerToLobby(socket, -1);
                     socket.emit("lobbypos", {lobbypos});
                     sendLobbyCount();
+                    socket.emit('chat', {chatlog});
 
                     socket.on('lobbyrequest',
                             function (data) {
@@ -158,6 +160,14 @@ io.sockets.on('connection',
 
                                 // This is a way to send to everyone including sender
                                 // io.sockets.emit('msg', data);
+
+                            }
+                    );
+                    socket.on('chat',
+                            function (data) {
+                                //console.log("Received: " + data.msg);
+                                chatlog+=(data.playername + ": " + data.msg + "\n").replace(/</g,"&lt").replace(/>/g,"&gt").substring(0,200);
+                                io.sockets.emit('chat', {chatlog});
 
                             }
                     );
