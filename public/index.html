@@ -298,6 +298,11 @@
             var turnswaited = 0;
             var lock = false;
             setInterval(function () {
+                if(Date.now()-afktimer >60000 && started){
+                    socket.disconnect();
+                    display("you have been disconnected for inactivity");
+                    return;
+                }
                 if (move === "" || doingcharge || chargeincoming || winner >= 0)
                     return;
                 if (move.includes("switch")) {
@@ -455,8 +460,10 @@
 
 
 
-
-
+            var afktimer = Date.now();
+            $("html").on("click","*",function(){
+               afktimer = Date.now();
+            });
 
 
 
