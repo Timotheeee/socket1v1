@@ -473,7 +473,10 @@
                     display("2")
                 }, 1000);
                 setTimeout(function () {
-                    display("1")
+                    display("1");
+                    //failsafe
+                    updateMoveButtons();
+                    updateSwitchButtons();
                 }, 2000);
                 setTimeout(function () {
                     display("");
@@ -580,6 +583,8 @@
                         console.log(e.message);
                     }
                 });
+                updateMoveButtons();
+                updateSwitchButtons();
             });
 
 
