@@ -216,6 +216,7 @@
             socket.on('lobbycount', function (data) {
                 if (data.count === 1 && started) {
                     display("the enemy disconnected, refresh the page");
+                    socket.disconnect();
                     started = false;
                 }
                 $("#playercountinlobby").text(data.count);
@@ -648,6 +649,7 @@
                         socket.emit('end', {});
                     }
                     display(winner === 1 ? "you win" : "you lose");
+                    //socket.disconnect();
                 }
             }, 50);
 
