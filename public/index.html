@@ -441,9 +441,12 @@
 
             var startrecv = false;
             socket.on('start', function (data) {
+
                 console.log("received start");
                 if (startrecv)
                     return;
+
+                afktimer = Date.now();
                 startrecv = true;
                 setTimeout(function () {
                     display("3");
@@ -543,8 +546,8 @@
                         updateMoveButtons();
                         updateSwitchButtons();
                         console.log(data.trainer.name);
-                        if(data.trainer.name !== null)
-                        playername = data.trainer.name;
+                        if (data.trainer.name !== null)
+                            playername = data.trainer.name;
                     } catch (e) {
                         $("#pokebattlerinfo").text("an error occured. make sure your first battle party has the 3 pokemon you want to use and refresh this page");
                         console.log(e.message);
@@ -739,6 +742,14 @@
             socket.on("chat", function (data) {
                 chatlog = data.chatlog;
                 updateChat();
+            });
+            $("#chatinput").keypress(function (event) {
+                console.log(event.which);
+                if (event.which === 13) {
+                    event.preventDefault();
+                    console.log("enter");
+                    $("#chatbtn").click();
+                }
             });
 
 
