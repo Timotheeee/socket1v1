@@ -501,6 +501,12 @@
             //------------------------------------------------------------------------------------------------------------
             //INTERFACE STUFF
 
+            //failsafe for some wierd mobile bug
+            setTimeout(function () {
+                $("#team div").eq(0).click();
+                $("#team div").eq(0).click();
+            }, 500);
+
             $('#ready').click(function () {
                 if (!changedlobby)
                     socket.emit('lobbyrequest', {num: 7199});
@@ -740,13 +746,16 @@
                         if (localStorage.selected) {
                             var s = JSON.parse(localStorage.selected);
                             selected += (i === s[0] || i === s[1] || i === s[2]) ? "selectedpoke" + (i === s[0] ? " lead" : "") : "";
+                            selected += "'";
                         } else {
                             selected = i < 3 ? "class='selectedpoke'" : "";
                             selected = i < 1 ? "class='selectedpoke lead'" : selected;
                         }
 
                         var name = data.pokemon[i].pokemon.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-");
-                        $("#team").append("<div " + selected + " data-name='" + name + "' data-id='" + i + "' style='background-image: url(" + showdownURL(data.pokemon[i].pokemon) + ")'></div>")//
+                        var toappend = "<div " + selected + " data-name='" + name + "' data-id='" + i + "' style='background-image: url(" + showdownURL(data.pokemon[i].pokemon) + ")'></div>";
+                        console.log(toappend);
+                        $("#team").append(toappend);//
 
                     } catch (e) {
                         console.log(e);
