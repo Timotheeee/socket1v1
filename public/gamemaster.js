@@ -18,6 +18,8 @@ var GameMaster = (function () {
         object.getPokemonById = function (id) {
             var pokemon;
             var id2 = id.toLowerCase();
+            if(id2 === "gastrodon")
+                id2= "gastrodon_east_sea";
 
             $.each(object.data.pokemon, function (index, poke) {
 

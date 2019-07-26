@@ -21,20 +21,22 @@
     </head>
     <body class="noselect">
         <div class="bgcontainer">
-            <input type="text" id="pokebattlerid" placeholder="pokebattler id"> 
-            <a id="loadteam" class="button noselect">
-                <strong>load</strong>
-            </a>
-            <a id="ready" class="button button-green noselect">
-                <i class="fa fa-check"></i> <strong>Ready</strong>
+
+
+            <input type="text" placeholder="name" id='nameinput'>
+            <a id="namebtn" class="button noselect">
+                <i class="fa fa-check"></i> <strong>change name</strong>
             </a>
             <br>
-            <div style='text-transform: none'>Make a team here: <a style='text-transform: none' href="https://www.pokebattler.com/pokebox"><img style='width:57px;height:43px' src="pokebattler.png"></a></div>
-            <span id="pokebattlerinfo"></span>
+            <a id="ready" class="button button-green noselect">
+                <i class="fa fa-check"></i> <strong>Find an opponent</strong>
+            </a>
+            <!--            <button id="namebtn" >change name</button>-->
+            <br>
         </div>
 
-        <div class="bgcontainer" style="height:510px">
-            <h1 style="margin-top: 3px">PVP simulator </h1>
+        <div class="bgcontainer" style="height:480px; padding-top: 15px; position: relative;">
+            <div id='name1'></div>
             <div class="hp" style="width:364px" id="hp1"></div>
             <div class="pokeimage" id='img1' style='background-image: url("question.PNG")'></div>
             <img src="shield.png" id="shield1" alt="shield">
@@ -48,9 +50,11 @@
             <div class="pokeimage" id='img2' style='background-image: url("question.PNG")'></div>
             <div id="win"></div>
             <div id="win2"></div>
+            <div id='name2'></div>
         </div>
         <div id="buttons"  class="bgcontainer">
             <div id="quickmovecontainer"><b>quick move:</b> <span id="quickmovebtn">mud shot</span></div>
+            <div id="enemyquickmovecontainer"><b>enemy quick move:</b> <span id="enemyquickmovebtn">unknown</span></div>
             <div id="chargemove1container">
                 <div id="chargemove1btn" class="movebtn noselect rock active"></div>
                 <div id="move1progress" style="height: 60px">                
@@ -81,19 +85,19 @@
                 <b>Players online:</b> <span id="playercount">1</span>
             </div>
             <div id="lobbynumbercontainer">
-                <b>Lobby number:</b> <span id="lobbynumber">0</span>/9999
+                <b>Lobby number:</b> <span id="lobbynumber">0</span>/999
             </div>
-            <div id="playercountinlobbycontainer">
-                <b>Players in your lobby:</b> <span id="playercountinlobby">1</span>/2
-            </div>
-            <div>
-                <b>Lobbies with 1 player:</b> <span id='lobbies1'>none</span><br>
-                <b>Full lobbies:</b> <span id='lobbies2'>none</span>
-            </div>
+            <!--            <div id="playercountinlobbycontainer">
+                            <b>Players in your lobby:</b> <span id="playercountinlobby">1</span>/2
+                        </div>-->
+            <!--            <div>
+                            <b>Lobbies with 1 player:</b> <span id='lobbies1'>none</span><br>
+                            <b>Full lobbies:</b> <span id='lobbies2'>none</span>
+                        </div>-->
             <div id="changelobbycontainer">
                 <input type="text" id="lobbyinput"><button id="changelobbybtn">change lobby</button>
             </div>
-            lobbies above 7000 are reserved for matchmaking. if you click ready before selecting a lobby, you will get matched against another ready player. to 1v1 a friend, select a lobby below 7000 and send them the number
+            <span id='tutorial' style='text-transform: none'>To 1v1 a friend, select a lobby and send them the number</span>
         </div>
         <div id='chatcontainer' class="bgcontainer">
             <textarea id='chatbox' disabled style='width: 530px;max-width: 530px;min-width: 530px;min-height: 90px; background-color: white'></textarea>
@@ -104,6 +108,15 @@
             <div id="team">
 
             </div>
+        </div>
+        <div class="bgcontainer">
+            <input type="text" id="pokebattlerid" placeholder="pokebattler id"> 
+            <a id="loadteam" class="button noselect">
+                <strong>load</strong>
+            </a>
+            <span style='text-transform: none'>Make a custom team here: <a style='text-transform: none' href="https://www.pokebattler.com/pokebox"><img style='width:57px;height:43px' src="pokebattler.png"></a></span>
+
+            <span id="pokebattlerinfo"></span>
         </div>
         <div class="bgcontainer" style='text-transform: none'>
             This site is not officially affiliated with Pokémon Go and is intended to fall under Fair Use doctrine, similar to any other informational site such as a wiki.<br>
@@ -131,7 +144,7 @@
             var currentenemypoke = 0;
 
             var started = false;
-            display("waiting for opponent.<br> press the ready button to start the fight!");
+            display("press the green button above when you are ready");
             var sentendpacket = false;
 
             var switchcd = 0;
@@ -159,7 +172,7 @@
             } else {
                 socket = io.connect('http://178.82.224.106:3000/');
             }
-            var playername = "";
+            var playername = localStorage.name ? localStorage.name : ("anonymous" + Math.floor(Math.random() * 9999));
 
 
 
@@ -269,7 +282,7 @@
 
                             if (chargeincoming) {
                                 //display("the charge move was " + data.move.toLowerCase().replace("_", " "));
-                                display2("the charge move was " + data.move.toLowerCase().replace("_", " "));
+                                display2("the charge move was " + data.move.toLowerCase().replace("_", " ").replace("_", " "));
                                 setTimeout(function () {
                                     if ($("#win2").html().includes("the charge move was "))
                                         display2("");
@@ -299,6 +312,7 @@
                 //console.log("switch");
                 //console.log(data);
                 currentenemypoke = data.id;
+                updateMoveButtons();
                 if ($("#win").html().includes("the opponent is choosing their next pokemon!"))
                     display("");
             });
@@ -309,7 +323,9 @@
                 console.log(data2);
                 enemyteam = data2;
             });
-
+            socket.on('enemychangedname', function (data2) {
+                enemyname = data2.playername;
+            });
 
             //switch or use a move
             var turnswaited = 0;
@@ -469,6 +485,7 @@
                     display("3");
                     var id = $("#pokebattlerid").val();
                     socket.emit('enemychoseteam', team);
+                    socket.emit('enemychangedname', {playername});
                 }, 0);
                 setTimeout(function () {
                     display("2")
@@ -511,12 +528,20 @@
             $('#ready').click(function () {
                 if (!changedlobby)
                     socket.emit('lobbyrequest', {num: 7199});
+                if (!changedlobby) {
+                    display("waiting for opponent");
+                    $("#ready").fadeOut(0);
+                    $("#lobbynumbercontainer").fadeOut(0);
+                    $("#changelobbycontainer").fadeOut(0);
+                    $("#tutorial").fadeOut(0);
+                }
                 socket.emit('ready', {id: socket.id});
 
             });
 
             $("#team").on("click", "div", function () {
-                if(startrecv)return;
+                if (startrecv)
+                    return;
                 selectedNewTeam(this);
             });
             function selectedNewTeam(this2) {
@@ -570,6 +595,7 @@
                     updateTeamSelector(defaultbox);
                     updateMoveButtons();
                     updateSwitchButtons();
+                    localStorage.id = "";
                 }
                 if (isNaN(id))
                     return;
@@ -584,8 +610,11 @@
                         updateMoveButtons();
                         updateSwitchButtons();
                         console.log(data.trainer.name);
-                        if (data.trainer.name !== null)
+                        if (data.trainer.name !== null) {
                             playername = data.trainer.name;
+
+                        }
+
                     } catch (e) {
                         $("#pokebattlerinfo").text("an error occured. make sure your first battle party has the 3 pokemon you want to use and refresh this page");
                         console.log(e.message);
@@ -618,21 +647,27 @@
             });
             var changedlobby = false;
             $("#changelobbybtn").click(function () {
-                if (started)
-                    return;
-                changedlobby = true;
                 var n = Number.parseInt($("#lobbyinput").val());
-                if (!isNaN(n) && n > 0 && n < 7001) {
+                if (!isNaN(n) && n > 0 && n < 1000) {
+                    if (started)
+                        return;
+                    changedlobby = true;
+//                    $("#ready strong").text("ready");
                     socket.emit('lobbyrequest', {num: (n - 1)});
                     $("#ready").click();
+                    $("#ready").fadeOut(0);
+                    display("waiting for opponent");
                 }
 
-            });
 
+            });
+            var enemyname;
             setInterval(function () {
                 $("#cd").text(switchcd);
                 $("#shieldcount2").text(shields);
                 $("#shieldcount1").text(oshields);
+                $("#name2").html(playername);
+                $("#name1").html(enemyname);
                 //question.PNG
                 if (started) {
                     $("#img" + 1).css("background-image", "url(" + showdownURL(enemyteam[currentenemypoke].name) + ")");
@@ -713,10 +748,18 @@
 
             }
             function updateMoveButtons() {
+                console.log(enemyteam);
+                console.log(startrecv);
                 var q = currentQuickMove();
+                var q2 = "unknown";
+                if (enemyteam)
+                    if (startrecv)
+                        q2 = enemyteam[currentenemypoke].quickMove.replace("_FAST", "");
+
                 var c1 = team[currentpoke].cinematicMove;
                 var c2 = team[currentpoke].cinematicMove2;
                 $("#quickmovebtn").text(q.toLowerCase().replace("_", " ").replace("_", " "));
+                $("#enemyquickmovebtn").text(q2.toLowerCase().replace("_", " ").replace("_", " "));
                 $("#chargemove1btn").data("name", c1);
                 $("#chargemove1text").text(c1.toLowerCase().replace("_", " ").replace("_", " "));
                 $("#chargemove2btn").data("name", c2);
@@ -757,7 +800,7 @@
 
                         var name = data.pokemon[i].pokemon.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-");
                         var toappend = "<div " + selected + " data-name='" + name + "' data-id='" + i + "' style='background-image: url(" + showdownURL(data.pokemon[i].pokemon) + ")'></div>";
-                        console.log(toappend);
+                        //console.log(toappend);
                         $("#team").append(toappend);//
 
                     } catch (e) {
@@ -787,8 +830,11 @@
                 textarea.scrollTop = textarea.scrollHeight;
             }
             $("#chatbtn").click(function () {
-                if (playername === "")
-                    playername = "anonymous" + Math.floor(Math.random() * 999);
+//                if (playername === "") {
+//                    playername = "anonymous" + Math.floor(Math.random() * 999);
+//                    $("#name2").html(playername);
+//                }
+
                 var msg = $("#chatinput").val();
                 socket.emit("chat", {msg, playername});
 
@@ -805,6 +851,12 @@
                     console.log("enter");
                     $("#chatbtn").click();
                 }
+            });
+
+            $("#namebtn").click(function () {
+
+                playername = $("#nameinput").val();
+                localStorage.name = playername;
             });
 
 

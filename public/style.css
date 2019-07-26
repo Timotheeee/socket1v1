@@ -1,7 +1,7 @@
 body {
     padding: 5px;
-/*    width: 97%;
-    height: 894px;*/
+    /*    width: 97%;
+        height: 894px;*/
 }
 html{
     font-family: 'Roboto', sans-serif;
@@ -62,7 +62,20 @@ html{
     top: 130px;
     left: 18px;
 }
+#name1{
+    position: absolute;
+    top: 8px;
+    left: 199px;
+}
+#name2{
 
+    position: absolute;
+    left: 24px;
+    bottom: 39px;
+}
+#nameinput{
+    line-height: 33px;
+}
 #timer{
     border: 1px solid black;
     height:20px;
@@ -94,12 +107,15 @@ html{
 #win{
     position: relative;
     top: -192px;
-    left: 180px;
+    /* left: 180px; */
+    text-align: center;
+
 }
 #win2{
     position: relative;
     top: -172px;
-    left: 180px;
+    /* left: 180px; */
+    text-align: center;
 }
 #switch button{
     background-size: contain;
@@ -167,13 +183,14 @@ html{
 }
 
 
-#quickmovecontainer{
+#quickmovecontainer,#enemyquickmovecontainer{
     position: relative;
-    /* left: 117px; */
-    top: 35px;
-    /* width: auto; */
-    /* margin: auto; */
+    top: 52px;
     text-align: center;
+}
+#enemyquickmovecontainer{
+    top: 9px;
+
 }
 
 #chargemove1btn,#chargemove2btn{

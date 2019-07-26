@@ -227,11 +227,14 @@ io.sockets.on('connection',
 
                         //io.sockets.emit('start', {});
                     });
+                    //enemychangedname
                     socket.on('enemychoseteam', function (data) {
-                        console.log("enemychoseteam: " + data.id);
                         sendToOther(socket, 'enemychoseteam', data);
                     });
-
+                    socket.on('enemychangedname', function (data) {
+                        data.playername = data.playername.replace(/</g, "&lt").replace(/>/g, "&gt").substring(0, 15);
+                        sendToOther(socket, 'enemychangedname', data);
+                    });
 
                     socket.on('end',
                             function (data) {
