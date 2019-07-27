@@ -78,6 +78,7 @@ var GameMaster = (function () {
 
         object.getMoveById = function (id) {
             var move;
+            id=id.replace("FUTURESIGHT","FUTURE_SIGHT");
 
             $.each(object.data.moves, function (index, m) {
 

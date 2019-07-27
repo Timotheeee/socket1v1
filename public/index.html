@@ -686,7 +686,7 @@
                         sentendpacket = true;
                         socket.emit('end', {});
                     }
-                    display(winner === 1 ? "you win" : "you lose");
+                    display(winner === 1 ? "you win. refresh the page" : "you lose. refresh the page");
                     //socket.disconnect();
                 }
             }, 50);
@@ -847,7 +847,7 @@
                 updateChat();
             });
             $("#chatinput").keypress(function (event) {
-                console.log(event.which);
+                //console.log(event.which);
                 if (event.which === 13) {
                     event.preventDefault();
                     console.log("enter");
