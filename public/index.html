@@ -20,20 +20,14 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
     <body class="noselect">
-        <div class="bgcontainer">
+<!--        <div class="bgcontainer">
 
 
-            <input type="text" placeholder="name" id='nameinput'>
-            <a id="namebtn" class="button noselect">
-                <i class="fa fa-check"></i> <strong>change name</strong>
-            </a>
+
+
+                        <button id="namebtn" >change name</button>
             <br>
-            <a id="ready" class="button button-green noselect">
-                <i class="fa fa-check"></i> <strong>Find an opponent</strong>
-            </a>
-            <!--            <button id="namebtn" >change name</button>-->
-            <br>
-        </div>
+        </div>-->
 
         <div class="bgcontainer" style="height:480px; padding-top: 15px; position: relative;">
             <div id='name1'></div>
@@ -42,7 +36,9 @@
             <img src="shield.png" id="shield1" alt="shield">
             <span id="shieldcount1">2</span>
 
-
+            <a id="ready" class="button button-green noselect">
+                <i class="fa fa-check"></i> <strong>Find an opponent</strong>
+            </a>
 
             <img src="shield.png" id="shield2" alt="shield">
             <span id="shieldcount2">2</span>
@@ -102,6 +98,12 @@
         <div id='chatcontainer' class="bgcontainer">
             <textarea id='chatbox' disabled style='width: 530px;max-width: 530px;min-width: 530px;min-height: 90px; background-color: white'></textarea>
             <input type="text" id='chatinput'><button id='chatbtn'>send</button>
+            <br><br>
+            <input type="text" placeholder="name" id='nameinput'>
+            <a id="namebtn" class="button noselect">
+                <strong>change name</strong>
+            </a>
+            
         </div>
         <div id='teamselection' class="bgcontainer">
             <b>team: </b>
@@ -144,7 +146,7 @@
             var currentenemypoke = 0;
 
             var started = false;
-            display("press the green button above when you are ready");
+            //display("press the green button above when you are ready");
             var sentendpacket = false;
 
             var switchcd = 0;

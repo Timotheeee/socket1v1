@@ -181,6 +181,12 @@ html{
         -ms-transform: scale(1.25, 1.25);
         transform: scale(1.25, 1.25);*/
 }
+#ready{
+    display: block;
+    width:150px;
+    left:175px;
+    position: absolute;
+}
 
 
 #quickmovecontainer,#enemyquickmovecontainer{
