@@ -187,6 +187,28 @@ html{
     left:175px;
     position: absolute;
 }
+#enemyteam{
+    position: absolute;
+    top:10px;
+    right:50px;
+}
+.enemypoke{
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    display: inline-block;
+    border-radius: 50%;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ff3232+0,ff3030+48,ffffff+48,000000+48,000000+56,ffffff+56,ffffff+100 */
+    background: #ff3232; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ff3232 0%, #ff3030 48%, #ffffff 48%, #000000 48%, #000000 56%, #ffffff 56%, #ffffff 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #ff3232 0%,#ff3030 48%,#ffffff 48%,#000000 48%,#000000 56%,#ffffff 56%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #ff3232 0%,#ff3030 48%,#ffffff 48%,#000000 48%,#000000 56%,#ffffff 56%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3232', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+}
+.KOpoke{
+    background: grey !important;
+}
 
 
 #quickmovecontainer,#enemyquickmovecontainer{

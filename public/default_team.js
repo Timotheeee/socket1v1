@@ -327,7 +327,7 @@ var defaultbox = {"pokemon": [
             "individualAttack": 15,
             "individualDefense": 15,
             "individualStamina": 15,
-            "quickMove": "PSYCHO_CUT_FAST",
+            "quickMove": "COUNTER_FAST",
             "cinematicMove": "POWER_UP_PUNCH",
             "shiny": false,
             "lucky": false,

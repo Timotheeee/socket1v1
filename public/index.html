@@ -20,16 +20,21 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
     <body class="noselect">
-<!--        <div class="bgcontainer">
+        <!--        <div class="bgcontainer">
+        
+        
+        
+        
+                                <button id="namebtn" >change name</button>
+                    <br>
+                </div>-->
 
-
-
-
-                        <button id="namebtn" >change name</button>
-            <br>
-        </div>-->
-
-        <div class="bgcontainer" style="height:480px; padding-top: 15px; position: relative;">
+        <div class="bgcontainer" style="height:480px; padding-top: 25px; position: relative;">
+            <div id='enemyteam'>
+                <div class='enemypoke'></div>
+                <div class='enemypoke'></div>
+                <div class='enemypoke'></div>
+            </div>
             <div id='name1'></div>
             <div class="hp" style="width:364px" id="hp1"></div>
             <div class="pokeimage" id='img1' style='background-image: url("question.PNG")'></div>
@@ -103,7 +108,7 @@
             <a id="namebtn" class="button noselect">
                 <strong>change name</strong>
             </a>
-            
+
         </div>
         <div id='teamselection' class="bgcontainer">
             <b>team: </b>
@@ -176,11 +181,7 @@
             }
             var playername = localStorage.name ? localStorage.name : ("anonymous" + Math.floor(Math.random() * 9999));
 
-
-
             console.log(socket);
-
-
 
 
             function initteam(teamdata) {
@@ -229,8 +230,8 @@
                 $("#lobbies2").text(data.lobbies2 === "" ? "none" : data.lobbies2);
             });
             socket.on('lobbycount', function (data) {
-                if (data.count === 1 && started) {
-                    display("the enemy disconnected, refresh the page");
+                if (data.count === 1 && startrecv) {
+                    display("the enemy disconnected, " + refreshbtn);
                     socket.disconnect();
                     started = false;
                 }
@@ -525,7 +526,9 @@
             setTimeout(function () {
                 $("#team div").eq(0).click();
                 $("#team div").eq(0).click();
-            }, 500);
+            }, 200);
+
+            var refreshbtn = "<button onclick='location.reload()'>refresh the page</button>"
 
             $('#ready').click(function () {
                 if (!changedlobby)
@@ -618,7 +621,7 @@
                         }
 
                     } catch (e) {
-                        $("#pokebattlerinfo").text("an error occured. make sure your first battle party has the 3 pokemon you want to use and refresh this page");
+                        $("#pokebattlerinfo").text("an error occured. make sure your first battle party has the 3 pokemon you want to use and " + refreshbtn);
                         console.log(e.message);
                     }
                 });
@@ -665,6 +668,7 @@
             });
             var enemyname;
             setInterval(function () {
+
                 $("#cd").text(switchcd);
                 $("#shieldcount2").text(shields);
                 $("#shieldcount1").text(oshields);
@@ -678,6 +682,11 @@
                 }
                 $("#img" + 2).css("background-image", "url(" + showdownURL(team[currentpoke].name) + ")");
 
+                for (var i = 0; i < 3; i++) {
+                    if (enemyteam[i].hp < 1)
+                        $(".enemypoke").eq(i).addClass("KOpoke");
+                }
+
                 disableSwitchButton(team[currentpoke].name);
                 updateHP();
                 updateEn();
@@ -685,8 +694,9 @@
                     if (!sentendpacket) {
                         sentendpacket = true;
                         socket.emit('end', {});
+                        display(winner === 1 ? "you win. " + refreshbtn : "you lose. " + refreshbtn);
                     }
-                    display(winner === 1 ? "you win. refresh the page" : "you lose. refresh the page");
+
                     //socket.disconnect();
                 }
             }, 50);
@@ -720,10 +730,10 @@
             }, 1000);
 
             function updateHP() {
-                if (winner >= 0) {
-                    display(winner === 1 ? "you win" : "you lose");
-                    return;
-                }
+//                if (winner >= 0) {
+//                    display(winner === 1 ? "you win" : "you lose");
+//                    return;
+//                }
                 if (team[0].hp < 1 && team[1].hp < 1 && team[2].hp < 1)
                     winner = 0;
                 if (enemyteam[0].hp < 1 && enemyteam[1].hp < 1 && enemyteam[2].hp < 1)

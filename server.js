@@ -23,6 +23,9 @@ var lobbies = [];
 for (var i = 0; i < 9999; i++) {
     lobbies.push({player1: undefined, player2: undefined});
 }
+
+
+
 function addPlayerToLobby(player, id) {
     for (var i = 0; i < 9999; i++) {
         if (id !== -1)
@@ -148,17 +151,19 @@ Array.prototype.remove = function () {
 };
 
 var chatlog = "";
+var playernamelist = [];
 // Register a callback function to run when we have an individual connection
 // This is run for each individual user that connects
 io.sockets.on('connection',
         // We are given a websocket object in our function
                 function (socket) {
                     players++;
-                    io.sockets.emit('playercount', {count: players});
+                    
                     console.log("We have a new client: " + socket.id + "\nplayers: " + players);
                     socket.ready = false;
                     var lobbypos = addPlayerToLobby(socket, -1);
                     socket.emit("lobbypos", {lobbypos});
+                    io.sockets.emit('playercount', {count: players});
                     sendLobbyCount();
                     socket.emit('chat', {chatlog});
 
