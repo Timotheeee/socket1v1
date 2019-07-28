@@ -486,6 +486,7 @@
                 startrecv = true;
                 setTimeout(function () {
                     display("3");
+                    new Audio('alert.wav').play();
                     var id = $("#pokebattlerid").val();
                     socket.emit('enemychoseteam', team);
                     socket.emit('enemychangedname', {playername});
