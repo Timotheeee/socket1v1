@@ -18,8 +18,8 @@ var GameMaster = (function () {
         object.getPokemonById = function (id) {
             var pokemon;
             var id2 = id.toLowerCase();
-            if(id2 === "gastrodon")
-                id2= "gastrodon_east_sea";
+            if (id2 === "gastrodon")
+                id2 = "gastrodon_east_sea";
 
             $.each(object.data.pokemon, function (index, poke) {
 
@@ -28,8 +28,24 @@ var GameMaster = (function () {
                     return;
                 }
             });
+            if (pokemon) {
+                return pokemon;
+            } else {
 
-            return pokemon;
+                var p;
+                masterdata.pokemon.forEach(function (item, index) {
+                    if (item.speciesId.startsWith(id2)) {
+                        p = item;
+                    }
+                });
+                if(p){
+                    return p;
+                } else {
+                    return masterdata.pokemon[0];
+                }
+            }
+
+            
         }
 
         object.generateDefaultIVs = function () {
@@ -78,7 +94,7 @@ var GameMaster = (function () {
 
         object.getMoveById = function (id) {
             var move;
-            id=id.replace("FUTURESIGHT","FUTURE_SIGHT");
+            id = id.replace("FUTURESIGHT", "FUTURE_SIGHT");
 
             $.each(object.data.moves, function (index, m) {
 

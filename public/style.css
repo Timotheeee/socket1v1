@@ -13,13 +13,20 @@ html{
 #newpoke{
     border: 2px solid black !important;
     text-align: center;
-    line-height: 100px;
-    font-size: 50px;
     position: relative;
-    top:-20px;
+/*    line-height: 100px;
+    font-size: 50px;
     box-sizing: border-box;
+    position: relative;
+    top:-20px;*/
+
     /*background-image: url(./sprites/victreebel/victreebel.png)*/
     /*border-style: solid dotted !important;*/
+}
+#enemycp{
+    position: absolute;
+    top: 124px;
+    left: 37px;
 }
 #team div{
     height: 100px;
@@ -27,7 +34,7 @@ html{
     display: inline-block;
     border: 2px solid transparent;
     margin: 1px
-    
+
 }
 .selectedpoke{
     border: 2px solid blue !important;

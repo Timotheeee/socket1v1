@@ -23615,3 +23615,6 @@ var masterdata = {
         }
     ]
 }
+masterdata.pokemon.sort(function (a, b) {
+    return (a.dex > b.dex) ? 1 : -1;
+});

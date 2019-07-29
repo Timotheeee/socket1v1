@@ -54,15 +54,17 @@
 
                             <div class="ivs">
                                 <h3>Level &amp; IV's</h3>
-                                <input class="level" type="number" placeholder="Level" min="1" max="40" step=".5">
+                                <input class="level" type="number" placeholder="Level" min="1" value='40' max="40" step=".5">
                                 <div class="ivs-group">
-                                    <input class="iv" iv="atk" type="number" placeholder="Atk" min="0" max="15" step="1"><span>/</span>
-                                    <input class="iv" iv="def" type="number" placeholder="Def" min="0" max="15" step="1"><span>/</span>
-                                    <input class="iv" iv="hp" type="number" placeholder="HP" min="0" max="15" step="1">
+                                    <input class="iv" iv="atk" type="number" placeholder="Atk" value='15' min="0" max="15" step="1"><span>/</span>
+                                    <input class="iv" iv="def" type="number" placeholder="Def" value='15' min="0" max="15" step="1"><span>/</span>
+                                    <input class="iv" iv="hp" type="number" placeholder="HP" value='15' min="0" max="15" step="1">
                                 </div>
                             </div>
                             <div class="maximize-section">
-                                <button class="maximize-stats">Maximize</button>
+                                <button class="great-stats">Great</button>
+                                <button class="ultra-stats">Ultra</button>
+                                <button class="master-stats">Master</button>
                             </div>
                         </div>
                     </div>
@@ -70,12 +72,12 @@
                     <div class="move-select-container">
                         <h3 class="section-title">Fast Move</h3>
 
-                        <select class="move-select fast water"><option value="BUBBLE">Bubble</option><option value="WATERFALL">Waterfall</option></select>
+                        <select class="move-select fast"><option value="BUBBLE">none</option></select>
 
                         <h3 class="section-title">Charged Moves</h3>
 
-                        <select class="move-select charged psychic"><option value="BUBBLE_BEAM">Bubble Beam</option><option value="PSYCHIC">Psychic</option><option value="SURF">Surf</option></select>
-                        <select class="move-select charged water"><option value="BUBBLE_BEAM">Bubble Beam</option><option value="PSYCHIC">Psychic</option><option value="SURF">Surf</option></select>
+                        <select id='cmove1select' class="move-select charged"><option value="BUBBLE_BEAM">none</option></select>
+                        <select id='cmove2select' class="move-select charged"><option value="BUBBLE_BEAM">none</option></select>
                     </div>
                 </div>
                 <div class="center">
@@ -98,6 +100,7 @@
                 <div class='enemypoke'></div>
                 <div class='enemypoke'></div>
             </div>
+            <div id='enemycp'></div>
             <div id='name1'></div>
             <div class="hpcontainer" style="width:203px" id="hp1container"><div class="hp" style="width:200px" id="hp1"></div></div>
             <div class="pokeimage" id='img1' style='background-image: url("question.PNG")'></div>
@@ -278,6 +281,7 @@
                     team2[i].defboosts = 0;
                     team2[i].cmove1 = cmove1;
                     team2[i].cmove2 = cmove2;
+                    team2[i].cp = calcCP(p.speciesId,team2[i].level,team2[i].individualAttack,team2[i].individualDefense,team2[i].individualStamina);
                 }
                 return team2;
             }
@@ -793,6 +797,8 @@
 
                     //socket.disconnect();
                 }
+                if(started)
+                $("#enemycp").html(enemyteam[currentenemypoke].cp + " CP");
             }, 50);
 
             var win1 = $("#win");
@@ -912,9 +918,12 @@
                             selected = i < 3 ? "class='selectedpoke'" : "";
                             selected = i < 1 ? "class='selectedpoke lead'" : selected;
                         }
-
-                        var name = data.pokemon[i].pokemon.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-");
-                        toappend += "<div " + selected + " data-name='" + name + "' data-id='" + i + "' style='background-image: url(" + showdownURL(data.pokemon[i].pokemon) + ")'></div>";
+                        var cur = data.pokemon[i];
+                        var name = cur.pokemon.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-");
+                        var name2 = name.replace("_FORM", "").replace("ALOLA", "ALOLAN").replace("-", "_");
+                        //console.log(name2);
+                        var cp = calcCP(name2, cur.level, cur.individualAttack, cur.individualDefense, cur.individualStamina);
+                        toappend += "<div " + selected + " data-name='" + name + "' data-id='" + i + "' style='background-image: url(" + showdownURL(data.pokemon[i].pokemon) + ")'>" + cp + "</div>";
                         //console.log(toappend);
                         //
 
@@ -922,7 +931,7 @@
                         console.log(e);
                     }
                 }
-                toappend += "<div id='newpoke'>+</div>"
+                toappend += "<div id='newpoke'><span style='opacity:0'>a</span><span style='position:absolute;top:20px;left:35px;font-size:50px;'>+</span></div>"
                 $("#team").append(toappend);
                 selectedNewTeam();
             }
@@ -975,14 +984,98 @@
                 playername = $("#nameinput").val();
                 localStorage.name = playername;
             });
+            function getNewPoke() {
+                var cinematicMove = $(".modal .move-select.charged").eq(0).val();
+                var cinematicMove2 = $(".modal .move-select.charged").eq(1).val();
+                var quickMove = $(".modal .move-select.fast").eq(0).val();
+                var individualAttack = Number.parseInt($(".modal .iv[iv='atk']").val());
+                var individualDefense = Number.parseInt($(".modal .iv[iv='def']").val());
+                var individualStamina = Number.parseInt($(".modal .iv[iv='hp']").val());
+                var level = Number.parseFloat($(".modal .level").val());
+                var pokemon = $(".modal .poke-select").val();
+                //console.log(pokemon);
+                return {cinematicMove, cinematicMove2, quickMove, individualAttack, individualDefense, individualStamina, level, pokemon};
+            }
             $("html").on("click", "#addpokebtn", (function () {
-                console.log("a");
-                closeModalWindow();
-                pokebox.push(pokebox[0]);
+
+
+
+                pokebox.push(getNewPoke());
                 localStorage.pokebox = JSON.stringify(pokebox);
                 updateTeamSelector({pokemon: pokebox});
+                closeModalWindow();
             }));
+            $("html").on("click", ".master-stats", (function () {
+                $(".level").val("40");
+                updateNewCP();
+            }));
+            $("html").on("click", ".ultra-stats", (function () {
+                var s = $(".modal .poke-select").val();
+                $(".level").val(maxTradeLevel(s)[1]);
+                updateNewCP();
+            }));
+            $("html").on("click", ".great-stats", (function () {
+                var s = $(".modal .poke-select").val();
+                $(".level").val(maxTradeLevel(s)[0]);
+                updateNewCP();
+            }));
+            $("html").on("keyup", ".poke-search", function (e) {
+                var searchStr = $(this).val().toLowerCase();
+                console.log(searchStr);
+                if (searchStr == '')
+                    return;
 
+                var pokename = gm.getPokemonById(searchStr).speciesId;
+                $(".poke-select option").each(function () {
+                    var v = $(this).val();
+                    $(this).removeAttr("selected");
+//                   console.log(pokename + " " + v);
+                    if (v === pokename) {
+                        $(this).attr("selected", "");
+                    }
+
+                });
+                pokeSelectChanged(pokename);
+                updateNewCP();
+            });
+            $("html").on("change", ".poke-select", function (e) {
+                var selectedpoke = $(this).val();
+                $(".poke-search").val(selectedpoke);
+                pokeSelectChanged(selectedpoke);
+            });
+            $("html").on("change", ".modal *", function (e) {
+                console.log("change");
+                updateNewCP();
+            });
+            function updateNewCP(){
+                var p = getNewPoke();
+                var cp = calcCP(p.pokemon,p.level,p.individualAttack,p.individualDefense,p.individualStamina);
+                $(".cp .stat").html(cp);
+            }
+            function pokeSelectChanged(poke) {
+                console.log(poke);
+                var pokegm = gm.getPokemonById(poke);
+
+                var fastmoves = "";
+                for (var i = 0; i < pokegm.fastMoves.length; i++) {
+                    var m = pokegm.fastMoves[i];
+                    var m2 = m.toLowerCase().replace("_", " ");
+                    var selected = i === 0 ? "selected" : "";
+                    fastmoves += "<option " + selected + "  value='" + m + "'>" + m2 + "</option>"
+                }
+                console.log(fastmoves);
+                $(".move-select.fast").html(fastmoves);
+
+                var chargemoves = "";
+                for (var i = 0; i < pokegm.chargedMoves.length; i++) {
+                    var m = pokegm.chargedMoves[i];
+                    var m2 = m.toLowerCase().replace("_", " ");
+                    var selected = i === 1 ? "selected" : "";
+                    chargemoves += "<option " + selected + " value='" + m + "'>" + m2 + "</option>"
+                }
+                $(".move-select.charged").html(chargemoves);
+
+            }
 
         </script>
 
