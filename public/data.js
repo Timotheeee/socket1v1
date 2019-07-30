@@ -22642,7 +22642,7 @@ var masterdata = {
                 0
             ],
             "buffTarget": "opponent",
-            "buffApplyChance": ".5"
+            "buffApplyChance": "1"
         },
         {
             "moveId": "LICK",
