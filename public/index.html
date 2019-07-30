@@ -179,7 +179,7 @@
 
         </div>
         <div id='teamselection' class="bgcontainer">
-            <b>team: </b>
+            <b>team: </b><button onclick="clearSelected()">clear selection</button>
             <div id="team">
 
             </div>
@@ -1080,6 +1080,10 @@
                 }
                 $(".move-select.charged").html(chargemoves);
 
+            }
+            function clearSelected(){
+                $("#team div").removeClass("selectedpoke");
+                $("#team div").removeClass("lead");
             }
 
         </script>
