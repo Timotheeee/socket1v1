@@ -49,7 +49,7 @@ function setModalClosePrevention(time){
 }
 
 function closeModalWindow(){
-    console.log(closePrevention);
+    //console.log(closePrevention);
 	if(! closePrevention){
 		$(".modal").remove();
 	}
