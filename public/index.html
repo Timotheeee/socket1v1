@@ -924,10 +924,11 @@
                         //console.log(cur.pokemon);
                         var name = cur.pokemon.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-");
                         var name2 = name.replace("_FORM", "").replace("ALOLA", "ALOLAN").replace("-", "_");
+                        var movedisplay = cur.quickMove.substring(0,2) + "," + cur.cinematicMove.substring(0,2) + "," + cur.cinematicMove2.substring(0,2);
                         
                         var cp = calcCP(name2, cur.level, cur.individualAttack, cur.individualDefense, cur.individualStamina);
                         console.log("using calcp with : " + name2 + " "+ cur.level + " "+ cur.individualAttack + " "+ cur.individualDefense + " "+ cur.individualStamina + " " + cp);
-                        toappend += "<div " + selected + " data-name='" + name + "' data-id='" + i + "' style='background-image: url(" + showdownURL(data.pokemon[i].pokemon) + ")'>" + cp + "</div>";
+                        toappend += "<div " + selected + " data-name='" + name + "' data-id='" + i + "' style='background-image: url(" + showdownURL(data.pokemon[i].pokemon) + ")'>" + cp + " " + movedisplay + "</div>";
                         //console.log(toappend);
                         //
 
