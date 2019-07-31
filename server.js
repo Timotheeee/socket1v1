@@ -61,7 +61,7 @@ function addPlayerToLobby(player, id) {
             break;
     }
     if (id > 7100) {
-        for (var i = 7200; i < 9999; i++) {
+        for (var i = id; i < 9999; i++) {
 
 
             if (!lobbies[i].player1) {
@@ -115,13 +115,25 @@ function other(pos) {
 }
 function sendLobbyCount() {
     var res = {lobbies1: "", lobbies2: ""};
+    var great = 0;
+    var master = 0;
     for (var i = 0; i < 9999; i++) {
         if (lobbies[i].player1 && lobbies[i].player2) {
             res.lobbies2 += (", " + (i + 1));
+            if (i > 7000 && i < 8000)
+                great += 2;
+            if (i > 8000)
+                master += 2;
             continue;
         }
-        if (lobbies[i].player1 || lobbies[i].player2)
+        if (lobbies[i].player1 || lobbies[i].player2) {
             res.lobbies1 += (", " + (i + 1));
+            if (i > 7000 && i < 8000)
+                great += 1;
+            if (i > 8000)
+                master += 1;
+        }
+
 
         if (lobbies[i].player1 && lobbies[i].player1.ready && lobbies[i].player2 && lobbies[i].player2.ready) {
             lobbies[i]["player1"].emit('start', {});
@@ -132,6 +144,7 @@ function sendLobbyCount() {
     res.lobbies1 = res.lobbies1.replace(", ", "");
     res.lobbies2 = res.lobbies2.replace(", ", "");
     io.sockets.emit('lobbycount', res);
+    io.sockets.emit('playersinmodes', {great,master});
 }
 
 
@@ -158,7 +171,7 @@ io.sockets.on('connection',
         // We are given a websocket object in our function
                 function (socket) {
                     players++;
-                    
+
                     console.log("We have a new client: " + socket.id + "\nplayers: " + players);
                     socket.ready = false;
                     var lobbypos = addPlayerToLobby(socket, -1);

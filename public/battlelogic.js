@@ -249,8 +249,10 @@ function findPoke(poke) {
     return p;
 }
 function calcCP(poke, level, atk, def, hp) {
-    var bs = gm.getPokemonById(poke).baseStats;
+    var g = gm.getPokemonById(poke);
+    var bs = g.baseStats;
     var cpm = cpms[(level - 1) * 2];
     var cp = (bs.atk + atk) * Math.sqrt(bs.def + def) * Math.sqrt(bs.hp + hp) * cpm * cpm * 0.1;
+    //console.log("calccp: " + g.speciesId + " " + Math.floor(cp));
     return Math.floor(cp);
 }
