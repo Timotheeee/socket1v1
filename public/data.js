@@ -5649,7 +5649,8 @@ var masterdata = {
             "chargedMoves": [
                 "BLIZZARD",
                 "FLASH_CANNON",
-                "HYDRO_PUMP"
+                "HYDRO_PUMP",
+                "HYDRO_CANNON"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -8699,7 +8700,8 @@ var masterdata = {
             "chargedMoves": [
                 "CLOSE_COMBAT",
                 "FLAMETHROWER",
-                "SOLAR_BEAM"
+                "SOLAR_BEAM",
+                "BLAST_BURN"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -18979,7 +18981,8 @@ var masterdata = {
             "chargedMoves": [
                 "EARTHQUAKE",
                 "SLUDGE_WAVE",
-                "SURF"
+                "SURF",
+                "HYDRO_CANNON"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -19594,7 +19597,8 @@ var masterdata = {
             "chargedMoves": [
                 "EARTHQUAKE",
                 "SOLAR_BEAM",
-                "STONE_EDGE"
+                "STONE_EDGE",
+                "FRENZY_PLANT"
             ],
             "defaultIVs": {
                 "cp1500": [
