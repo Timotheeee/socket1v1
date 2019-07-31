@@ -163,6 +163,12 @@
 
         </div>
         <div id='teamselection' class="bgcontainer">
+            <script>
+                function clearSelected() {
+                    $("#team div").removeClass("selectedpoke");
+                    $("#team div").removeClass("lead");
+                }
+            </script>
             <b>team: </b><button onclick="clearSelected()">clear selection</button>
             <div id="team">
 

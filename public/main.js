@@ -828,10 +828,7 @@ $(function () {
         $(".move-select.charged").html(chargemoves);
 
     }
-    function clearSelected() {
-        $("#team div").removeClass("selectedpoke");
-        $("#team div").removeClass("lead");
-    }
+
     socket.on("playersinmodes",function(data){
         $("#playersgreat").html(data.great);
         $("#playersmaster").html(data.master);
