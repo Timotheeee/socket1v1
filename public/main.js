@@ -172,7 +172,7 @@ $(function () {
             return;
         if (move.includes("switch")) {
             if (team[currentpoke].hp > 0)
-                switchcd = 30;
+                switchcd = 40;
             currentpoke = parseInt(move.split("_")[1]);
             updateMoveButtons();
             move = currentQuickMove();
@@ -182,7 +182,7 @@ $(function () {
                 display("");
         }
         if (team[currentpoke].hp < 1) {
-            switchcd = 0;
+            //switchcd = 0;
             display("choose your next pokemon!");
             return;
         }
@@ -629,8 +629,14 @@ $(function () {
             $("button[name='" + i + "']").attr("disabled", team[i].hp < 1);
         }
         $("button[name='" + poke + "']").attr("disabled", true);
+        
+        var disableall = false;
         if (!(switchcd === 0 && started))
-            $("#switch button").attr("disabled", true);
+            disableall = true;
+        if(team[currentpoke].hp < 1 && started)
+            disableall = false;
+        if(disableall)
+        $("#switch button").attr("disabled", true);
     }
     function updateSwitchButtons() {
         for (var i = 0; i < 3; i++) {
