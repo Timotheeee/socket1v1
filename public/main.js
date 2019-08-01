@@ -789,6 +789,7 @@ $(function () {
         });
         pokeSelectChanged(pokename);
         updateNewCP();
+        $(".great-stats").click();
     });
     $("html").on("change", ".poke-select", function (e) {
         var selectedpoke = $(this).val();

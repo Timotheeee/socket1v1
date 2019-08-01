@@ -216,7 +216,7 @@
             var doingcharge = false;
             var chargeincoming = false;
             var winner = -1;
-            var pokebox = localStorage.pokebox ? JSON.parse(localStorage.pokebox) : defaultbox.pokemon;//stuff from pokebattler
+            var pokebox = localStorage.pokebox ? JSON.parse(localStorage.pokebox) : defaultbox.pokemon;
             var socket;
             var playername = localStorage.name || ("anonymous" + Math.floor(Math.random() * 9999));
             var turnswaited = 0;
@@ -237,6 +237,9 @@
             var img2 = $("#img2");
             var win1 = $("#win");
             var win2 = $("#win2");
+            $(function () {
+                
+            });
         </script>
 
 
