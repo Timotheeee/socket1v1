@@ -60,7 +60,7 @@ function addPlayerToLobby(player, id) {
         if (id !== -1)
             break;
     }
-    if (id > 7100) {
+    if (id > 4100) {
         for (var i = id; i < 9999; i++) {
 
 
@@ -120,7 +120,7 @@ function sendLobbyCount() {
     for (var i = 0; i < 9999; i++) {
         if (lobbies[i].player1 && lobbies[i].player2) {
             res.lobbies2 += (", " + (i + 1));
-            if (i > 7000 && i < 8000)
+            if (i > 4000 && i < 8000)
                 great += 2;
             if (i > 8000)
                 master += 2;
@@ -128,7 +128,7 @@ function sendLobbyCount() {
         }
         if (lobbies[i].player1 || lobbies[i].player2) {
             res.lobbies1 += (", " + (i + 1));
-            if (i > 7000 && i < 8000)
+            if (i > 4000 && i < 8000)
                 great += 1;
             if (i > 8000)
                 master += 1;

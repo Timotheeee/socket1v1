@@ -370,7 +370,7 @@ $(function () {
 
     $('#ready').click(function () {
         if (teamFitsInGreat)
-            joinGameMode(7199);
+            joinGameMode(4199);
     });
     $('#ready2').click(function () {
         joinGameMode(8099);
