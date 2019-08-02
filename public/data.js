@@ -6420,6 +6420,7 @@ var masterdata = {
             "chargedMoves": [
                 "CLOSE_COMBAT",
                 "LEAF_BLADE",
+                "SYNCHRONOISE",
                 "PSYCHIC"
             ],
             "defaultIVs": {
@@ -6495,7 +6496,8 @@ var masterdata = {
             "chargedMoves": [
                 "DAZZLING_GLEAM",
                 "PSYCHIC",
-                "SHADOW_BALL"
+                "SHADOW_BALL",
+                "SYNCHRONOISE",
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -22966,6 +22968,15 @@ var masterdata = {
             "type": "psychic",
             "power": 70,
             "energy": 60,
+            "energyGain": 0,
+            "cooldown": 500
+        },
+                {
+            "moveId": "SYNCHRONOISE",
+            "name": "Synchronoise",
+            "type": "psychic",
+            "power": 80,
+            "energy": 50,
             "energyGain": 0,
             "cooldown": 500
         },
