@@ -58,8 +58,6 @@ $(function () {
     socket.on('lobbycount', function (data) {
         $("#lobbies1").text(data.lobbies1 === "" ? "none" : data.lobbies1);
         $("#lobbies2").text(data.lobbies2 === "" ? "none" : data.lobbies2);
-    });
-    socket.on('lobbycount', function (data) {
         if (data.count === 1 && startrecv) {
             display("the enemy disconnected, " + refreshbtn);
             socket.disconnect();
@@ -67,6 +65,7 @@ $(function () {
         }
         $("#playercountinlobby").text(data.count);
     });
+
 
     socket.on('dmg',
             function (data) {
@@ -629,14 +628,14 @@ $(function () {
             $("button[name='" + i + "']").attr("disabled", team[i].hp < 1);
         }
         $("button[name='" + poke + "']").attr("disabled", true);
-        
+
         var disableall = false;
         if (!(switchcd === 0 && started))
             disableall = true;
-        if(team[currentpoke].hp < 1 && started)
+        if (team[currentpoke].hp < 1 && started)
             disableall = false;
-        if(disableall)
-        $("#switch button").attr("disabled", true);
+        if (disableall)
+            $("#switch button").attr("disabled", true);
     }
     function updateSwitchButtons() {
         for (var i = 0; i < 3; i++) {
@@ -836,7 +835,7 @@ $(function () {
 
     }
 
-    socket.on("playersinmodes",function(data){
+    socket.on("playersinmodes", function (data) {
         $("#playersgreat").html(data.great);
         $("#playersmaster").html(data.master);
     });

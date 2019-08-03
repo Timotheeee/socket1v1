@@ -21,17 +21,12 @@ var players = 0;
 
 var lobbies = [];
 for (var i = 0; i < 9999; i++) {
-    lobbies.push({player1: undefined, player2: undefined});
+    lobbies.push({});
 }
 
 
-
 function addPlayerToLobby(player, id) {
-    for (var i = 0; i < 9999; i++) {
-        if (id !== -1)
-            i = id;
-
-
+    for (var i = id; i < 9999; i++) {
         if (!lobbies[i].player1) {
             lobbies[i].player1 = player;
             lobbies[i].player1.lobbyid = i;
@@ -57,40 +52,8 @@ function addPlayerToLobby(player, id) {
             }
             return i;
         }
-        if (id !== -1)
-            break;
     }
-    if (id > 4100) {
-        for (var i = id; i < 9999; i++) {
-
-
-            if (!lobbies[i].player1) {
-                lobbies[i].player1 = player;
-                lobbies[i].player1.lobbyid = i;
-                lobbies[i].player1.lobbypos = 1;
-                if (lobbies[i].player2) {
-                    lobbies[i].player1.emit("lobbycount", {count: 2});
-                    lobbies[i].player2.emit("lobbycount", {count: 2});
-                } else {
-                    lobbies[i].player1.emit("lobbycount", {count: 1});
-                }
-
-                return i;
-            }
-            if (!lobbies[i].player2) {
-                lobbies[i].player2 = player;
-                lobbies[i].player2.lobbyid = i;
-                lobbies[i].player2.lobbypos = 2;
-                if (lobbies[i].player1) {
-                    lobbies[i].player1.emit("lobbycount", {count: 2});
-                    lobbies[i].player2.emit("lobbycount", {count: 2});
-                } else {
-                    lobbies[i].player2.emit("lobbycount", {count: 1});
-                }
-                return i;
-            }
-        }
-    }
+    //shouldn't happen
     return -1;
 }
 function removePlayerFromLobby(player) {
@@ -101,11 +64,11 @@ function removePlayerFromLobby(player) {
     if (lobbies[i]["player" + pos2])
         lobbies[i]["player" + pos2].emit("lobbycount", {count: 1});
 }
+//send a packet to the opponent
 function sendToOther(player, msg, data) {
     var i = player.lobbyid;
     var pos = player.lobbypos;
     var pos2 = other(pos);
-    console.log("send to other: " + i + " " + pos + " " + pos2);
     if (lobbies[i]["player" + pos2])
         lobbies[i]["player" + pos2].emit(msg, data);
 }
@@ -113,6 +76,7 @@ function sendToOther(player, msg, data) {
 function other(pos) {
     return pos === 2 ? 1 : 2
 }
+//send start packet and the amount of players in each mode
 function sendLobbyCount() {
     var res = {lobbies1: "", lobbies2: ""};
     var great = 0;
@@ -143,8 +107,9 @@ function sendLobbyCount() {
     }
     res.lobbies1 = res.lobbies1.replace(", ", "");
     res.lobbies2 = res.lobbies2.replace(", ", "");
+    io.sockets.emit('playersinmodes', {great, master});
+    //this tells the client if the opponent disconnected
     io.sockets.emit('lobbycount', res);
-    io.sockets.emit('playersinmodes', {great,master});
 }
 
 
@@ -152,16 +117,6 @@ var io = require('socket.io')(server);
 
 
 
-Array.prototype.remove = function () {
-    var what, a = arguments, L = a.length, ax;
-    while (L && this.length) {
-        what = a[--L];
-        while ((ax = this.indexOf(what)) !== -1) {
-            this.splice(ax, 1);
-        }
-    }
-    return this;
-};
 
 var chatlog = "";
 var playernamelist = [];
@@ -174,7 +129,7 @@ io.sockets.on('connection',
 
                     console.log("We have a new client: " + socket.id + "\nplayers: " + players);
                     socket.ready = false;
-                    var lobbypos = addPlayerToLobby(socket, -1);
+                    var lobbypos = addPlayerToLobby(socket, 0);
                     socket.emit("lobbypos", {lobbypos});
                     io.sockets.emit('playercount', {count: players});
                     sendLobbyCount();
@@ -182,19 +137,14 @@ io.sockets.on('connection',
 
                     socket.on('lobbyrequest',
                             function (data) {
-                                console.log("lobbyrequest " + data.num);
                                 removePlayerFromLobby(socket);
                                 var newpos = addPlayerToLobby(socket, data.num);
-                                console.log("try 1: " + newpos);
-                                if (newpos === -1) {
-                                    newpos = addPlayerToLobby(socket, -1);
-                                    console.log("try 2: " + newpos);
-                                }
                                 socket.emit("lobbypos", {lobbypos: newpos});
                                 sendLobbyCount();
                             }
                     );
 
+                    //failsafe for when a desync happens
                     socket.on('expecting0health',
                             function (data) {
                                 //console.log("Received: " + data.move);
@@ -245,7 +195,6 @@ io.sockets.on('connection',
 
                         //io.sockets.emit('start', {});
                     });
-                    //enemychangedname
                     socket.on('enemychoseteam', function (data) {
                         sendToOther(socket, 'enemychoseteam', data);
                     });
@@ -256,19 +205,13 @@ io.sockets.on('connection',
 
                     socket.on('end',
                             function (data) {
-                                // Data comes in as whatever was sent, including objects
                                 console.log("Received end");
-                                //players = 0;
-
-
                             }
                     );
 
                     socket.on('disconnect', function () {
-                        console.log("Client has disconnected");//
+                        console.log("Client has disconnected");
                         players--;
-                        if (players < 0)
-                            players = 0;
                         io.sockets.emit('playercount', {count: players});
                         removePlayerFromLobby(socket);
                         sendLobbyCount();
