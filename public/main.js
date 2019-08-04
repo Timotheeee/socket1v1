@@ -5,7 +5,7 @@ $(function () {
     if (window.location.href.includes("heroku")) {
         socket = io.connect(window.location.href.replace("http", "ws"));
     } else {
-        socket = io.connect('http://178.82.224.106:3000/');
+        socket = io.connect('http://localhost:3000/');
     }
 
 
