@@ -604,7 +604,7 @@ $(function () {
             if (!sentendpacket) {
                 sentendpacket = true;
                 socket.emit('end', {});
-                var share = "<br>If you like the simulator, share it with your friends to increase the playerbase";
+                var share = "<br>If you like the simulator, share it around to increase the playerbase";
                 display(winner === 1 ? "you win. " + refreshbtn + share : "you lose. " + refreshbtn + share);
             }
 
