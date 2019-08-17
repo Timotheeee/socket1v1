@@ -78,34 +78,36 @@
             </div>
         </div>
         <div class="bgcontainer" style="height:480px; padding-top: 25px; position: relative;">
-            <div id='enemyteam'>
+            <div id='enemyteam' class="battlestuff">
                 <div class='enemypoke'></div>
                 <div class='enemypoke'></div>
                 <div class='enemypoke'></div>
             </div>
             <div id='enemycp'></div>
             <div id='name1'></div>
-            <div class="hpcontainer" style="width:203px" id="hp1container"><div class="hp" style="width:200px" id="hp1"></div></div>
-            <div class="pokeimage" id='img1' style='background-image: url("question.PNG")'></div>
-            <img src="shield.png" id="shield1" alt="shield">
-            <span id="shieldcount1">2</span>
+            <div class="hpcontainer battlestuff" style="width:203px" id="hp1container"><div class="hp" style="width:200px" id="hp1"></div></div>
+            <div class="pokeimage battlestuff" id='img1' style='background-image: url("question.PNG")'></div>
+            <img class="battlestuff" src="shield.png" id="shield1" alt="shield">
+            <span id="shieldcount1" class="battlestuff">2</span>
 
             <a id="ready" class="button button-green noselect">
-                <i class="fa fa-check"></i> <strong>Find an opponent (Great league)<br>Players: <span id="playersgreat">0</span></strong>
+                <img src="great.png" style="position: absolute;left:0px;">
+                <strong>Find an opponent (Great league)<br>Players: <span id="playersgreat">0</span></strong>
             </a>
             <a id="ready2" class="button button-green noselect">
-                <i class="fa fa-check"></i> <strong>Find an opponent (Master league)<br>Players: <span id="playersmaster">0</span></strong>
+                <img src="master.png" style="position: absolute;left:0px;">
+                <strong>Find an opponent (Master league)<br>Players: <span id="playersmaster">0</span></strong>
             </a>
 
-            <img src="shield.png" id="shield2" alt="shield">
-            <span id="shieldcount2">2</span>
-            <div class="hpcontainer" style="width:203px" id="hp2container"><div class="hp" style="width:200px" id="hp2"></div></div>
-            <div class="pokeimage" id='img2' style='background-image: url("question.PNG")'></div>
-            <div id="win"></div>
-            <div id="win2"></div>
-            <div id='name2'></div>
+            <img src="shield.png" id="shield2" class="battlestuff" alt="shield">
+            <span id="shieldcount2" class="battlestuff">2</span>
+            <div class="hpcontainer battlestuff" style="width:203px" id="hp2container"><div class="hp" style="width:200px" id="hp2"></div></div>
+            <div class="pokeimage battlestuff" id='img2' style='background-image: url("question.PNG")'></div>
+            <div id="win" style='text-transform: none'></div>
+            <div id="win2" style='text-transform: none'></div>
+            <div id='name2' class="battlestuff"></div>
         </div>
-        <div id="buttons"  class="bgcontainer">
+        <div id="buttons"  class="bgcontainer battlecontainer">
             <div id="quickmovecontainer"><b>quick move:</b> <span id="quickmovebtn">mud shot</span></div>
             <div id="enemyquickmovecontainer"><b>enemy quick move:</b> <span id="enemyquickmovebtn">unknown</span></div>
             <div id="chargemove1container">
@@ -127,7 +129,7 @@
 
 
         </div>
-        <div id='switch' class="bgcontainer"><b>switch: </b>
+        <div id='switch' class="bgcontainer battlecontainer"><b>switch: </b>
             <button id='switch1' name="0"></button>
             <button id='switch2' name="1"></button>
             <button id='switch3' name="2"></button>
@@ -169,7 +171,9 @@
                     $("#team div").removeClass("lead");
                 }
             </script>
-            <b>team: </b><button onclick="clearSelected()">clear selection</button>
+            <b>team: </b><button onclick="clearSelected()">clear selection</button><br>
+            <b>search: </b><input type="text" id="search">
+            
             <div id="team">
 
             </div>

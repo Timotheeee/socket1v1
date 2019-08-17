@@ -318,6 +318,12 @@ $(function () {
         if (startrecv)
             return;
 
+        $(".battlestuff").css({opacity: 100});
+        $(".battlecontainer").css({display: "block"});
+
+        $("#ready").fadeOut(0);
+        $("#ready2").fadeOut(0);
+
         afktimer = Date.now();
         startrecv = true;
         setTimeout(function () {
@@ -378,8 +384,13 @@ $(function () {
         if (!changedlobby) {
             socket.emit('lobbyrequest', {num: lobby});
             display("waiting for opponent");
-            $("#ready").fadeOut(0);
-            $("#ready2").fadeOut(0);
+            $("#ready").show(0);
+            $("#ready2").show(0);
+
+            if (lobby === 4199)
+                $("#ready").fadeOut(0);
+            if (lobby === 8099)
+                $("#ready2").fadeOut(0);
             $("#lobbynumbercontainer").fadeOut(0);
             $("#changelobbycontainer").fadeOut(0);
             $("#tutorial").fadeOut(0);
@@ -470,7 +481,12 @@ $(function () {
                 //console.log(cur.pokemon);
                 var name = cur.pokemon.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-");
                 var name2 = name.replace("_FORM", "").replace("ALOLA", "ALOLAN").replace("-", "_");
-                var movedisplay = cur.quickMove.substring(0, 2) + "," + cur.cinematicMove.substring(0, 2) + "," + cur.cinematicMove2.substring(0, 2);
+                cur.quickMove = cur.quickMove.replace("_FAST","");
+                var movedisp1 = cur.quickMove.includes("_") ? (cur.quickMove.substring(0,1) + cur.quickMove.split("_")[1].substring(0,1)) : cur.quickMove.substring(0,1) ;
+                var movedisp2 = cur.cinematicMove.includes("_") ? (cur.cinematicMove.substring(0,1) + cur.cinematicMove.split("_")[1].substring(0,1)) : cur.cinematicMove.substring(0,1) ;
+                var movedisp3 = cur.cinematicMove2.includes("_") ? (cur.cinematicMove2.substring(0,1) + cur.cinematicMove2.split("_")[1].substring(0,1)) : cur.cinematicMove2.substring(0,1) ;
+                //console.log(cur.quickMove + " " + movedisp1);
+                var movedisplay = movedisp1 + "," + movedisp2 + "," + movedisp3;
 
                 var cp = calcCP(name2, cur.level, cur.individualAttack, cur.individualDefense, cur.individualStamina);
                 //console.log("using calcp with : " + name2 + " " + cur.level + " " + cur.individualAttack + " " + cur.individualDefense + " " + cur.individualStamina + " " + cp);
@@ -542,11 +558,19 @@ $(function () {
         move = team[currentpoke].cinematicMove2;
     });
     $('body').on("click", ".shieldbtn", function (e) {
+        useShield();
+    });
+    $('body').on("click", "#shield1,#shield2", function (e) {
+        console.log($(".shieldbtn").length);
+        if ($(".shieldbtn").length === 1)
+            useShield();
+    });
+    function useShield() {
         shields--;
         shielding = true;
         socket.emit('shield', {});
-        $(this).hide();
-    });
+        $(".shieldbtn").hide();
+    }
     $('body').on("click", "#switch button", function (e) {
         var at = $(this).attr("name");
         //console.log(currentpoke);
@@ -839,4 +863,22 @@ $(function () {
         $("#playersgreat").html(data.great);
         $("#playersmaster").html(data.master);
     });
+
+    $("#search").on("keydown", function () {
+        setTimeout(function () {
+            var s = $("#search").val();
+            console.log(s);
+            $("#team div").each(function(){
+                var el = $(this);
+                if(el.attr("id")=== "newpoke")return;
+                el.show();
+               if(!el.data("name").includes(s)){
+                   el.hide();
+               }
+            });
+        }, 0);
+
+    })
+
+    display("Make a team, then select a league to start playing.");
 });

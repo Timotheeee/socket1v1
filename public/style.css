@@ -212,20 +212,27 @@ html{
         -ms-transform: scale(1.25, 1.25);
         transform: scale(1.25, 1.25);*/
 }
-#ready{
+#ready,#ready2{
     display: block;
     width:150px;
-    left:175px;
-    top:152px;
+    left:150px;
     position: absolute;
+    padding-left: 70px;
+}
+#ready{
+    top:122px;
 }
 #ready2{
-    display: block;
-    width:150px;
-    left:175px;
     top:253px;
-    position: absolute;
 }
+
+.battlestuff{
+    opacity: 0.001;
+}
+.battlecontainer{
+    display: none;
+}
+
 #enemyteam{
     position: absolute;
     top:10px;
