@@ -71,7 +71,7 @@ $(function () {
             function (data) {
                 if (!started)
                     return;
-                //console.log("Got: " + data.move);
+                //console.log(data.move);
                 //console.log(data);
                 var dmg = convertToDamage(data.move, false);
                 var energyused = convertToEnergy(data.move);
@@ -115,6 +115,8 @@ $(function () {
                     if (chargeincoming) {
                         //display("the charge move was " + data.move.toLowerCase().replace("_", " "));
                         display2("the charge move was " + data.move.toLowerCase().replace("_", " ").replace("_", " "));
+                        if (!shielding)
+                            chargeMoveAnimation(gm.getMoveById(data.move).type, 1);
                         setTimeout(function () {
                             if ($("#win2").html().includes("the charge move was "))
                                 display2("");
@@ -261,6 +263,9 @@ $(function () {
             //                        ;
             animate(2);
             //console.log(team[currentpoke].atkboosts);
+            if (!opponentshielding && doingcharge)
+                chargeMoveAnimation(gm.getMoveById(move).type, 2);
+            //console.log(move);
             enemyteam[currentenemypoke].hp -= (opponentshielding ? 1 : convertToDamage(move, true));
             if ($("#win").html().includes("opponent shielded") || $("#win").html().includes("waiting for opponent to shield"))
                 display("");
@@ -311,6 +316,11 @@ $(function () {
 
     });
 
+    function showStuff() {
+        $(".battlestuff").css({opacity: 100});
+        $(".battlecontainer").css({display: "block"});
+    }
+    showStuff()
 
     socket.on('start', function (data) {
 
@@ -318,8 +328,7 @@ $(function () {
         if (startrecv)
             return;
 
-        $(".battlestuff").css({opacity: 100});
-        $(".battlecontainer").css({display: "block"});
+        showStuff();
 
         $("#ready").fadeOut(0);
         $("#ready2").fadeOut(0);
@@ -481,10 +490,10 @@ $(function () {
                 //console.log(cur.pokemon);
                 var name = cur.pokemon.replace("_FORM", "").toLowerCase().replace("_", "-").replace("_", "-");
                 var name2 = name.replace("_FORM", "").replace("ALOLA", "ALOLAN").replace("-", "_");
-                cur.quickMove = cur.quickMove.replace("_FAST","");
-                var movedisp1 = cur.quickMove.includes("_") ? (cur.quickMove.substring(0,1) + cur.quickMove.split("_")[1].substring(0,1)) : cur.quickMove.substring(0,1) ;
-                var movedisp2 = cur.cinematicMove.includes("_") ? (cur.cinematicMove.substring(0,1) + cur.cinematicMove.split("_")[1].substring(0,1)) : cur.cinematicMove.substring(0,1) ;
-                var movedisp3 = cur.cinematicMove2.includes("_") ? (cur.cinematicMove2.substring(0,1) + cur.cinematicMove2.split("_")[1].substring(0,1)) : cur.cinematicMove2.substring(0,1) ;
+                cur.quickMove = cur.quickMove.replace("_FAST", "");
+                var movedisp1 = cur.quickMove.includes("_") ? (cur.quickMove.substring(0, 1) + cur.quickMove.split("_")[1].substring(0, 1)) : cur.quickMove.substring(0, 1);
+                var movedisp2 = cur.cinematicMove.includes("_") ? (cur.cinematicMove.substring(0, 1) + cur.cinematicMove.split("_")[1].substring(0, 1)) : cur.cinematicMove.substring(0, 1);
+                var movedisp3 = cur.cinematicMove2.includes("_") ? (cur.cinematicMove2.substring(0, 1) + cur.cinematicMove2.split("_")[1].substring(0, 1)) : cur.cinematicMove2.substring(0, 1);
                 //console.log(cur.quickMove + " " + movedisp1);
                 var movedisplay = movedisp1 + "," + movedisp2 + "," + movedisp3;
 
@@ -868,17 +877,49 @@ $(function () {
         setTimeout(function () {
             var s = $("#search").val();
             console.log(s);
-            $("#team div").each(function(){
+            $("#team div").each(function () {
                 var el = $(this);
-                if(el.attr("id")=== "newpoke")return;
+                if (el.attr("id") === "newpoke")
+                    return;
                 el.show();
-               if(!el.data("name").includes(s)){
-                   el.hide();
-               }
+                if (!el.data("name").includes(s)) {
+                    el.hide();
+                }
             });
         }, 0);
 
-    })
+    });
+
+    window.chargeMoveAnimation = function (type, player) {
+        //<div class="chargemoveanim fire"></div>
+        for (var i = -1; i < 2; i++) {
+            $("#img" + player).append('<div id="' + i + '" class="chargemoveanim ' + type + '"></div>');
+            if (player === 1)
+                $(".chargemoveanim[id='" + i + "']").css({top: 100, left: 100});
+        }
+        setTimeout(function () {
+            for (var i = -1; i < 2; i++) {
+                var offsetx = -320 - i * 15;
+                var offsety = -220 + i * 15;
+                if (player === 1) {
+                    offsetx *= -1;
+                    offsety *= -1;
+                    offsetx += 100;
+                    offsety += 100;
+                }
+                $(".chargemoveanim[id='" + i + "']").css({top: offsety, left: offsetx});
+            }
+        }, 20);
+        setTimeout(function () {
+            for (var i = -1; i < 2; i++) {
+                $(".chargemoveanim[id='" + i + "']").css({opacity: 0});
+            }
+        }, 300);
+        setTimeout(function () {
+            $("#img" + player).html("");
+        }, 800);
+
+    };
 
     display("Make a team, then select a league to start playing.");
 });

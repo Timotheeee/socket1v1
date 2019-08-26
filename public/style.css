@@ -337,6 +337,16 @@ body{
 
 }
 
+.chargemoveanim{
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    transition: all 500ms ease-out;
+    position: absolute;
+    top:0px;
+    left:0px;
+}
+
 #pokebattlerid{
     border-radius: 4px;
     padding: 3px 8px;
