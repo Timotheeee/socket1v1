@@ -220,10 +220,10 @@ html{
     padding-left: 70px;
 }
 #ready{
-    top:122px;
+    top:14px;/*122px;*/
 }
 #ready2{
-    top:253px;
+top: 111px;/*    top:253px;*/
 }
 
 .battlestuff{

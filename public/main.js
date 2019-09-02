@@ -319,6 +319,7 @@ $(function () {
     function showStuff() {
         $(".battlestuff").css({opacity: 100});
         $(".battlecontainer").css({display: "block"});
+        $("#mainbattlecontainer").css({height:480});
     }
     //showStuff()
 
