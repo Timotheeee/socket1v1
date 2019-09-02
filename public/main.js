@@ -320,7 +320,7 @@ $(function () {
         $(".battlestuff").css({opacity: 100});
         $(".battlecontainer").css({display: "block"});
     }
-    showStuff()
+    //showStuff()
 
     socket.on('start', function (data) {
 
