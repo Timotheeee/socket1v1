@@ -410,7 +410,7 @@ var masterdata = {
                         "rhydon",
                         "rhyhorn",
                         "rhyperior",
-                        "sandlash",
+                        "sandslash",
                         "sandslash_alolan",
                         "sandshrew",
                         "sandshrew_alolan",
@@ -646,7 +646,9 @@ var masterdata = {
                 "FRUSTRATION"
             ],
             "legacyMoves": [
-                "SCRATCH"
+                "SCRATCH",
+                "RETURN",
+                "FRUSTRATION"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -16725,7 +16727,8 @@ var masterdata = {
             ],
             "fastMoves": [
                 "ROCK_SMASH",
-                "ROCK_THROW"
+                "ROCK_THROW",
+                "LOCK_ON"
             ],
             "chargedMoves": [
                 "FOCUS_BLAST",
@@ -16765,7 +16768,8 @@ var masterdata = {
             ],
             "fastMoves": [
                 "FROST_BREATH",
-                "ROCK_SMASH"
+                "ROCK_SMASH",
+                "LOCK_ON"
             ],
             "chargedMoves": [
                 "BLIZZARD",
@@ -16805,7 +16809,8 @@ var masterdata = {
             ],
             "fastMoves": [
                 "METAL_CLAW",
-                "ROCK_SMASH"
+                "ROCK_SMASH",
+                "LOCK_ON"
             ],
             "chargedMoves": [
                 "FLASH_CANNON",
@@ -20861,6 +20866,9 @@ var masterdata = {
                 "STONE_EDGE",
                 "ANCIENT_POWER"
             ],
+            "legacyMoves": [
+                "ANCIENT_POWER"
+            ],
             "defaultIVs": {
                 "cp1500": [
                     16.5,
@@ -21568,13 +21576,28 @@ var masterdata = {
                 "none"
             ],
             "fastMoves": [
-                "ROCK_SMASH",
+                "HIDDEN_POWER_BUG",
+                "HIDDEN_POWER_DARK",
+                "HIDDEN_POWER_DRAGON",
+                "HIDDEN_POWER_ELECTRIC",
+                "HIDDEN_POWER_FIGHTING",
+                "HIDDEN_POWER_FIRE",
+                "HIDDEN_POWER_FLYING",
+                "HIDDEN_POWER_GHOST",
+                "HIDDEN_POWER_GRASS",
+                "HIDDEN_POWER_GROUND",
+                "HIDDEN_POWER_ICE",
+                "HIDDEN_POWER_POISON",
+                "HIDDEN_POWER_PSYCHIC",
+                "HIDDEN_POWER_ROCK",
+                "HIDDEN_POWER_STEEL",
+                "HIDDEN_POWER_WATER",
                 "ZEN_HEADBUTT"
             ],
             "chargedMoves": [
-                "AVALANCHE",
-                "HEAVY_SLAM",
-                "STONE_EDGE"
+                "GIGA_IMPACT",
+                "FOCUS_BLAST",
+                "THUNDER"
             ],
             "tags": [
                 "legendary"
@@ -30174,6 +30197,15 @@ var masterdata = {
             "cooldown": 500
         },
         {
+            "moveId": "GIGA_IMPACT",
+            "name": "Giga Impact",
+            "type": "normal",
+            "power": 150,
+            "energy": 80,
+            "energyGain": 0,
+            "cooldown": 500
+        },
+        {
             "moveId": "GRASS_KNOT",
             "name": "Grass Knot",
             "type": "grass",
@@ -30564,6 +30596,15 @@ var masterdata = {
             "power": 3,
             "energy": 0,
             "energyGain": 3,
+            "cooldown": 500
+        },
+        {
+            "moveId": "LOCK_ON",
+            "name": "Lock On",
+            "type": "normal",
+            "power": 1,
+            "energy": 0,
+            "energyGain": 5,
             "cooldown": 500
         },
         {
