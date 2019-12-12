@@ -445,7 +445,235 @@ var masterdata = {
                 }
             ],
             "exclude": []
+        },
+        {
+            "name": "timeless",
+            "title": "Timeless Cup",
+            "restrictedPicks": 1,
+            "restrictedPokemon": [
+                "bulbasaur",
+                "ivysaur",
+                "venusaur",
+                "squirtle",
+                "wartortle",
+                "blastoise",
+                "charmander",
+                "charmeleon",
+                "charizard",
+                "chikorita",
+                "bayleef",
+                "meganium",
+                "totodile",
+                "croconaw",
+                "feraligatr",
+                "cyndaquil",
+                "quilava",
+                "typhlosion",
+                "treecko",
+                "grovyle",
+                "sceptile",
+                "mudkip",
+                "marshtomp",
+                "swampert",
+                "torchic",
+                "combusken",
+                "blaziken",
+                "turtwig",
+                "grotle",
+                "torterra",
+                "piplup",
+                "prinplup",
+                "empoleon",
+                "chimchar",
+                "monferno",
+                "infernape"
+            ],
+            "include": [
+                {
+                    "filterType": "dex",
+                    "values": [
+                        1,
+                        488
+                    ]
+                },
+                {
+                    "filterType": "id",
+                    "values": [
+                        "blaziken",
+                        "charizard",
+                        "infernape",
+                        "empoleon",
+                        "monferno",
+                        "prinplup",
+                        "combusken"
+                    ]
+                }
+            ],
+            "exclude": [
+                {
+                    "filterType": "tag",
+                    "values": [
+                        "legendary",
+                        "mythical",
+                        "alolan"
+                    ]
+                },
+                {
+                    "filterType": "type",
+                    "values": [
+                        "fighting",
+                        "flying",
+                        "normal",
+                        "psychic",
+                        "steel",
+                        "fairy"
+                    ]
+                },
+                {
+                    "filterType": "id",
+                    "values": [
+                        "umbreon",
+                        "sableye"
+                    ]
+                }
+            ]
         }
+    ],
+    "shadowPokemon": [
+        "bulbasaur",
+        "ivysaur",
+        "venusaur",
+        "charmander",
+        "charmeleon",
+        "charizard",
+        "squirtle",
+        "wartortle",
+        "blastoise",
+        "weedle",
+        "kakuna",
+        "beedrill",
+        "rattata",
+        "raticate",
+        "zubat",
+        "golbat",
+        "oddish",
+        "gloom",
+        "vileplume",
+        "venonat",
+        "venomoth",
+        "meowth",
+        "persian",
+        "psyduck",
+        "golduck",
+        "growlithe",
+        "arcanine",
+        "poliwag",
+        "poliwhirl",
+        "poliwrath",
+        "abra",
+        "kadabra",
+        "alakazam",
+        "grimer",
+        "muk",
+        "drowzee",
+        "hypno",
+        "cubone",
+        "marowak",
+        "hitmonchan",
+        "scyther",
+        "electabuzz",
+        "magmar",
+        "magikarp",
+        "gyarados",
+        "lapras",
+        "snorlax",
+        "dratini",
+        "dragonair",
+        "dragonite",
+        "crobat",
+        "mareep",
+        "flaaffy",
+        "ampharos",
+        "bellossom",
+        "politoed",
+        "scizor",
+        "houndour",
+        "houndoom",
+        "larvitar",
+        "pupitar",
+        "tyranitar",
+        "mudkip",
+        "marshtomp",
+        "swampert",
+        "seedot",
+        "nuzleaf",
+        "shiftry",
+        "ralts",
+        "kirlia",
+        "gardevoir",
+        "trapinch",
+        "vibrava",
+        "flygon",
+        "cacnea",
+        "cacturne",
+        "shuppet",
+        "banette",
+        "duskull",
+        "dusclops",
+        "turtwig",
+        "grotle",
+        "torterra",
+        "electivire",
+        "magmortar",
+        "gallade",
+        "dusknoir",
+        "magnemite",
+        "magneton",
+        "magnezone",
+        "bellsprout",
+        "weepinbell",
+        "victreebel",
+        "sandshrew",
+        "sandslash",
+        "porygon",
+        "porygon2",
+        "porygon_z",
+        "wobbuffet",
+        "ekans",
+        "arbok",
+        "koffing",
+        "weezing",
+        "meowth",
+        "persian",
+        "hitmonlee",
+        "articuno",
+        "sneasel",
+        "weavile",
+        "chimchar",
+        "monferno",
+        "infernape",
+        "kangaskhan",
+        "diglett",
+        "dugtrio",
+        "rhyhorn",
+        "rhydon",
+        "rhyperior",
+        "murkrow",
+        "honchkrow",
+        "gible",
+        "gabite",
+        "garchomp",
+        "shellder",
+        "cloyster",
+        "geodude",
+        "graveler",
+        "golem",
+        "hippopotas",
+        "hippowdon",
+        "onix",
+        "steelix",
+        "sableye",
+        "zapdos"
     ],
     "pokemon": [
         {
@@ -468,13 +696,7 @@ var masterdata = {
             "chargedMoves": [
                 "POWER_WHIP",
                 "SEED_BOMB",
-                "SLUDGE_BOMB",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SLUDGE_BOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -489,7 +711,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 627
         },
         {
             "dex": 2,
@@ -511,13 +735,7 @@ var masterdata = {
             "chargedMoves": [
                 "POWER_WHIP",
                 "SLUDGE_BOMB",
-                "SOLAR_BEAM",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SOLAR_BEAM"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -532,7 +750,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1002
         },
         {
             "dex": 3,
@@ -555,9 +775,7 @@ var masterdata = {
                 "FRENZY_PLANT",
                 "PETAL_BLIZZARD",
                 "SLUDGE_BOMB",
-                "SOLAR_BEAM",
-                "RETURN",
-                "FRUSTRATION"
+                "SOLAR_BEAM"
             ],
             "legacyMoves": [
                 "FRENZY_PLANT"
@@ -575,7 +793,9 @@ var masterdata = {
                     4,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1673
         },
         {
             "dex": 4,
@@ -597,13 +817,7 @@ var masterdata = {
             "chargedMoves": [
                 "FLAME_BURST",
                 "FLAME_CHARGE",
-                "FLAMETHROWER",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "FLAMETHROWER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -618,7 +832,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 542
         },
         {
             "dex": 5,
@@ -641,14 +857,10 @@ var masterdata = {
             "chargedMoves": [
                 "FIRE_PUNCH",
                 "FLAME_BURST",
-                "FLAMETHROWER",
-                "RETURN",
-                "FRUSTRATION"
+                "FLAMETHROWER"
             ],
             "legacyMoves": [
-                "SCRATCH",
-                "RETURN",
-                "FRUSTRATION"
+                "SCRATCH"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -663,7 +875,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 972
         },
         {
             "dex": 6,
@@ -689,17 +903,13 @@ var masterdata = {
                 "DRAGON_CLAW",
                 "FIRE_BLAST",
                 "FLAMETHROWER",
-                "OVERHEAT",
-                "RETURN",
-                "FRUSTRATION"
+                "OVERHEAT"
             ],
             "legacyMoves": [
                 "BLAST_BURN",
                 "EMBER",
                 "FLAMETHROWER",
-                "WING_ATTACK",
-                "RETURN",
-                "FRUSTRATION"
+                "WING_ATTACK"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -714,7 +924,9 @@ var masterdata = {
                     11,
                     7
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1784
         },
         {
             "dex": 7,
@@ -736,13 +948,7 @@ var masterdata = {
             "chargedMoves": [
                 "AQUA_JET",
                 "AQUA_TAIL",
-                "WATER_PULSE",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "WATER_PULSE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -757,7 +963,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 519
         },
         {
             "dex": 8,
@@ -779,13 +987,7 @@ var masterdata = {
             "chargedMoves": [
                 "AQUA_JET",
                 "HYDRO_PUMP",
-                "ICE_BEAM",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "ICE_BEAM"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -800,7 +1002,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 865
         },
         {
             "dex": 9,
@@ -824,14 +1028,10 @@ var masterdata = {
                 "HYDRO_CANNON",
                 "HYDRO_PUMP",
                 "ICE_BEAM",
-                "SKULL_BASH",
-                "RETURN",
-                "FRUSTRATION"
+                "SKULL_BASH"
             ],
             "legacyMoves": [
-                "HYDRO_CANNON",
-                "RETURN",
-                "FRUSTRATION"
+                "HYDRO_CANNON"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -846,7 +1046,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1504
         },
         {
             "dex": 10,
@@ -977,13 +1179,7 @@ var masterdata = {
                 "POISON_STING"
             ],
             "chargedMoves": [
-                "STRUGGLE",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "STRUGGLE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -998,7 +1194,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 217
         },
         {
             "dex": 14,
@@ -1018,13 +1216,7 @@ var masterdata = {
                 "POISON_STING"
             ],
             "chargedMoves": [
-                "STRUGGLE",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "STRUGGLE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -1039,7 +1231,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 201
         },
         {
             "dex": 15,
@@ -1063,13 +1257,10 @@ var masterdata = {
                 "AERIAL_ACE",
                 "SLUDGE_BOMB",
                 "X_SCISSOR",
-                "FRUSTRATION",
-                "RETURN"
+                "FELL_STINGER"
             ],
             "legacyMoves": [
-                "BUG_BITE",
-                "FRUSTRATION",
-                "RETURN"
+                "BUG_BITE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -1084,7 +1275,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1097
         },
         {
             "dex": 16,
@@ -1223,13 +1416,7 @@ var masterdata = {
             "chargedMoves": [
                 "BODY_SLAM",
                 "DIG",
-                "HYPER_FANG",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "HYPER_FANG"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -1244,7 +1431,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 388
         },
         {
             "dex": 19,
@@ -1306,13 +1495,7 @@ var masterdata = {
             "chargedMoves": [
                 "DIG",
                 "HYPER_BEAM",
-                "HYPER_FANG",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "HYPER_FANG"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -1327,7 +1510,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1023
         },
         {
             "dex": 20,
@@ -1490,7 +1675,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 509
         },
         {
             "dex": 24,
@@ -1529,7 +1716,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1147
         },
         {
             "dex": 25,
@@ -1702,7 +1891,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 720
         },
         {
             "dex": 27,
@@ -1779,7 +1970,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1445
         },
         {
             "dex": 28,
@@ -2398,14 +2591,10 @@ var masterdata = {
                 "AIR_CUTTER",
                 "POISON_FANG",
                 "SLUDGE_BOMB",
-                "SWIFT",
-                "RETURN",
-                "FRUSTRATION"
+                "SWIFT"
             ],
             "legacyMoves": [
-                "SLUDGE_BOMB",
-                "RETURN",
-                "FRUSTRATION"
+                "SLUDGE_BOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -2420,7 +2609,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 346
         },
         {
             "dex": 42,
@@ -2443,14 +2634,10 @@ var masterdata = {
                 "AIR_CUTTER",
                 "OMINOUS_WIND",
                 "POISON_FANG",
-                "SHADOW_BALL",
-                "RETURN",
-                "FRUSTRATION"
+                "SHADOW_BALL"
             ],
             "legacyMoves": [
-                "OMINOUS_WIND",
-                "RETURN",
-                "FRUSTRATION"
+                "OMINOUS_WIND"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -2465,7 +2652,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1183
         },
         {
             "dex": 43,
@@ -2487,13 +2676,7 @@ var masterdata = {
             "chargedMoves": [
                 "MOONBLAST",
                 "SEED_BOMB",
-                "SLUDGE_BOMB",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SLUDGE_BOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -2508,7 +2691,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 699
         },
         {
             "dex": 44,
@@ -2530,13 +2715,7 @@ var masterdata = {
             "chargedMoves": [
                 "MOONBLAST",
                 "PETAL_BLIZZARD",
-                "SLUDGE_BOMB",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SLUDGE_BOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -2551,7 +2730,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 991
         },
         {
             "dex": 45,
@@ -2574,13 +2755,7 @@ var masterdata = {
                 "MOONBLAST",
                 "PETAL_BLIZZARD",
                 "SOLAR_BEAM",
-                "SLUDGE_BOMB",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SLUDGE_BOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -2595,7 +2770,9 @@ var masterdata = {
                     8,
                     13
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1566
         },
         {
             "dex": 46,
@@ -2695,13 +2872,7 @@ var masterdata = {
             "chargedMoves": [
                 "POISON_FANG",
                 "PSYBEAM",
-                "SIGNAL_BEAM",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SIGNAL_BEAM"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -2716,7 +2887,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 555
         },
         {
             "dex": 49,
@@ -2740,15 +2913,11 @@ var masterdata = {
                 "BUG_BUZZ",
                 "POISON_FANG",
                 "PSYCHIC",
-                "SILVER_WIND",
-                "RETURN",
-                "FRUSTRATION"
+                "SILVER_WIND"
             ],
             "legacyMoves": [
                 "BUG_BITE",
-                "POISON_FANG",
-                "RETURN",
-                "FRUSTRATION"
+                "POISON_FANG"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -2763,7 +2932,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1252
         },
         {
             "dex": 50,
@@ -2804,7 +2975,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 351
         },
         {
             "dex": 50,
@@ -2885,7 +3058,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 915
         },
         {
             "dex": 51,
@@ -2966,7 +3141,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 397
         },
         {
             "dex": 52,
@@ -3047,7 +3224,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 996
         },
         {
             "dex": 53,
@@ -3109,13 +3288,7 @@ var masterdata = {
             "chargedMoves": [
                 "AQUA_TAIL",
                 "CROSS_CHOP",
-                "PSYBEAM",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "PSYBEAM"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -3130,7 +3303,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 620
         },
         {
             "dex": 55,
@@ -3155,13 +3330,7 @@ var masterdata = {
                 "PSYCHIC",
                 "BUBBLE_BEAM",
                 "SYNCHRONOISE",
-                "CROSS_CHOP",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "CROSS_CHOP"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -3176,7 +3345,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1494
         },
         {
             "dex": 56,
@@ -3278,13 +3449,7 @@ var masterdata = {
             "chargedMoves": [
                 "BODY_SLAM",
                 "FLAME_WHEEL",
-                "FLAMETHROWER",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "FLAMETHROWER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -3299,7 +3464,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 707
         },
         {
             "dex": 59,
@@ -3325,16 +3492,11 @@ var masterdata = {
                 "CRUNCH",
                 "FIRE_BLAST",
                 "FLAMETHROWER",
-                "WILD_CHARGE",
-                "RETURN",
-                "FRUSTRATION"
+                "WILD_CHARGE"
             ],
             "legacyMoves": [
                 "BITE",
-                "BULLDOZE",
-                "FLAMETHROWER",
-                "RETURN",
-                "FRUSTRATION"
+                "BULLDOZE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -3349,7 +3511,9 @@ var masterdata = {
                     12,
                     3
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1877
         },
         {
             "dex": 60,
@@ -3371,13 +3535,7 @@ var masterdata = {
             "chargedMoves": [
                 "BODY_SLAM",
                 "BUBBLE_BEAM",
-                "MUD_BOMB",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "MUD_BOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -3392,7 +3550,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 446
         },
         {
             "dex": 61,
@@ -3415,14 +3575,10 @@ var masterdata = {
                 "BUBBLE_BEAM",
                 "MUD_BOMB",
                 "SCALD",
-                "WATER_PULSE",
-                "RETURN",
-                "FRUSTRATION"
+                "WATER_PULSE"
             ],
             "legacyMoves": [
-                "SCALD",
-                "RETURN",
-                "FRUSTRATION"
+                "SCALD"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -3437,7 +3593,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 821
         },
         {
             "dex": 62,
@@ -3462,15 +3620,10 @@ var masterdata = {
                 "HYDRO_PUMP",
                 "ICE_PUNCH",
                 "SUBMISSION",
-                "POWER_UP_PUNCH",
-                "RETURN",
-                "FRUSTRATION"
+                "POWER_UP_PUNCH"
             ],
             "legacyMoves": [
-                "MUD_SHOT",
-                "SUBMISSION",
-                "RETURN",
-                "FRUSTRATION"
+                "SUBMISSION"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -3485,7 +3638,9 @@ var masterdata = {
                     9,
                     12
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1584
         },
         {
             "dex": 63,
@@ -3507,13 +3662,7 @@ var masterdata = {
             "chargedMoves": [
                 "PSYSHOCK",
                 "SHADOW_BALL",
-                "SIGNAL_BEAM",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SIGNAL_BEAM"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -3528,7 +3677,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 759
         },
         {
             "dex": 64,
@@ -3550,13 +3701,7 @@ var masterdata = {
             "chargedMoves": [
                 "DAZZLING_GLEAM",
                 "PSYBEAM",
-                "SHADOW_BALL",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SHADOW_BALL"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -3571,7 +3716,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1226
         },
         {
             "dex": 65,
@@ -3596,15 +3743,11 @@ var masterdata = {
                 "FOCUS_BLAST",
                 "FUTURE_SIGHT",
                 "PSYCHIC",
-                "SHADOW_BALL",
-                "RETURN",
-                "FRUSTRATION"
+                "SHADOW_BALL"
             ],
             "legacyMoves": [
                 "DAZZLING_GLEAM",
-                "PSYCHIC",
-                "RETURN",
-                "FRUSTRATION"
+                "PSYCHIC"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -3619,7 +3762,9 @@ var masterdata = {
                     13,
                     12
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1887
         },
         {
             "dex": 66,
@@ -3731,7 +3876,6 @@ var masterdata = {
                 "SUBMISSION"
             ],
             "legacyMoves": [
-                "CROSS_CHOP",
                 "KARATE_CHOP",
                 "STONE_EDGE",
                 "SUBMISSION"
@@ -3786,7 +3930,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 566
         },
         {
             "dex": 70,
@@ -3827,7 +3973,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 939
         },
         {
             "dex": 71,
@@ -3866,7 +4014,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1479
         },
         {
             "dex": 72,
@@ -3978,7 +4128,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 741
         },
         {
             "dex": 74,
@@ -4061,7 +4213,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1132
         },
         {
             "dex": 75,
@@ -4128,7 +4282,6 @@ var masterdata = {
                 "STONE_EDGE"
             ],
             "legacyMoves": [
-                "ANCIENT_POWER",
                 "MUD_SHOT"
             ],
             "defaultIVs": {
@@ -4144,7 +4297,9 @@ var masterdata = {
                     14,
                     0
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1825
         },
         {
             "dex": 76,
@@ -4377,7 +4532,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 780
         },
         {
             "dex": 82,
@@ -4420,7 +4577,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1513
         },
         {
             "dex": 83,
@@ -4657,14 +4816,10 @@ var masterdata = {
             "chargedMoves": [
                 "MUD_BOMB",
                 "SLUDGE",
-                "SLUDGE_BOMB",
-                "RETURN",
-                "FRUSTRATION"
+                "SLUDGE_BOMB"
             ],
             "legacyMoves": [
-                "ACID",
-                "RETURN",
-                "FRUSTRATION"
+                "ACID"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -4679,7 +4834,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 787
         },
         {
             "dex": 88,
@@ -4749,15 +4906,11 @@ var masterdata = {
                 "GUNK_SHOT",
                 "SLUDGE_WAVE",
                 "THUNDER_PUNCH",
-                "ACID_SPRAY",
-                "RETURN",
-                "FRUSTRATION"
+                "ACID_SPRAY"
             ],
             "legacyMoves": [
                 "ACID",
-                "LICK",
-                "RETURN",
-                "FRUSTRATION"
+                "LICK"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -4772,7 +4925,9 @@ var masterdata = {
                     14,
                     4
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1696
         },
         {
             "dex": 89,
@@ -4851,7 +5006,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 605
         },
         {
             "dex": 91,
@@ -4878,8 +5035,7 @@ var masterdata = {
                 "ICY_WIND"
             ],
             "legacyMoves": [
-                "BLIZZARD",
-                "ICY_WIND"
+                "BLIZZARD"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -4894,7 +5050,9 @@ var masterdata = {
                     15,
                     13
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1554
         },
         {
             "dex": 92,
@@ -5013,7 +5171,6 @@ var masterdata = {
                 "DARK_PULSE",
                 "LICK",
                 "PSYCHIC",
-                "SHADOW_CLAW",
                 "SLUDGE_WAVE"
             ],
             "defaultIVs": {
@@ -5072,7 +5229,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 608
         },
         {
             "dex": 96,
@@ -5094,13 +5253,7 @@ var masterdata = {
             "chargedMoves": [
                 "PSYBEAM",
                 "PSYCHIC",
-                "PSYSHOCK",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "PSYSHOCK"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -5115,7 +5268,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 576
         },
         {
             "dex": 97,
@@ -5142,15 +5297,11 @@ var masterdata = {
                 "SHADOW_BALL",
                 "FIRE_PUNCH",
                 "ICE_PUNCH",
-                "THUNDER_PUNCH",
-                "RETURN",
-                "FRUSTRATION"
+                "THUNDER_PUNCH"
             ],
             "legacyMoves": [
                 "PSYSHOCK",
-                "SHADOW_BALL",
-                "RETURN",
-                "FRUSTRATION"
+                "SHADOW_BALL"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -5165,7 +5316,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1255
         },
         {
             "dex": 98,
@@ -5391,7 +5544,6 @@ var masterdata = {
                 "SOLAR_BEAM"
             ],
             "legacyMoves": [
-                "CONFUSION",
                 "ZEN_HEADBUTT"
             ],
             "defaultIVs": {
@@ -5469,13 +5621,7 @@ var masterdata = {
             "chargedMoves": [
                 "BONE_CLUB",
                 "BULLDOZE",
-                "DIG",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "DIG"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -5490,7 +5636,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 563
         },
         {
             "dex": 105,
@@ -5512,13 +5660,7 @@ var masterdata = {
             "chargedMoves": [
                 "BONE_CLUB",
                 "DIG",
-                "EARTHQUAKE",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "EARTHQUAKE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -5533,7 +5675,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1090
         },
         {
             "dex": 105,
@@ -5618,7 +5762,9 @@ var masterdata = {
                     3,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1573
         },
         {
             "dex": 107,
@@ -5644,15 +5790,11 @@ var masterdata = {
                 "FIRE_PUNCH",
                 "ICE_PUNCH",
                 "THUNDER_PUNCH",
-                "POWER_UP_PUNCH",
-                "RETURN",
-                "FRUSTRATION"
+                "POWER_UP_PUNCH"
             ],
             "legacyMoves": [
                 "BRICK_BREAK",
-                "ROCK_SMASH",
-                "RETURN",
-                "FRUSTRATION"
+                "ROCK_SMASH"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -5667,7 +5809,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1414
         },
         {
             "dex": 108,
@@ -5745,7 +5889,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 690
         },
         {
             "dex": 110,
@@ -5787,7 +5933,49 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1391
+        },
+        {
+            "dex": 110,
+            "speciesName": "Weezing (Galarian)",
+            "speciesId": "weezing_galarian",
+            "baseStats": {
+                "atk": 174,
+                "def": 197,
+                "hp": 163
+            },
+            "types": [
+                "poison",
+                "fairy"
+            ],
+            "fastMoves": [
+                "TACKLE"
+            ],
+            "chargedMoves": [
+                "SLUDGE",
+                "HYPER_BEAM",
+                "PLAY_ROUGH",
+                "OVERHEAT"
+            ],
+            "defaultIVs": {
+                "cp1500": [
+                    24.5,
+                    7,
+                    14,
+                    7
+                ],
+                "cp2500": [
+                    40,
+                    15,
+                    15,
+                    15
+                ]
+            },
+            "tags": [
+                "galarian"
+            ]
         },
         {
             "dex": 111,
@@ -5824,7 +6012,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 970
         },
         {
             "dex": 112,
@@ -5865,7 +6055,9 @@ var masterdata = {
                     11,
                     3
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1976
         },
         {
             "dex": 113,
@@ -5994,7 +6186,9 @@ var masterdata = {
                     10,
                     13
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1583
         },
         {
             "dex": 116,
@@ -6321,15 +6515,11 @@ var masterdata = {
                 "AERIAL_ACE",
                 "BUG_BUZZ",
                 "NIGHT_SLASH",
-                "X_SCISSOR",
-                "RETURN",
-                "FRUSTRATION"
+                "X_SCISSOR"
             ],
             "legacyMoves": [
                 "BUG_BUZZ",
-                "STEEL_WING",
-                "RETURN",
-                "FRUSTRATION"
+                "STEEL_WING"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -6344,7 +6534,9 @@ var masterdata = {
                     14,
                     6
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1663
         },
         {
             "dex": 124,
@@ -6410,13 +6602,7 @@ var masterdata = {
             "chargedMoves": [
                 "THUNDER",
                 "THUNDER_PUNCH",
-                "THUNDERBOLT",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "THUNDERBOLT"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -6431,7 +6617,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1417
         },
         {
             "dex": 126,
@@ -6453,13 +6641,7 @@ var masterdata = {
             "chargedMoves": [
                 "FIRE_BLAST",
                 "FIRE_PUNCH",
-                "FLAMETHROWER",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "FLAMETHROWER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -6474,7 +6656,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1456
         },
         {
             "dex": 127,
@@ -6498,10 +6682,10 @@ var masterdata = {
                 "CLOSE_COMBAT",
                 "SUBMISSION",
                 "VICE_GRIP",
-                "X_SCISSOR"
+                "X_SCISSOR",
+                "SUPER_POWER"
             ],
             "legacyMoves": [
-                "FURY_CUTTER",
                 "SUBMISSION"
             ],
             "defaultIVs": {
@@ -6576,13 +6760,7 @@ var masterdata = {
                 "SPLASH"
             ],
             "chargedMoves": [
-                "STRUGGLE",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "STRUGGLE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -6597,7 +6775,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 109
         },
         {
             "dex": 130,
@@ -6623,17 +6803,11 @@ var masterdata = {
                 "DRAGON_PULSE",
                 "HYDRO_PUMP",
                 "OUTRAGE",
-                "TWISTER",
-                "RETURN",
-                "FRUSTRATION"
+                "TWISTER"
             ],
             "legacyMoves": [
-                "DRAGON_BREATH",
                 "DRAGON_PULSE",
-                "DRAGON_TAIL",
-                "TWISTER",
-                "RETURN",
-                "FRUSTRATION"
+                "DRAGON_TAIL"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -6648,7 +6822,9 @@ var masterdata = {
                     9,
                     9
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 2119
         },
         {
             "dex": 131,
@@ -6674,16 +6850,12 @@ var masterdata = {
                 "HYDRO_PUMP",
                 "ICE_BEAM",
                 "SURF",
-                "SKULL_BASH",
-                "FRUSTRATION",
-                "RETURN"
+                "SKULL_BASH"
             ],
             "legacyMoves": [
                 "DRAGON_PULSE",
                 "ICE_BEAM",
-                "ICE_SHARD",
-                "FRUSTRATION",
-                "RETURN"
+                "ICE_SHARD"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -6698,7 +6870,9 @@ var masterdata = {
                     13,
                     7
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1616
         },
         {
             "dex": 132,
@@ -6964,7 +7138,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1016
         },
         {
             "dex": 138,
@@ -7196,14 +7372,7 @@ var masterdata = {
                 "HYPER_BEAM",
                 "OUTRAGE",
                 "SKULL_BASH",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "BODY_SLAM",
-                "SKULL_BASH",
-                "RETURN",
-                "FRUSTRATION"
+                "SUPER_POWER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -7218,7 +7387,9 @@ var masterdata = {
                     13,
                     14
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 2001
         },
         {
             "dex": 144,
@@ -7263,7 +7434,9 @@ var masterdata = {
                     2,
                     11
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1893
         },
         {
             "dex": 145,
@@ -7308,7 +7481,9 @@ var masterdata = {
                     9,
                     7
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 2208
         },
         {
             "dex": 146,
@@ -7377,13 +7552,7 @@ var masterdata = {
             "chargedMoves": [
                 "AQUA_TAIL",
                 "TWISTER",
-                "WRAP",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "WRAP"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -7398,7 +7567,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 557
         },
         {
             "dex": 148,
@@ -7420,13 +7591,7 @@ var masterdata = {
             "chargedMoves": [
                 "AQUA_TAIL",
                 "DRAGON_PULSE",
-                "WRAP",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "WRAP"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -7441,7 +7606,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1055
         },
         {
             "dex": 149,
@@ -7467,17 +7634,11 @@ var masterdata = {
                 "DRAGON_PULSE",
                 "HURRICANE",
                 "HYPER_BEAM",
-                "OUTRAGE",
-                "RETURN",
-                "FRUSTRATION"
+                "OUTRAGE"
             ],
             "legacyMoves": [
                 "DRACO_METEOR",
-                "DRAGON_BREATH",
-                "DRAGON_CLAW",
-                "DRAGON_PULSE",
-                "RETURN",
-                "FRUSTRATION"
+                "DRAGON_PULSE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -7492,7 +7653,9 @@ var masterdata = {
                     10,
                     13
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 2386
         },
         {
             "dex": 150,
@@ -7979,7 +8142,8 @@ var masterdata = {
             "fastMoves": [
                 "BITE",
                 "WATER_GUN",
-                "WATERFALL"
+                "WATERFALL",
+                "ICE_FANG"
             ],
             "chargedMoves": [
                 "CRUNCH",
@@ -8322,13 +8486,7 @@ var masterdata = {
             "chargedMoves": [
                 "AIR_CUTTER",
                 "SHADOW_BALL",
-                "SLUDGE_BOMB",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SLUDGE_BOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -8343,7 +8501,9 @@ var masterdata = {
                     15,
                     3
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1624
         },
         {
             "dex": 170,
@@ -8751,13 +8911,7 @@ var masterdata = {
             "chargedMoves": [
                 "BODY_SLAM",
                 "DISCHARGE",
-                "THUNDERBOLT",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "THUNDERBOLT"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -8772,7 +8926,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 546
         },
         {
             "dex": 180,
@@ -8794,13 +8950,7 @@ var masterdata = {
             "chargedMoves": [
                 "DISCHARGE",
                 "POWER_GEM",
-                "THUNDERBOLT",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "THUNDERBOLT"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -8815,7 +8965,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 885
         },
         {
             "dex": 181,
@@ -8839,14 +8991,10 @@ var masterdata = {
                 "FOCUS_BLAST",
                 "POWER_GEM",
                 "THUNDER",
-                "ZAP_CANNON",
-                "FRUSTRATION",
-                "RETURN"
+                "ZAP_CANNON"
             ],
             "legacyMoves": [
-                "DRAGON_PULSE",
-                "FRUSTRATION",
-                "RETURN"
+                "DRAGON_PULSE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -8861,7 +9009,9 @@ var masterdata = {
                     9,
                     14
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1760
         },
         {
             "dex": 182,
@@ -8883,13 +9033,7 @@ var masterdata = {
             "chargedMoves": [
                 "DAZZLING_GLEAM",
                 "LEAF_BLADE",
-                "PETAL_BLIZZARD",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "PETAL_BLIZZARD"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -8904,7 +9048,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1383
         },
         {
             "dex": 183,
@@ -9038,14 +9184,10 @@ var masterdata = {
                 "BLIZZARD",
                 "EARTHQUAKE",
                 "HYDRO_PUMP",
-                "SURF",
-                "RETURN",
-                "FRUSTRATION"
+                "SURF"
             ],
             "legacyMoves": [
-                "EARTHQUAKE",
-                "RETURN",
-                "FRUSTRATION"
+                "EARTHQUAKE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -9060,7 +9202,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1494
         },
         {
             "dex": 187,
@@ -9512,7 +9656,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 906
         },
         {
             "dex": 199,
@@ -9671,7 +9817,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 538
         },
         {
             "dex": 203,
@@ -9767,7 +9915,9 @@ var masterdata = {
             "chargedMoves": [
                 "EARTHQUAKE",
                 "HEAVY_SLAM",
-                "ROCK_TOMB"
+                "ROCK_TOMB",
+                "SAND_TOMB",
+                "MIRROR_SHOT"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -9894,7 +10044,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1465
         },
         {
             "dex": 209,
@@ -9992,7 +10144,8 @@ var masterdata = {
                 "AQUA_TAIL",
                 "ICE_BEAM",
                 "SLUDGE_WAVE",
-                "ACID_SPRAY"
+                "ACID_SPRAY",
+                "FELL_STINGER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -10029,13 +10182,7 @@ var masterdata = {
             "chargedMoves": [
                 "IRON_HEAD",
                 "NIGHT_SLASH",
-                "X_SCISSOR",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "X_SCISSOR"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -10050,7 +10197,9 @@ var masterdata = {
                     7,
                     11
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1857
         },
         {
             "dex": 213,
@@ -10164,7 +10313,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1231
         },
         {
             "dex": 216,
@@ -10487,7 +10638,8 @@ var masterdata = {
                 "AURORA_BEAM",
                 "GUNK_SHOT",
                 "WATER_PULSE",
-                "ACID_SPRAY"
+                "ACID_SPRAY",
+                "OCTAZOOKA"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -10642,13 +10794,7 @@ var masterdata = {
             "chargedMoves": [
                 "CRUNCH",
                 "DARK_PULSE",
-                "FLAMETHROWER",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "FLAMETHROWER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -10663,7 +10809,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 698
         },
         {
             "dex": 229,
@@ -10686,13 +10834,7 @@ var masterdata = {
                 "CRUNCH",
                 "FIRE_BLAST",
                 "FLAMETHROWER",
-                "FOUL_PLAY",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "FOUL_PLAY"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -10707,7 +10849,9 @@ var masterdata = {
                     14,
                     5
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1613
         },
         {
             "dex": 230,
@@ -10730,7 +10874,8 @@ var masterdata = {
             "chargedMoves": [
                 "BLIZZARD",
                 "HYDRO_PUMP",
-                "OUTRAGE"
+                "OUTRAGE",
+                "OCTAZOOKA"
             ],
             "legacyMoves": [
                 "WATER_GUN"
@@ -10840,6 +10985,7 @@ var masterdata = {
                 "none"
             ],
             "fastMoves": [
+                "LOCK_ON",
                 "CHARGE_BEAM",
                 "HIDDEN_POWER_BUG",
                 "HIDDEN_POWER_DARK",
@@ -10876,7 +11022,9 @@ var masterdata = {
                     13,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1667
         },
         {
             "dex": 234,
@@ -11588,13 +11736,7 @@ var masterdata = {
             "chargedMoves": [
                 "ANCIENT_POWER",
                 "CRUNCH",
-                "STOMP",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "STOMP"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -11609,7 +11751,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 579
         },
         {
             "dex": 247,
@@ -11631,13 +11775,7 @@ var masterdata = {
             "chargedMoves": [
                 "ANCIENT_POWER",
                 "CRUNCH",
-                "DIG",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "DIG"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -11652,7 +11790,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1045
         },
         {
             "dex": 248,
@@ -11675,14 +11815,10 @@ var masterdata = {
             "chargedMoves": [
                 "CRUNCH",
                 "FIRE_BLAST",
-                "STONE_EDGE",
-                "RETURN",
-                "FRUSTRATION"
+                "STONE_EDGE"
             ],
             "legacyMoves": [
-                "SMACK_DOWN",
-                "RETURN",
-                "FRUSTRATION"
+                "SMACK_DOWN"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -11697,7 +11833,9 @@ var masterdata = {
                     10,
                     12
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 2416
         },
         {
             "dex": 249,
@@ -11815,7 +11953,8 @@ var masterdata = {
             "chargedMoves": [
                 "DAZZLING_GLEAM",
                 "HYPER_BEAM",
-                "PSYCHIC"
+                "PSYCHIC",
+                "SEED_BOMB"
             ],
             "tags": [
                 "mythical"
@@ -12104,7 +12243,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 634
         },
         {
             "dex": 259,
@@ -12141,7 +12282,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1052
         },
         {
             "dex": 260,
@@ -12183,7 +12326,9 @@ var masterdata = {
                     9,
                     1
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1841
         },
         {
             "dex": 261,
@@ -12299,6 +12444,46 @@ var masterdata = {
             }
         },
         {
+            "dex": 263,
+            "speciesName": "Zigzagoon (Galarian)",
+            "speciesId": "zigzagoon_galarian",
+            "baseStats": {
+                "atk": 58,
+                "def": 80,
+                "hp": 116
+            },
+            "types": [
+                "normal",
+                "dark"
+            ],
+            "fastMoves": [
+                "ROCK_SMASH",
+                "TACKLE"
+            ],
+            "chargedMoves": [
+                "DIG",
+                "GRASS_KNOT",
+                "THUNDERBOLT"
+            ],
+            "defaultIVs": {
+                "cp1500": [
+                    40,
+                    15,
+                    15,
+                    15
+                ],
+                "cp2500": [
+                    40,
+                    15,
+                    15,
+                    15
+                ]
+            },
+            "tags": [
+                "galarian"
+            ]
+        },
+        {
             "dex": 264,
             "speciesName": "Linoone",
             "speciesId": "linoone",
@@ -12334,6 +12519,46 @@ var masterdata = {
                     15
                 ]
             }
+        },
+        {
+            "dex": 264,
+            "speciesName": "Linoone (Galarian)",
+            "speciesId": "linoone_galarian",
+            "baseStats": {
+                "atk": 142,
+                "def": 128,
+                "hp": 186
+            },
+            "types": [
+                "normal",
+                "dark"
+            ],
+            "fastMoves": [
+                "SHADOW_CLAW",
+                "TACKLE"
+            ],
+            "chargedMoves": [
+                "DIG",
+                "GRASS_KNOT",
+                "THUNDER"
+            ],
+            "defaultIVs": {
+                "cp1500": [
+                    40,
+                    5,
+                    8,
+                    9
+                ],
+                "cp2500": [
+                    40,
+                    15,
+                    15,
+                    15
+                ]
+            },
+            "tags": [
+                "galarian"
+            ]
         },
         {
             "dex": 265,
@@ -12645,13 +12870,7 @@ var masterdata = {
             "chargedMoves": [
                 "ENERGY_BALL",
                 "FOUL_PLAY",
-                "GRASS_KNOT",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "GRASS_KNOT"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -12666,7 +12885,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 304
         },
         {
             "dex": 274,
@@ -12688,13 +12909,7 @@ var masterdata = {
             "chargedMoves": [
                 "FOUL_PLAY",
                 "GRASS_KNOT",
-                "LEAF_BLADE",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "LEAF_BLADE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -12709,7 +12924,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 692
         },
         {
             "dex": 275,
@@ -12726,19 +12943,14 @@ var masterdata = {
             ],
             "fastMoves": [
                 "FEINT_ATTACK",
-                "RAZOR_LEAF"
+                "RAZOR_LEAF",
+                "SNARL"
             ],
             "chargedMoves": [
                 "FOUL_PLAY",
                 "HURRICANE",
                 "LEAF_BLADE",
-                "LEAF_TORNADO",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "LEAF_TORNADO"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -12753,7 +12965,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1412
         },
         {
             "dex": 276,
@@ -12921,13 +13135,7 @@ var masterdata = {
             "chargedMoves": [
                 "DISARMING_VOICE",
                 "PSYSHOCK",
-                "SHADOW_SNEAK",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SHADOW_SNEAK"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -12942,7 +13150,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 269
         },
         {
             "dex": 281,
@@ -12964,13 +13174,7 @@ var masterdata = {
             "chargedMoves": [
                 "DISARMING_VOICE",
                 "PSYCHIC",
-                "SHADOW_SNEAK",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SHADOW_SNEAK"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -12985,7 +13189,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 533
         },
         {
             "dex": 282,
@@ -13009,14 +13215,10 @@ var masterdata = {
                 "DAZZLING_GLEAM",
                 "PSYCHIC",
                 "SHADOW_BALL",
-                "SYNCHRONOISE",
-                "RETURN",
-                "FRUSTRATION"
+                "SYNCHRONOISE"
             ],
             "legacyMoves": [
-                "SYNCHRONOISE",
-                "RETURN",
-                "FRUSTRATION"
+                "SYNCHRONOISE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -13031,7 +13233,9 @@ var masterdata = {
                     3,
                     10
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1919
         },
         {
             "dex": 283,
@@ -13578,7 +13782,8 @@ var masterdata = {
             "chargedMoves": [
                 "CLOSE_COMBAT",
                 "DYNAMIC_PUNCH",
-                "HEAVY_SLAM"
+                "HEAVY_SLAM",
+                "SUPER_POWER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -13764,13 +13969,7 @@ var masterdata = {
             "chargedMoves": [
                 "FOUL_PLAY",
                 "POWER_GEM",
-                "SHADOW_SNEAK",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "SHADOW_SNEAK"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -13785,7 +13984,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 858
         },
         {
             "dex": 303,
@@ -14742,13 +14943,7 @@ var masterdata = {
             "chargedMoves": [
                 "CRUNCH",
                 "DIG",
-                "SAND_TOMB",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "SAND_TOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -14763,7 +14958,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 722
         },
         {
             "dex": 329,
@@ -14785,13 +14982,7 @@ var masterdata = {
             "chargedMoves": [
                 "BUG_BUZZ",
                 "BULLDOZE",
-                "SAND_TOMB",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "SAND_TOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -14806,7 +14997,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 696
         },
         {
             "dex": 330,
@@ -14829,14 +15022,10 @@ var masterdata = {
                 "DRAGON_CLAW",
                 "EARTHQUAKE",
                 "STONE_EDGE",
-                "EARTH_POWER",
-                "FRUSTRATION",
-                "RETURN"
+                "EARTH_POWER"
             ],
             "legacyMoves": [
-                "EARTH_POWER",
-                "FRUSTRATION",
-                "RETURN"
+                "EARTH_POWER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -14851,7 +15040,9 @@ var masterdata = {
                     15,
                     14
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1634
         },
         {
             "dex": 331,
@@ -14873,13 +15064,7 @@ var masterdata = {
             "chargedMoves": [
                 "BRICK_BREAK",
                 "GRASS_KNOT",
-                "SEED_BOMB",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "SEED_BOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -14894,7 +15079,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 700
         },
         {
             "dex": 332,
@@ -14916,13 +15103,7 @@ var masterdata = {
             "chargedMoves": [
                 "DARK_PULSE",
                 "DYNAMIC_PUNCH",
-                "GRASS_KNOT",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "GRASS_KNOT"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -14937,7 +15118,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1386
         },
         {
             "dex": 333,
@@ -15631,7 +15814,7 @@ var masterdata = {
             "defaultIVs": {
                 "cp1500": [
                     40,
-                    1,
+                    4,
                     13,
                     12
                 ],
@@ -15668,7 +15851,7 @@ var masterdata = {
             "defaultIVs": {
                 "cp1500": [
                     40,
-                    1,
+                    4,
                     13,
                     12
                 ],
@@ -15705,7 +15888,7 @@ var masterdata = {
             "defaultIVs": {
                 "cp1500": [
                     40,
-                    1,
+                    4,
                     13,
                     12
                 ],
@@ -15742,7 +15925,7 @@ var masterdata = {
             "defaultIVs": {
                 "cp1500": [
                     40,
-                    1,
+                    4,
                     13,
                     12
                 ],
@@ -15814,13 +15997,7 @@ var masterdata = {
             "chargedMoves": [
                 "NIGHT_SHADE",
                 "OMINOUS_WIND",
-                "SHADOW_SNEAK",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "SHADOW_SNEAK"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -15835,7 +16012,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 559
         },
         {
             "dex": 354,
@@ -15857,13 +16036,7 @@ var masterdata = {
             "chargedMoves": [
                 "DAZZLING_GLEAM",
                 "SHADOW_BALL",
-                "THUNDER",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "THUNDER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -15878,7 +16051,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1389
         },
         {
             "dex": 355,
@@ -15900,13 +16075,7 @@ var masterdata = {
             "chargedMoves": [
                 "NIGHT_SHADE",
                 "OMINOUS_WIND",
-                "SHADOW_SNEAK",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "SHADOW_SNEAK"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -15921,7 +16090,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 366
         },
         {
             "dex": 356,
@@ -15943,13 +16114,7 @@ var masterdata = {
             "chargedMoves": [
                 "FIRE_PUNCH",
                 "ICE_PUNCH",
-                "SHADOW_PUNCH",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "SHADOW_PUNCH"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -15964,7 +16129,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 927
         },
         {
             "dex": 357,
@@ -16935,7 +17102,8 @@ var masterdata = {
             "chargedMoves": [
                 "BLIZZARD",
                 "HYDRO_PUMP",
-                "THUNDER"
+                "THUNDER",
+                "SURF"
             ],
             "tags": [
                 "legendary"
@@ -17255,13 +17423,7 @@ var masterdata = {
             "chargedMoves": [
                 "BODY_SLAM",
                 "ENERGY_BALL",
-                "SEED_BOMB",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SEED_BOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -17276,7 +17438,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 672
         },
         {
             "dex": 388,
@@ -17298,13 +17462,7 @@ var masterdata = {
             "chargedMoves": [
                 "BODY_SLAM",
                 "ENERGY_BALL",
-                "SOLAR_BEAM",
-                "RETURN",
-                "FRUSTRATION"
-            ],
-            "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION"
+                "SOLAR_BEAM"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -17319,7 +17477,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1126
         },
         {
             "dex": 389,
@@ -17341,14 +17501,11 @@ var masterdata = {
             "chargedMoves": [
                 "EARTHQUAKE",
                 "SOLAR_BEAM",
+                "SAND_TOMB",
                 "STONE_EDGE",
-                "RETURN",
-                "FRUSTRATION",
                 "FRENZY_PLANT"
             ],
             "legacyMoves": [
-                "RETURN",
-                "FRUSTRATION",
                 "FRENZY_PLANT"
             ],
             "defaultIVs": {
@@ -17364,7 +17521,9 @@ var masterdata = {
                     13,
                     6
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1816
         },
         {
             "dex": 390,
@@ -17401,7 +17560,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 526
         },
         {
             "dex": 391,
@@ -17438,7 +17599,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 919
         },
         {
             "dex": 392,
@@ -17460,7 +17623,11 @@ var masterdata = {
             "chargedMoves": [
                 "CLOSE_COMBAT",
                 "FLAMETHROWER",
-                "SOLAR_BEAM"
+                "SOLAR_BEAM",
+                "BLAST_BURN"
+            ],
+            "legacyMoves": [
+                "BLAST_BURN"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -17475,7 +17642,9 @@ var masterdata = {
                     14,
                     12
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1646
         },
         {
             "dex": 393,
@@ -18515,7 +18684,8 @@ var masterdata = {
             "chargedMoves": [
                 "BUG_BUZZ",
                 "POWER_GEM",
-                "X_SCISSOR"
+                "X_SCISSOR",
+                "FELL_STINGER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -18707,11 +18877,7 @@ var masterdata = {
             "chargedMoves": [
                 "DAZZLING_GLEAM",
                 "HYPER_BEAM",
-                "SOLAR_BEAM",
-                "POWER_WHIP"
-            ],
-            "legacyMoves": [
-                "POWER_WHIP"
+                "SOLAR_BEAM"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -18748,11 +18914,7 @@ var masterdata = {
             "chargedMoves": [
                 "DAZZLING_GLEAM",
                 "HYPER_BEAM",
-                "SOLAR_BEAM",
-                "POWER_WHIP"
-            ],
-            "legacyMoves": [
-                "POWER_WHIP"
+                "SOLAR_BEAM"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -19242,7 +19404,9 @@ var masterdata = {
                     15,
                     5
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1650
         },
         {
             "dex": 431,
@@ -19726,7 +19890,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 623
         },
         {
             "dex": 444,
@@ -19763,7 +19929,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1115
         },
         {
             "dex": 445,
@@ -19785,7 +19953,8 @@ var masterdata = {
             "chargedMoves": [
                 "EARTHQUAKE",
                 "FIRE_BLAST",
-                "OUTRAGE"
+                "OUTRAGE",
+                "SAND_TOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -19800,7 +19969,9 @@ var masterdata = {
                     13,
                     9
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 2500
         },
         {
             "dex": 446,
@@ -19897,7 +20068,8 @@ var masterdata = {
                 "CLOSE_COMBAT",
                 "FLASH_CANNON",
                 "SHADOW_BALL",
-                "POWER_UP_PUNCH"
+                "POWER_UP_PUNCH",
+                "AURA_SPHERE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -19949,7 +20121,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 781
         },
         {
             "dex": 450,
@@ -19989,7 +20163,9 @@ var masterdata = {
                     15,
                     2
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1915
         },
         {
             "dex": 451,
@@ -20050,7 +20226,8 @@ var masterdata = {
             "chargedMoves": [
                 "AQUA_TAIL",
                 "CRUNCH",
-                "SLUDGE_BOMB"
+                "SLUDGE_BOMB",
+                "FELL_STINGER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -20402,7 +20579,9 @@ var masterdata = {
                     8,
                     10
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1859
         },
         {
             "dex": 462,
@@ -20424,7 +20603,8 @@ var masterdata = {
             "chargedMoves": [
                 "FLASH_CANNON",
                 "WILD_CHARGE",
-                "ZAP_CANNON"
+                "ZAP_CANNON",
+                "MIRROR_SHOT"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -20439,7 +20619,9 @@ var masterdata = {
                     10,
                     6
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1993
         },
         {
             "dex": 463,
@@ -20461,7 +20643,8 @@ var masterdata = {
             "chargedMoves": [
                 "EARTHQUAKE",
                 "HYPER_BEAM",
-                "SOLAR_BEAM"
+                "SOLAR_BEAM",
+                "SHADOW_BALL"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -20499,7 +20682,8 @@ var masterdata = {
                 "EARTHQUAKE",
                 "STONE_EDGE",
                 "SURF",
-                "SKULL_BASH"
+                "SKULL_BASH",
+                "SUPER_POWER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -20514,7 +20698,9 @@ var masterdata = {
                     15,
                     9
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 2347
         },
         {
             "dex": 465,
@@ -20536,7 +20722,8 @@ var masterdata = {
             "chargedMoves": [
                 "ANCIENT_POWER",
                 "SLUDGE_BOMB",
-                "SOLAR_BEAM"
+                "SOLAR_BEAM",
+                "POWER_WHIP"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -20574,13 +20761,7 @@ var masterdata = {
                 "THUNDER",
                 "THUNDER_PUNCH",
                 "WILD_CHARGE",
-                "ICE_PUNCH",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "ICE_PUNCH"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -20595,7 +20776,9 @@ var masterdata = {
                     15,
                     8
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1908
         },
         {
             "dex": 467,
@@ -20618,13 +20801,7 @@ var masterdata = {
                 "BRICK_BREAK",
                 "FIRE_BLAST",
                 "FIRE_PUNCH",
-                "PSYCHIC",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "PSYCHIC"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -20639,7 +20816,9 @@ var masterdata = {
                     6,
                     10
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1944
         },
         {
             "dex": 468,
@@ -20752,7 +20931,11 @@ var masterdata = {
             "chargedMoves": [
                 "ENERGY_BALL",
                 "LEAF_BLADE",
-                "SOLAR_BEAM"
+                "SOLAR_BEAM",
+                "LAST_RESORT"
+            ],
+            "legacyMoves": [
+                "LAST_RESORT"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -20789,7 +20972,11 @@ var masterdata = {
             "chargedMoves": [
                 "AVALANCHE",
                 "ICE_BEAM",
-                "ICY_WIND"
+                "ICY_WIND",
+                "LAST_RESORT"
+            ],
+            "legacyMoves": [
+                "LAST_RESORT"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -20826,7 +21013,8 @@ var masterdata = {
             "chargedMoves": [
                 "AERIAL_ACE",
                 "EARTHQUAKE",
-                "NIGHT_SLASH"
+                "NIGHT_SLASH",
+                "SAND_TOMB"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -20898,6 +21086,7 @@ var masterdata = {
                 "none"
             ],
             "fastMoves": [
+                "LOCK_ON",
                 "CHARGE_BEAM",
                 "HIDDEN_POWER_BUG",
                 "HIDDEN_POWER_DARK",
@@ -20935,7 +21124,9 @@ var masterdata = {
                     13,
                     11
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 2029
         },
         {
             "dex": 475,
@@ -20959,14 +21150,10 @@ var masterdata = {
                 "CLOSE_COMBAT",
                 "LEAF_BLADE",
                 "PSYCHIC",
-                "SYNCHRONOISE",
-                "RETURN",
-                "FRUSTRATION"
+                "SYNCHRONOISE"
             ],
             "legacyMoves": [
-                "SYNCHRONOISE",
-                "RETURN",
-                "FRUSTRATION"
+                "SYNCHRONOISE"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -20981,7 +21168,9 @@ var masterdata = {
                     3,
                     10
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1919
         },
         {
             "dex": 476,
@@ -21040,13 +21229,7 @@ var masterdata = {
             "chargedMoves": [
                 "DARK_PULSE",
                 "OMINOUS_WIND",
-                "PSYCHIC",
-                "FRUSTRATION",
-                "RETURN"
-            ],
-            "legacyMoves": [
-                "FRUSTRATION",
-                "RETURN"
+                "PSYCHIC"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -21061,7 +21244,9 @@ var masterdata = {
                     15,
                     15
                 ]
-            }
+            },
+            "shadow": true,
+            "level25CP": 1447
         },
         {
             "dex": 478,
@@ -21542,7 +21727,8 @@ var masterdata = {
             "chargedMoves": [
                 "FIRE_BLAST",
                 "IRON_HEAD",
-                "STONE_EDGE"
+                "STONE_EDGE",
+                "FLAMETHROWER"
             ],
             "tags": [
                 "legendary"
@@ -21846,7 +22032,10 @@ var masterdata = {
                     12,
                     13
                 ]
-            }
+            },
+            "tags": [
+                "mythical"
+            ]
         },
         {
             "dex": 492,
@@ -23151,7 +23340,8 @@ var masterdata = {
             ],
             "fastMoves": [
                 "LICK",
-                "TAKE_DOWN"
+                "TAKE_DOWN",
+                "ICE_FANG"
             ],
             "chargedMoves": [
                 "WILD_CHARGE",
@@ -26997,7 +27187,8 @@ var masterdata = {
                 "POWER_WHIP",
                 "FLASH_CANNON",
                 "ACID_SPRAY",
-                "THUNDER"
+                "THUNDER",
+                "MIRROR_SHOT"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -27108,7 +27299,8 @@ var masterdata = {
             "chargedMoves": [
                 "HYPER_BEAM",
                 "FLASH_CANNON",
-                "ZAP_CANNON"
+                "ZAP_CANNON",
+                "MIRROR_SHOT"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -28504,7 +28696,10 @@ var masterdata = {
                     12,
                     7
                 ]
-            }
+            },
+            "tags": [
+                "mythical"
+            ]
         },
         {
             "dex": 639,
@@ -28541,7 +28736,10 @@ var masterdata = {
                     10,
                     3
                 ]
-            }
+            },
+            "tags": [
+                "legendary"
+            ]
         },
         {
             "dex": 640,
@@ -28578,7 +28776,10 @@ var masterdata = {
                     12,
                     7
                 ]
-            }
+            },
+            "tags": [
+                "legendary"
+            ]
         },
         {
             "dex": 641,
@@ -28962,44 +29163,6 @@ var masterdata = {
         },
         {
             "dex": 646,
-            "speciesId": "kyurem_black",
-            "speciesName": "Kyurem (Black)",
-            "baseStats": {
-                "atk": 310,
-                "def": 183,
-                "hp": 245
-            },
-            "types": [
-                "dragon",
-                "ice"
-            ],
-            "fastMoves": [
-                "DRAGON_TAIL",
-                "SHADOW_CLAW"
-            ],
-            "chargedMoves": [
-                "IRON_HEAD",
-                "BLIZZARD",
-                "STONE_EDGE",
-                "OUTRAGE"
-            ],
-            "defaultIVs": {
-                "cp1500": [
-                    12,
-                    3,
-                    10,
-                    9
-                ],
-                "cp2500": [
-                    19.5,
-                    8,
-                    13,
-                    12
-                ]
-            }
-        },
-        {
-            "dex": 646,
             "speciesId": "kyurem_normal",
             "speciesName": "Kyurem",
             "baseStats": {
@@ -29033,6 +29196,44 @@ var masterdata = {
                     3,
                     12,
                     8
+                ]
+            }
+        },
+        {
+            "dex": 646,
+            "speciesId": "kyurem_black",
+            "speciesName": "Kyurem (Black)",
+            "baseStats": {
+                "atk": 310,
+                "def": 183,
+                "hp": 245
+            },
+            "types": [
+                "dragon",
+                "ice"
+            ],
+            "fastMoves": [
+                "DRAGON_TAIL",
+                "SHADOW_CLAW"
+            ],
+            "chargedMoves": [
+                "IRON_HEAD",
+                "BLIZZARD",
+                "STONE_EDGE",
+                "OUTRAGE"
+            ],
+            "defaultIVs": {
+                "cp1500": [
+                    12,
+                    3,
+                    10,
+                    9
+                ],
+                "cp2500": [
+                    19.5,
+                    8,
+                    13,
+                    12
                 ]
             }
         },
@@ -29469,7 +29670,8 @@ var masterdata = {
                 "FLASH_CANNON",
                 "HYPER_BEAM",
                 "ROCK_SLIDE",
-                "THUNDERBOLT"
+                "THUNDERBOLT",
+                "SUPER_POWER"
             ],
             "defaultIVs": {
                 "cp1500": [
@@ -29583,6 +29785,15 @@ var masterdata = {
             "energy": 0,
             "energyGain": 9,
             "cooldown": 1500
+        },
+        {
+            "moveId": "AURA_SPHERE",
+            "name": "Aura Sphere",
+            "type": "fighting",
+            "power": 100,
+            "energy": 55,
+            "energyGain": 0,
+            "cooldown": 500
         },
         {
             "moveId": "AURORA_BEAM",
@@ -29766,9 +29977,15 @@ var masterdata = {
             "name": "Close Combat",
             "type": "fighting",
             "power": 100,
-            "energy": 60,
+            "energy": 45,
             "energyGain": 0,
-            "cooldown": 500
+            "cooldown": 500,
+            "buffs": [
+                0,
+                -2
+            ],
+            "buffTarget": "self",
+            "buffApplyChance": "1"
         },
         {
             "moveId": "CONFUSION",
@@ -29898,9 +30115,15 @@ var masterdata = {
             "name": "Draco Meteor",
             "type": "dragon",
             "power": 150,
-            "energy": 75,
+            "energy": 65,
             "energyGain": 0,
-            "cooldown": 500
+            "cooldown": 500,
+            "buffs": [
+                -2,
+                0
+            ],
+            "buffTarget": "self",
+            "buffApplyChance": "1"
         },
         {
             "moveId": "DRAGON_BREATH",
@@ -30035,6 +30258,21 @@ var masterdata = {
             "cooldown": 1000
         },
         {
+            "moveId": "FELL_STINGER",
+            "name": "Fell Stinger",
+            "type": "bug",
+            "power": 20,
+            "energy": 35,
+            "energyGain": 0,
+            "cooldown": 500,
+            "buffs": [
+                1,
+                0
+            ],
+            "buffTarget": "self",
+            "buffApplyChance": "1"
+        },
+        {
             "moveId": "FIRE_BLAST",
             "name": "Fire Blast",
             "type": "fire",
@@ -30165,7 +30403,7 @@ var masterdata = {
             "name": "Frustration",
             "type": "normal",
             "power": 10,
-            "energy": 40,
+            "energy": 70,
             "energyGain": 0,
             "cooldown": 500
         },
@@ -30434,7 +30672,7 @@ var masterdata = {
             "moveId": "HYDRO_CANNON",
             "name": "Hydro Cannon",
             "type": "water",
-            "power": 90,
+            "power": 80,
             "energy": 40,
             "energyGain": 0,
             "cooldown": 500
@@ -30518,7 +30756,13 @@ var masterdata = {
             "power": 60,
             "energy": 45,
             "energyGain": 0,
-            "cooldown": 500
+            "cooldown": 500,
+            "buffs": [
+                -1,
+                0
+            ],
+            "buffTarget": "opponent",
+            "buffApplyChance": "1"
         },
         {
             "moveId": "INFESTATION",
@@ -30680,6 +30924,21 @@ var masterdata = {
             "cooldown": 500
         },
         {
+            "moveId": "MIRROR_SHOT",
+            "name": "Mirror Shot",
+            "type": "steel",
+            "power": 35,
+            "energy": 35,
+            "energyGain": 0,
+            "cooldown": 500,
+            "buffs": [
+                -1,
+                0
+            ],
+            "buffTarget": "opponent",
+            "buffApplyChance": ".3"
+        },
+        {
             "moveId": "MOONBLAST",
             "name": "Moonblast",
             "type": "fairy",
@@ -30725,7 +30984,7 @@ var masterdata = {
             "moveId": "MUD_SLAP",
             "name": "Mud Slap",
             "type": "ground",
-            "power": 9,
+            "power": 11,
             "energy": 0,
             "energyGain": 8,
             "cooldown": 1500
@@ -30744,9 +31003,30 @@ var masterdata = {
             "name": "Night Slash",
             "type": "dark",
             "power": 50,
-            "energy": 40,
+            "energy": 35,
             "energyGain": 0,
-            "cooldown": 500
+            "cooldown": 500,
+            "buffs": [
+                2,
+                0
+            ],
+            "buffTarget": "self",
+            "buffApplyChance": ".125"
+        },
+        {
+            "moveId": "OCTAZOOKA",
+            "name": "Octazooka",
+            "type": "water",
+            "power": 50,
+            "energy": 50,
+            "energyGain": 0,
+            "cooldown": 500,
+            "buffs": [
+                -2,
+                0
+            ],
+            "buffTarget": "opponent",
+            "buffApplyChance": "0.5"
         },
         {
             "moveId": "OMINOUS_WIND",
@@ -30785,10 +31065,16 @@ var masterdata = {
             "moveId": "OVERHEAT",
             "name": "Overheat",
             "type": "fire",
-            "power": 150,
-            "energy": 80,
+            "power": 130,
+            "energy": 55,
             "energyGain": 0,
-            "cooldown": 500
+            "cooldown": 500,
+            "buffs": [
+                -2,
+                0
+            ],
+            "buffTarget": "self",
+            "buffApplyChance": "1"
         },
         {
             "moveId": "PARABOLIC_CHARGE",
@@ -30951,9 +31237,15 @@ var masterdata = {
             "name": "Psycho Boost",
             "type": "psychic",
             "power": 70,
-            "energy": 40,
+            "energy": 35,
             "energyGain": 0,
-            "cooldown": 500
+            "cooldown": 500,
+            "buffs": [
+                -2,
+                0
+            ],
+            "buffTarget": "self",
+            "buffApplyChance": "1"
         },
         {
             "moveId": "PSYCHO_CUT",
@@ -31013,8 +31305,8 @@ var masterdata = {
             "moveId": "RETURN",
             "name": "Return",
             "type": "normal",
-            "power": 50,
-            "energy": 40,
+            "power": 130,
+            "energy": 70,
             "energyGain": 0,
             "cooldown": 500
         },
@@ -31067,10 +31359,16 @@ var masterdata = {
             "moveId": "SAND_TOMB",
             "name": "Sand Tomb",
             "type": "ground",
-            "power": 80,
-            "energy": 60,
+            "power": 25,
+            "energy": 40,
             "energyGain": 0,
-            "cooldown": 500
+            "cooldown": 500,
+            "buffs": [
+                0,
+                -1
+            ],
+            "buffTarget": "opponent",
+            "buffApplyChance": "1"
         },
         {
             "moveId": "SCALD",
@@ -31326,6 +31624,21 @@ var masterdata = {
             "energy": 0,
             "energyGain": 7,
             "cooldown": 1000
+        },
+        {
+            "moveId": "SUPER_POWER",
+            "name": "Superpower",
+            "type": "fighting",
+            "power": 85,
+            "energy": 40,
+            "energyGain": 0,
+            "cooldown": 500,
+            "buffs": [
+                -1,
+                -1
+            ],
+            "buffTarget": "self",
+            "buffApplyChance": "1"
         },
         {
             "moveId": "SURF",
