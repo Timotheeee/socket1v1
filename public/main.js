@@ -359,7 +359,7 @@ $(function () {
         }, 3000);
     });
 
-    setinterval(function () {
+    setInterval(function () {
         for (var i = 0; i < 3; i++) {
             if (i !== currentpoke) {
                 team[i].atkboosts = 0;
