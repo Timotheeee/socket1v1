@@ -319,7 +319,7 @@ $(function () {
     function showStuff() {
         $(".battlestuff").css({opacity: 100});
         $(".battlecontainer").css({display: "block"});
-        $("#mainbattlecontainer").css({height:480});
+        $("#mainbattlecontainer").css({height: 480});
     }
     //showStuff()
 
@@ -359,7 +359,18 @@ $(function () {
         }, 3000);
     });
 
-
+    setinterval(function () {
+        for (var i = 0; i < 3; i++) {
+            if (i !== currentpoke) {
+                team[i].atkboosts = 0;
+                team[i].defboosts = 0;
+            }
+            if (i !== currentenemypoke) {
+                enemyteam[i].atkboosts = 0;
+                enemyteam[i].defboosts = 0;
+            }
+        }
+    }, 500)
 
 
 
