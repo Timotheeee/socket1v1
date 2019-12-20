@@ -399,6 +399,15 @@ $(function () {
             joinGameMode(4199);
     });
     $('#ready2').click(function () {
+        for (var i = 0; i < 3; i++) {
+            party[i].level = 40;
+            party[i].individualAttack = 15;
+            party[i].individualDefense = 15;
+            party[i].individualStamina = 15;
+        }
+        team = initteam(party);
+        updateSwitchButtons();
+        updateMoveButtons();
         joinGameMode(8099);
     });
     function joinGameMode(lobby) {
@@ -523,6 +532,7 @@ $(function () {
         $("#team").append(toappend);
         selectedNewTeam();
     }
+    var party;
     function selectedNewTeam(this2) {
         teamFitsInGreat = true;
         //console.log($(this));
@@ -534,7 +544,7 @@ $(function () {
         len = $(".selectedpoke").length;
         //console.log(len);
         if (len === 3) {
-            var party = [];
+            party = [];
             var storage = [];
             var id = $(".lead").data("id");
             if ($(".lead").length === 1) {
