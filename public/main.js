@@ -399,12 +399,13 @@ $(function () {
             joinGameMode(4199);
     });
     $('#ready2').click(function () {
-        for (var i = 0; i < 3; i++) {
-            party[i].level = 40;
-            party[i].individualAttack = 15;
-            party[i].individualDefense = 15;
-            party[i].individualStamina = 15;
-        }
+        //auto level
+//        for (var i = 0; i < 3; i++) {
+//            party[i].level = 40;
+//            party[i].individualAttack = 15;
+//            party[i].individualDefense = 15;
+//            party[i].individualStamina = 15;
+//        }
         team = initteam(party);
         updateSwitchButtons();
         updateMoveButtons();
